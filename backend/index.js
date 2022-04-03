@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({extended: true}));
 
+const { default: connectMongoDB } = require('./utils/dbConnection');
 //use cors to allow cross origin resource sharing
 app.use(cors({ origin: host+':3000', credentials: true }));
 
@@ -38,5 +39,74 @@ app.use(function(req, res, next) {
     next();
   });
 
+
+  //login api
+  app.post('/api/login',async function(req,res){
+    
+    
+    console.log("login request received")
+    let user=req.body
+    
+    Customer.findOne({email:user.email,pwd:user.password},async (err,dummy)=>{
+        if (err){
+            res.writeHead(500,{
+                'Content-Type' : 'text/plain'
+            })
+            res.end("error")
+        }
+      
+        if(dummy){
+            res.cookie('cookie',"admin",{maxAge: 1000000, httpOnly: false, path : '/'});
+            res.writeHead(200,{
+                'Content-Type' : 'text/plain'
+            })
+            res.end("account exists")
+        }
+        else{
+            res.writeHead(202,{
+                'Content-Type' : 'text/plain'
+            })
+            res.end("account does not exist")
+        }
+    })
+  });
+//Route to handle customer signup request
+app.post('/api/signup',async function(req,res){
+    console.log("signup request received")
+    let user=JSON.parse(req.body.data)
+    user = new Customer(user)
+    Customer.findOne({email:user.email},async (err,dummy)=>{
+        if (err){
+            res.writeHead(500,{
+                'Content-Type' : 'text/plain'
+            })
+            res.end("error")
+        }
+        if(dummy){
+            res.writeHead(400,{
+                'Content-Type' : 'text/plain'
+            })
+            res.end("account already exists")
+        }
+        else{
+            user.save((err,data)=>{
+                if (err){
+                    res.writeHead(500,{
+                        'Content-Type' : 'text/plain'
+                    })
+                    res.end("error in inserting")
+                }
+                else{
+                    res.writeHead(200,{
+                        'Content-Type' : 'text/plain'
+                    })
+                    res.end("successfully inserted the user")
+                    }
+                })
+             }
+    })
+});
+
 app.listen(3001);
+connectMongoDB();
 console.log("Server Listening on port 3001");
