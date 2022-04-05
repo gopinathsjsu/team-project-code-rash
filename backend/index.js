@@ -6,7 +6,11 @@ var cookieParser = require('cookie-parser');
 var cors = require('cors');
 var host="http://localhost"
 var bodyParser = require('body-parser');
+var Customer = require('./Mongo/models/UserModel')
+var router = express.Router()
 app.set('view engine', 'ejs');
+var userController = require('./Mongo/operations/CustomerOperations')
+var priceController = require('./Mongo/operations/PredictPrices')
 
 app.use(bodyParser.json());
 
@@ -40,72 +44,14 @@ app.use(function(req, res, next) {
   });
 
 
-  //login api
-  app.post('/api/login',async function(req,res){
-    
-    
-    console.log("login request received")
-    let user=req.body
-    
-    Customer.findOne({email:user.email,pwd:user.password},async (err,dummy)=>{
-        if (err){
-            res.writeHead(500,{
-                'Content-Type' : 'text/plain'
-            })
-            res.end("error")
-        }
-      
-        if(dummy){
-            res.cookie('cookie',"admin",{maxAge: 1000000, httpOnly: false, path : '/'});
-            res.writeHead(200,{
-                'Content-Type' : 'text/plain'
-            })
-            res.end("account exists")
-        }
-        else{
-            res.writeHead(202,{
-                'Content-Type' : 'text/plain'
-            })
-            res.end("account does not exist")
-        }
-    })
-  });
-//Route to handle customer signup request
-app.post('/api/signup',async function(req,res){
-    console.log("signup request received")
-    let user=JSON.parse(req.body.data)
-    user = new Customer(user)
-    Customer.findOne({email:user.email},async (err,dummy)=>{
-        if (err){
-            res.writeHead(500,{
-                'Content-Type' : 'text/plain'
-            })
-            res.end("error")
-        }
-        if(dummy){
-            res.writeHead(400,{
-                'Content-Type' : 'text/plain'
-            })
-            res.end("account already exists")
-        }
-        else{
-            user.save((err,data)=>{
-                if (err){
-                    res.writeHead(500,{
-                        'Content-Type' : 'text/plain'
-                    })
-                    res.end("error in inserting")
-                }
-                else{
-                    res.writeHead(200,{
-                        'Content-Type' : 'text/plain'
-                    })
-                    res.end("successfully inserted the user")
-                    }
-                })
-             }
-    })
-});
+//login api
+app.post('/api/login',userController.login);
+
+//customer signup request
+app.post('/api/signup',userController.signup);
+
+//get the predicted prices
+app.get('/api/getPrices/discount',priceController.getprices);
 
 app.listen(3001);
 connectMongoDB();
