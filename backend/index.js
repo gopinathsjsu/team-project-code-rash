@@ -6,12 +6,17 @@ var cookieParser = require('cookie-parser');
 var cors = require('cors');
 var host="http://localhost"
 var bodyParser = require('body-parser');
+var Customer = require('./Mongo/models/UserModel')
+var router = express.Router()
 app.set('view engine', 'ejs');
+var userController = require('./Mongo/operations/CustomerOperations')
+var priceController = require('./Mongo/operations/PredictPrices')
 
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({extended: true}));
 
+const { default: connectMongoDB } = require('./utils/dbConnection');
 //use cors to allow cross origin resource sharing
 app.use(cors({ origin: host+':3000', credentials: true }));
 
@@ -38,5 +43,16 @@ app.use(function(req, res, next) {
     next();
   });
 
+
+//login api
+app.post('/api/login',userController.login);
+
+//customer signup request
+app.post('/api/signup',userController.signup);
+
+//get the predicted prices
+app.get('/api/getPrices/discount',priceController.getprices);
+
 app.listen(3001);
+connectMongoDB();
 console.log("Server Listening on port 3001");
