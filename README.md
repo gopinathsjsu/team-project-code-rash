@@ -20,7 +20,7 @@ Scrum meeting scheduled twice in a week on Tuesday and Friday
 2. Communication
 3. Feedback
 
-### Dynamic Pricing Proposal:
+### Dynamic Pricing Proposal
 1) There will be an admin who can set the current discount percentage like 10%, 20%, etc.
 2) The rewards account will store the credit points of the user. The credits will depend on past orders. Like 2 past orders will account for 20 points which means 10 per order.
 3) The customer will have the option to choose the base room like single room or double room. 
