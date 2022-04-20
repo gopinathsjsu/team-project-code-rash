@@ -37,7 +37,7 @@ function SearchResult({
                         <h2>{price}</h2>
                         <h2>{total}</h2>
                     </div>
-                    <Button class="button" style={{ marginLeft: "800px" }}>BOOK NOW</Button>
+                    <Button className="button" style={{ marginLeft: "800px" }}>BOOK NOW</Button>
                 </div>
                 
             </div>
