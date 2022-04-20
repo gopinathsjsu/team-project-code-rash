@@ -5,7 +5,8 @@ import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
 
 
-function App() {
+//App Component
+export default function App() {
   return (
     <div className="App">
      <Navbar />
@@ -26,5 +27,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
