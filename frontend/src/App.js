@@ -1,16 +1,29 @@
-import React from "react";
-import Main from "./components/Main";
-import { BrowserRouter } from "react-router-dom";
+import './App.css';
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import RegisterScreen from "./screens/RegisterScreen";
+import LoginScreen from "./screens/LoginScreen";
+
 
 //App Component
 export default function App() {
   return (
-    //Use Browser Router to route to different pages
-    <BrowserRouter basename="/">
-      <div>
-        {/* App Component Has a Child Component called Main*/}
-        <Main />
-      </div>
-    </BrowserRouter>
+    <div className="App">
+     <Navbar />
+      <BrowserRouter>
+        {/* <Route path="/" exact component={LandingScreen} />
+        <Route path="/home" exact component={Homescreen} />
+        <Route
+          path="/book/:roomid/:fromdate/:todate"
+          exact
+          component={Bookingscreen}
+        /> */}
+        <Route path="/register" exact component={RegisterScreen} />
+        <Route path="/login" exact component={LoginScreen} />
+        {/* <Route path="/profile" exact component={ProfileScreen} />
+        <Route path="/bookings" exact component={ProfileScreen} />
+        <Route path="/admin" exact component={AdminScreen} /> */}
+      </BrowserRouter>
+    </div>
   );
 }
