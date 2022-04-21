@@ -1,5 +1,5 @@
 const config = {
-    mongoDB: 'mongodb+srv://db_coderash:coderash%40987@cluster0.raw6e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    mongoDB: 'mongodb+srv://admin:admin@202@cluster0.0fpzl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   }
 
 export default config;

@@ -9,8 +9,9 @@ var bodyParser = require('body-parser');
 var Customer = require('./Mongo/models/UserModel')
 var router = express.Router()
 app.set('view engine', 'ejs');
-var userController = require('./Mongo/operations/CustomerOperations')
-var priceController = require('./Mongo/operations/PredictPrices')
+const roomsRoute = require("./routes/roomRoute");
+const usersRoute = require("./routes/userRoute");
+const bookingRoute = require("./routes/bookingRoute");
 
 app.use(bodyParser.json());
 
