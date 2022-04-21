@@ -28,13 +28,13 @@ function RegisterScreen() {
       setError("");
       setSuccess("");
       try {
-        // const result = (await axios.post("/api/users/register", user)).data;
-        // console.log(result);
-        // setSuccess(result);
-        // setName("");
-        // setEmail("");
-        // setPassword("");
-        // setCpassword("");
+        const result = (await axios.post("/api/users/register", user)).data;
+        console.log(result);
+        setSuccess(result);
+        setName("");
+        setEmail("");
+        setPassword("");
+        setCpassword("");
       } catch (error) {
         console.log(error);
         setError(error);

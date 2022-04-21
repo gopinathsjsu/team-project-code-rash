@@ -3,15 +3,16 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
+import LandingScreen from "./screens/LandingScreen";
 
-
-function App() {
+//App Component
+export default function App() {
   return (
     <div className="App">
      <Navbar />
       <BrowserRouter>
-        {/* <Route path="/" exact component={LandingScreen} />
-        <Route path="/home" exact component={Homescreen} />
+        <Route path="/" exact component={LandingScreen} />
+        {/* <Route path="/home" exact component={Homescreen} />
         <Route
           path="/book/:roomid/:fromdate/:todate"
           exact
@@ -26,5 +27,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
