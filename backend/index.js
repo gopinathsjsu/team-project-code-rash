@@ -6,9 +6,9 @@ var cookieParser = require('cookie-parser');
 var cors = require('cors');
 var host="http://localhost"
 var bodyParser = require('body-parser');
-var Customer = require('./Mongo/models/UserModel')
 var router = express.Router()
 app.set('view engine', 'ejs');
+const dbConfig = require("./db");
 const roomsRoute = require("./routes/roomRoute");
 const usersRoute = require("./routes/userRoute");
 const bookingRoute = require("./routes/bookingRoute");
@@ -17,9 +17,7 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({extended: true}));
 
-const { default: connectMongoDB } = require('./utils/dbConnection');
 //use cors to allow cross origin resource sharing
-app.use(cors({ origin: host+':3000', credentials: true }));
 
 //use express session to maintain session data
 app.use(session({
@@ -45,15 +43,11 @@ app.use(function(req, res, next) {
   });
 
 
-//login api
-app.post('/api/login',userController.login);
-
-//customer signup request
-app.post('/api/signup',userController.signup);
-
-//get the predicted prices
-app.get('/api/getPrices/discount',priceController.getprices);
-
-app.listen(3001);
-connectMongoDB();
-console.log("Server Listening on port 3001");
+  app.use(express.json());
+  app.use("/api/rooms", roomsRoute);
+  app.use("/api/users", usersRoute);
+  app.use("/api/bookings", bookingRoute);
+  
+  const port = process.env.PORT || 5000;
+  app.get("/", (req, res) => res.send("Hello World!"));
+  app.listen(port, () => console.log(`Node app listening on ${port} port!`));
