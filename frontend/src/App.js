@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
 import LandingScreen from "./screens/LandingScreen";
+import Homescreen from './screens/Homescreen';
 
 //App Component
 export default function App() {
@@ -12,8 +13,8 @@ export default function App() {
      <Navbar />
       <BrowserRouter>
         <Route path="/" exact component={LandingScreen} />
-        {/* <Route path="/home" exact component={Homescreen} />
-        <Route
+        <Route path="/home" exact component={Homescreen} />
+        {/* <Route
           path="/book/:roomid/:fromdate/:todate"
           exact
           component={Bookingscreen}
