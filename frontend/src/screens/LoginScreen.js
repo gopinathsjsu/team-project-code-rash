@@ -40,30 +40,32 @@ function LoginScreen() {
         <div className="col-md-5 mt-5">
           {error.length > 0 && <Error msg={error}></Error>}
           <div className="bs">
-            <h2>Login</h2>
-
+            <h2>Login to your account</h2>
             <input
               type="text"
               className="form-control"
-              placeholder="email"
+              placeholder="Enter your email address here"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
             />
+
+            <br></br>
+
             <input
               type="password"
               className="form-control"
-              placeholder="password"
+              placeholder="Enter your password here"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
             />
             {loading ? (
-              <div>Login...Please Wait...</div>
+              <div>Logging in...</div>
             ) : (
-              <button className="btn btn-primary mt-3" onClick={Login}>
+              <button className="button2 loginButton" onClick={Login}>
                 Login
               </button>
             )}

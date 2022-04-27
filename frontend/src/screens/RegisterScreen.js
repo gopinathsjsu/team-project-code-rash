@@ -55,47 +55,50 @@ function RegisterScreen() {
         <div className="col-md-5 mt-5">
           {success.length > 0 && <Success msg={success}></Success>}
           <div className="bs">
-            <h2>Register</h2>
+            <h2>Register your account</h2>
             <input
               type="text"
               className="form-control"
-              placeholder="name"
+              placeholder="Enter your name"
               value={name}
               onChange={(e) => {
                 setName(e.target.value);
               }}
             />
+            <br></br>
             <input
               type="text"
               className="form-control"
-              placeholder="email"
+              placeholder="Enter your email address"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
             />
+            <br></br>
             <input
               type="text"
               className="form-control"
-              placeholder="password"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
             />
+            <br></br>
             <input
               type="text"
               className="form-control"
-              placeholder="confirm password"
+              placeholder="Enter your password to confirm"
               value={cpassword}
               onChange={(e) => {
                 setCpassword(e.target.value);
               }}
             />
             {loading ? (
-              <div>Registering... Please Wait...</div>
+              <div>Registering your account...</div>
             ) : (
-              <button className="btn btn-primary mt-3" onClick={register}>
+              <button className="button2 loginButton" onClick={register}>
                 Register
               </button>
             )}
