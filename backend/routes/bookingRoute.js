@@ -57,26 +57,26 @@ router.post("/bookroom", async (req, res) => {
 
     try {
       //create customer
-      const customer = await stripe.customers.create({
-        email: token.email,
-        source: token.id,
-      });
+      // const customer = await stripe.customers.create({
+      //   email: token.email,
+      //   source: token.id,
+      // });
 
       //charge payment
-      const payment = await stripe.charges.create(
-        {
-          amount: totalAmount * 100,
-          customer: customer.id,
-          currency: "USD",
-          receipt_email: token.email,
-        },
-        {
-          idempotencyKey: uuidv4(),
-        }
-      );
+      // const payment = await stripe.charges.create(
+      //   {
+      //     amount: totalAmount * 100,
+      //     customer: customer.id,
+      //     currency: "USD",
+      //     receipt_email: token.email,
+      //   },
+      //   {
+      //     idempotencyKey: uuidv4(),
+      //   }
+      // );
 
       //Payment Success
-      if (payment) {
+      if (true) {
         try {
           const newBooking = new Booking({
             room: room.name,
