@@ -65,7 +65,7 @@ function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg">
         <a className="navbar-brand" href="/home">
-          {/* HOTEL BOOKING */}
+          HOTEL BOOKING
         </a>
         <button
           className="navbar-toggler"

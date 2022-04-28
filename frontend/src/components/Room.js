@@ -13,30 +13,36 @@ function Room({ room, fromDate, toDate }) {
       <div className="col-md-4">
         <img src={room.imageurls[0]} className="smallimg" alt="" />
       </div>
-      <div className="col-md-7">
+      <div className="col-md-8">
         <h1>{room.name}</h1>
         <b>
           <p>Max Count : {room.maxcount}</p>
-          <p>Phone Number : {room.phonenumber}</p>
-          <p>Type : {room.type}</p>
+          <p>Contact Number : {room.phonenumber}</p>
+          <p>Room Type : {room.type}</p>
         </b>
 
-        <div style={{ float: "right" }}>
+        <div style={{ float: "left" }}>
           {fromDate && toDate && (
             <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
-              <button className="btn btn-primary m-2">Book Now</button>
+              <button className="button2 loginButton">Book Now</button>
             </Link>
           )}
-
-          <button className="btn btn-primary" onClick={handleShow}>
+        </div>
+        
+        <div style={{ float: "right" }}>
+          <button className="button2 loginButton" onClick={handleShow}>
             View Detail
           </button>
         </div>
+
       </div>
 
       <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Header>
           <Modal.Title>{room.name}</Modal.Title>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
         </Modal.Header>
         <Modal.Body>
           <Carousel prevLabel="" nextLabel="">
@@ -54,11 +60,12 @@ function Room({ room, fromDate, toDate }) {
           </Carousel>
           <p>{room.description}</p>
         </Modal.Body>
-        <Modal.Footer>
+        
+        {/* <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal>
     </div>
   );

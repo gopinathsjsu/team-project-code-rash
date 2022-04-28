@@ -44,7 +44,7 @@ function LoginScreen() {
             <input
               type="text"
               className="form-control"
-              placeholder="Enter your email address here"
+              placeholder="Enter your email address"
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -56,7 +56,7 @@ function LoginScreen() {
             <input
               type="password"
               className="form-control"
-              placeholder="Enter your password here"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);

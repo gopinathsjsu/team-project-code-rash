@@ -47,8 +47,8 @@ function MyBookingScreen() {
       ).data;
       setLoading(false);
       Swal.fire(
-        "Congratulations",
-        "Your Room Cancelled Successfully",
+        "Congratulations!!",
+        "Your booking has been cancelled successfully!",
         "success"
       ).then((result) => {
         fetchMyAPI();
@@ -56,7 +56,7 @@ function MyBookingScreen() {
     } catch (error) {
       console.log(error);
       //setError(error);
-      Swal.fire("Opps", "Error:" + error, "error");
+      Swal.fire("Oops", "Error:" + error, "error");
     }
     setLoading(false);
   }
@@ -69,23 +69,23 @@ function MyBookingScreen() {
         <Error msg={error}></Error>
       ) : (
         <div className="row">
-          <div className="col-md-6  ml-5">
+          <div className="col-md-11  ml-5">
             {bookings &&
               bookings.map((booking) => {
                 return (
                   <div className="bs">
                     <h1>{booking.room}</h1>
                     <p>
-                      <b>BookingId:</b> {booking._id}
+                      <b>Booking ID:</b> {booking._id}
                     </p>
                     <p>
-                      <b>CheckIn:</b> {booking.fromdate}
+                      <b>Check In Date:</b> {booking.fromdate}
                     </p>
                     <p>
-                      <b>CheckOut:</b> {booking.todate}
+                      <b>Check Out Date:</b> {booking.todate}
                     </p>
                     <p>
-                      <b>Amount:</b> {booking.totalamount}
+                      <b>Amount:</b> ${booking.totalamount}
                     </p>
                     <p>
                       <b>Status:</b>{" "}
@@ -98,7 +98,7 @@ function MyBookingScreen() {
                     {booking.status === "booked" && (
                       <div className="text-right">
                         <button
-                          className="btn btn-danger"
+                          className="button2 cancelButton"
                           onClick={() => {
                             cancelBooking(booking._id, booking.roomid);
                           }}
