@@ -5,6 +5,7 @@ import StripeCheckout from "react-stripe-checkout";
 import Swal from "sweetalert2";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import STRINGS from "../constant";
 
 function Bookingscreen({ match }) {
   const [loading, setLoading] = useState(true);
@@ -27,7 +28,7 @@ function Bookingscreen({ match }) {
         setError("");
         setLoading(true);
         const data = (
-          await axios.post("/api/rooms/getroombyid", {
+          await axios.post(STRINGS.url + "/api/rooms/getroombyid", {
             roomid: match.params.roomid,
           })
         ).data;
@@ -58,12 +59,11 @@ function Bookingscreen({ match }) {
       todate,
       totalAmount,
       totaldays: totalDays,
-      token,
     };
 
     try {
       setLoading(true);
-      const result = await axios.post("/api/bookings/bookroom", bookingDetails);
+      const result = await axios.post(STRINGS.url + "/api/bookings/bookroom", bookingDetails);
       setLoading(false);
       Swal.fire(
         "Congratulations",
@@ -126,14 +126,14 @@ function Bookingscreen({ match }) {
             </div>
 
             <div style={{ float: "right" }}>
-              <StripeCheckout
+              {/* <StripeCheckout
                 amount={totalAmount * 100}
                 currency="USD"
                 token={onToken}
                 stripeKey="YOUR PUBLIC STRIP API KEY"
-              >
-                <button className="btn btn-primary">Pay Now</button>
-              </StripeCheckout>
+              > */}
+                <button className="btn btn-primary" onClick={onToken}>Pay Now</button>
+              {/* </StripeCheckout> */}
             </div>
           </div>
         </div>

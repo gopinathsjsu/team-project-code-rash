@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import STRINGS from "../constant";
 const layout = {
   labelCol: {
     span: 4,
@@ -34,7 +35,7 @@ function AdminAddRoomScreen() {
     setError("");
     setLoading(true);
     try {
-      const data = (await axios.post("/api/rooms/addroom", values)).data;
+      const data = (await axios.post(STRINGS.url + "/api/rooms/addroom", values)).data;
       Swal.fire("Congratulations", "Your Room Added Successfully", "success");
       form.resetFields();
     } catch (error) {

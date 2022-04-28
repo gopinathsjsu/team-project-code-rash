@@ -4,6 +4,7 @@ import { Table, Tag, Space } from "antd";
 
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import STRINGS from "../constant";
 
 function AdminBookingScreen() {
   const [bookings, setBookings] = useState([]);
@@ -40,7 +41,7 @@ function AdminBookingScreen() {
     setError("");
     setLoading(true);
     try {
-      const data = (await axios.post("/api/bookings/getallbookings")).data;
+      const data = (await axios.post(STRINGS.url + "/api/bookings/getallbookings")).data;
       setBookings(data);
     } catch (error) {
       console.log(error);

@@ -4,6 +4,7 @@ import { Table, Tag, Space } from "antd";
 
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import STRINGS from "../constant";
 
 function AdminRoomScreen() {
   const [rooms, setRooms] = useState([]);
@@ -31,7 +32,7 @@ function AdminRoomScreen() {
     setError("");
     setLoading(true);
     try {
-      const data = (await axios.post("/api/rooms/getallrooms")).data;
+      const data = (await axios.post(STRINGS.url + "/api/rooms/getallrooms")).data;
       setRooms(data);
     } catch (error) {
       console.log(error);

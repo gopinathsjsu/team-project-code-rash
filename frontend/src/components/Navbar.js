@@ -2,10 +2,14 @@ import React from "react";
 
 function Navbar() {
   const user = JSON.parse(localStorage.getItem("currentUser"));
+  console.log(user);
 
   function Logout() {
     localStorage.removeItem("currentUser");
     window.location.href = "/login";
+  }
+  function Admin() {
+    window.location.href = "/admin";
   }
 
   const navAction = () => {
@@ -32,6 +36,9 @@ function Navbar() {
               <a className="dropdown-item" href="#" onClick={Logout}>
                 Logout
               </a>
+              {user.isAdmin && <a className="dropdown-item" href="#" onClick={Admin}>
+                Admin Panel
+              </a>}
             </div>
           </div>
         </ul>

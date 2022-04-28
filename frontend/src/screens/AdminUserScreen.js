@@ -4,6 +4,7 @@ import { Table, Tag, Space } from "antd";
 
 import Loader from "../components/Loader";
 import Error from "../components/Error";
+import STRINGS from "../constant";
 
 function AdminUserScreen() {
   const [users, setUsers] = useState([]);
@@ -39,7 +40,7 @@ function AdminUserScreen() {
     setError("");
     setLoading(true);
     try {
-      const data = (await axios.post("/api/users/getallusers")).data;
+      const data = (await axios.post(STRINGS.url + "/api/users/getallusers")).data;
       setUsers(data);
     } catch (error) {
       console.log(error);
