@@ -33,7 +33,7 @@ function Banner() {
                 <h5>
                     Stay with us while you explore hidden gems of California.
                 </h5>
-                <Button onClick={() => history.push('/search')} variant='outlined'>Explore</Button>
+                <Button onClick={() => history.push('/home')} variant='outlined'>Explore</Button>
             </div>
         </div>
     )
