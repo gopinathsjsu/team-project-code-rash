@@ -84,7 +84,7 @@ function Bookingscreen({ match }) {
       setLoading(false);
       Swal.fire(
         "Congratulations",
-        "Your Room Booked Successfully",
+        "Your booking has been done successfully!!",
         "success"
       ).then((result) => {
         window.location.href = "/home";
@@ -132,23 +132,24 @@ function Bookingscreen({ match }) {
         <Error msg={error}></Error>
       ) : (
         <div className="row justify-content-center mt-5 bs">
-          <div className="col-md-6">
-            <h1>{room.name}</h1>
+
+          <div className="col-md-4">
+            <h1><b>{room.name}</b></h1>
             <img src={room.imageurls[0]} alt="" className="bigimg" />
           </div>
+          
           <div className="col-md-6">
-            <div style={{ textAlign: "right" }}>
-              <h1>Booking Details</h1>
-              <hr />
-              <b>
+            <div style={{ textAlign: "left" }}>
+              <h1><b>Booking Details</b></h1>
+              {/* <hr /> */}
+              
                 <p>
-                  Name : {JSON.parse(localStorage.getItem("currentUser")).name}
+                  Booking Name : {JSON.parse(localStorage.getItem("currentUser")).name}
                 </p>
-                <p>From Date : {match.params.fromdate}</p>
-                <p>To Date : {match.params.todate}</p>
+                <p>Check In Date : {match.params.fromdate}</p>
+                <p>Check Out Date : {match.params.todate}</p>
                 <p>Max Count : {room.maxcount}</p>
                 <p>Add Amenities</p>
-              </b>
             </div>
             <div>
               <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
@@ -166,14 +167,14 @@ function Bookingscreen({ match }) {
               </b>
             </div>
 
-            <div style={{ float: "right" }}>
+            <div style={{ float: "left" }}>
               {/* <StripeCheckout
                 amount={totalAmount * 100}
                 currency="USD"
                 token={onToken}
                 stripeKey="YOUR PUBLIC STRIP API KEY"
               > */}
-                <button className="btn btn-primary" onClick={onToken}>Pay Now</button>
+                <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
               {/* </StripeCheckout> */}
             </div>
           </div>

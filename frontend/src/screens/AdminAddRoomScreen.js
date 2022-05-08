@@ -36,7 +36,7 @@ function AdminAddRoomScreen() {
     setLoading(true);
     try {
       const data = (await axios.post(STRINGS.url + "/api/rooms/addroom", values)).data;
-      Swal.fire("Congratulations", "Your Room Added Successfully", "success");
+      Swal.fire("Congratulations!!", "Your Room has been added Successfully", "success");
       form.resetFields();
     } catch (error) {
       console.log(error);
@@ -67,7 +67,7 @@ function AdminAddRoomScreen() {
           >
             <Form.Item
               name="name"
-              label="name"
+              label="Name"
               rules={[
                 {
                   required: true,
@@ -78,7 +78,7 @@ function AdminAddRoomScreen() {
             </Form.Item>
             <Form.Item
               name="description"
-              label="description"
+              label="Description"
               rules={[
                 {
                   required: true,
@@ -89,7 +89,7 @@ function AdminAddRoomScreen() {
             </Form.Item>
             <Form.Item
               name="maxcount"
-              label="maxcount"
+              label="Max Count"
               rules={[
                 {
                   required: true,
@@ -100,7 +100,7 @@ function AdminAddRoomScreen() {
             </Form.Item>
             <Form.Item
               name="phonenumber"
-              label="phonenumber"
+              label="Phone Number"
               rules={[
                 {
                   required: true,
@@ -111,7 +111,7 @@ function AdminAddRoomScreen() {
             </Form.Item>
             <Form.Item
               name="rentperday"
-              label="rentperday"
+              label="Rent per day"
               rules={[
                 {
                   required: true,
@@ -122,7 +122,7 @@ function AdminAddRoomScreen() {
             </Form.Item>
             <Form.Item
               name="imageurl1"
-              label="imageurl1"
+              label="Image URL-1"
               rules={[
                 {
                   required: true,
@@ -133,7 +133,7 @@ function AdminAddRoomScreen() {
             </Form.Item>
             <Form.Item
               name="imageurl2"
-              label="imageurl2"
+              label="Image URL-2"
               rules={[
                 {
                   //required: true,
@@ -142,9 +142,9 @@ function AdminAddRoomScreen() {
             >
               <Input />
             </Form.Item>
-            <Form.Item
+            {/* <Form.Item
               name="imageurl3"
-              label="imageurl3"
+              label="Image URL-3"
               rules={[
                 {
                   //required: true,
@@ -152,10 +152,10 @@ function AdminAddRoomScreen() {
               ]}
             >
               <Input />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item
               name="type"
-              label="type"
+              label="Room Type"
               rules={[
                 {
                   required: true,
@@ -168,11 +168,13 @@ function AdminAddRoomScreen() {
               </Select>
             </Form.Item>
             <Form.Item {...tailLayout}>
-              <Button type="success" htmlType="submit">
-                Add
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <Button type="primary" htmlType="submit" >
+                ADD
               </Button>
+              &nbsp;&nbsp;&nbsp;&nbsp;
               <Button type="danger" htmlType="button" onClick={onReset}>
-                Reset
+                RESET
               </Button>
             </Form.Item>
           </Form>

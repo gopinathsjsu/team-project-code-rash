@@ -47,8 +47,8 @@ function MyBookingScreen() {
       ).data;
       setLoading(false);
       Swal.fire(
-        "Congratulations",
-        "Your Room Cancelled Successfully",
+        "Congratulations!!",
+        "Your booking has been cancelled successfully!",
         "success"
       ).then((result) => {
         fetchMyAPI();
@@ -56,7 +56,7 @@ function MyBookingScreen() {
     } catch (error) {
       console.log(error);
       //setError(error);
-      Swal.fire("Opps", "Error:" + error, "error");
+      Swal.fire("Oops", "Error:" + error, "error");
     }
     setLoading(false);
   }
@@ -69,26 +69,26 @@ function MyBookingScreen() {
         <Error msg={error}></Error>
       ) : (
         <div className="row">
-          <div className="col-md-6  ml-5">
+          <div className="col-md-12  ml-7">
             {bookings &&
               bookings.map((booking) => {
                 return (
                   <div className="bs">
                     <h1>{booking.room}</h1>
                     <p>
-                      <b>BookingId:</b> {booking._id}
+                      <b>Booking ID:</b> {booking._id}
                     </p>
                     <p>
-                      <b>CheckIn:</b> {booking.fromdate}
+                      <b>Check In Date:</b> {booking.fromdate}
                     </p>
                     <p>
-                      <b>CheckOut:</b> {booking.todate}
+                      <b>Check Out Date:</b> {booking.todate}
                     </p>
                     {booking.amenities.length && <p>
                     <b>Amenities:</b> {JSON.stringify(booking.amenities)}
                     </p>}
                     <p>
-                      <b>Amount:</b> {booking.totalamount}
+                      <b>Amount:</b> ${booking.totalamount}
                     </p>
                     <p>
                       <b>Status:</b>{" "}
@@ -98,10 +98,22 @@ function MyBookingScreen() {
                         <Tag color="red">CANCELLED</Tag>
                       )}
                     </p>
+
                     {booking.status === "booked" && (
-                      <div className="text-right">
+                      <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
+                      <div className="text-right" style={{ marginRight:"5px", marginLeft:"5px"}}>
+                      <button
+                        className="button2 cancelButton"
+                        onClick={() => {
+                          cancelBooking(booking._id, booking.roomid);
+                        }}
+                      >
+                        Modify Booking
+                      </button>
+                    </div>
+                      <div className="text-right"  style={{ marginRight:"5px", marginLeft:"5px"}}>
                         <button
-                          className="btn btn-danger"
+                          className="button2 cancelButton"
                           onClick={() => {
                             cancelBooking(booking._id, booking.roomid);
                           }}
@@ -109,8 +121,15 @@ function MyBookingScreen() {
                           Cancel Booking
                         </button>
                       </div>
+                      </div>
                     )}
+
+                    {/* {booking.status === "booked" && (
+                      
+                    )} */}
+
                   </div>
+                  
                 );
               })}
           </div>

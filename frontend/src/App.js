@@ -13,7 +13,7 @@ import AdminScreen from './screens/AdminScreen';
 export default function App() {
   return (
     <div className="App">
-     <Navbar />
+     <Navbar style={{backgroundColor: "red"}}/>
       <BrowserRouter>
         <Route path="/" exact component={LandingScreen} />
         <Route path="/home" exact component={Homescreen} />
