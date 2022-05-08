@@ -1,4 +1,5 @@
 import React from "react";
+import logo from '../CodeRash_logo.png';
 
 function Navbar() {
   const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -25,7 +26,7 @@ function Navbar() {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <i class="fas fa-user mr-2"></i>
+              <i class="far fa-user mr-3"></i>
               {user.name}
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -64,9 +65,11 @@ function Navbar() {
   return (
     <div>
       <nav className="navbar navbar-expand-lg">
-        <a className="navbar-brand" href="/home">
+                
+      <a href="/home"><img src={logo} width="190" height="45"/></a>
+        {/* <a className="navbar-brand" href="/home">
           HOTEL BOOKING
-        </a>
+        </a> */}
         <button
           className="navbar-toggler"
           type="button"

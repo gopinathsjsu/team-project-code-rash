@@ -12,13 +12,13 @@ function AdminUserScreen() {
   const [error, setError] = useState("");
 
   const columns = [
-    { title: "userid", dataIndex: "_id", key: "_id" },
+    // { title: "User ID", dataIndex: "_id", key: "_id" },
     {
-      title: "name",
+      title: "Name",
       dataIndex: "name",
       key: "name",
     },
-    { title: "email", dataIndex: "email", key: "email" },
+    { title: "Email Address", dataIndex: "email", key: "email" },
 
     {
       title: "isAdmin",

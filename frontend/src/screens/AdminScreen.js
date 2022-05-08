@@ -20,19 +20,19 @@ function AdminScreen() {
 
   return (
     <div className="ml-3 mt-3 mr-3 bs">
-      <h1 className="text-center">Admin Panel</h1>
+      <h1 className="text-center">ADMIN PANEL</h1>
       <Tabs defaultActiveKey="1" onChange={callback}>
-        <TabPane tab="Bookings" key="1">
+      <TabPane tab="USERS" key="1">
+          <AdminUserScreen></AdminUserScreen>
+        </TabPane>
+        <TabPane tab="BOOKINGS" key="2">
           <AdminBookingScreen></AdminBookingScreen>
         </TabPane>
-        <TabPane tab="Rooms" key="2">
+        <TabPane tab="ROOMS" key="3">
           <AdminRoomScreen></AdminRoomScreen>
         </TabPane>
-        <TabPane tab="Add Room" key="3">
+        <TabPane tab="ADD ROOM" key="4">
           <AdminAddRoomScreen></AdminAddRoomScreen>
-        </TabPane>
-        <TabPane tab="Users" key="4">
-          <AdminUserScreen></AdminUserScreen>
         </TabPane>
       </Tabs>
     </div>

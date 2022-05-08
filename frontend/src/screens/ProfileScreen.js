@@ -21,7 +21,7 @@ function ProfileScreen() {
   return (
     <div className="ml-3 mt-3">
       <Tabs defaultActiveKey="1" onChange={callback}>
-        <TabPane tab="Profile" key="1">
+        <TabPane tab="PROFILE" key="1">
           <div className="row">
             <div className="col-xs-12 ml-5 mb-5">
               <div className="bs">
@@ -40,7 +40,7 @@ function ProfileScreen() {
             </div>
           </div>
         </TabPane>
-        <TabPane tab="Booking" key="2">
+        <TabPane tab="BOOKING" key="2">
           <MyBookingScreen></MyBookingScreen>
         </TabPane>
       </Tabs>

@@ -36,8 +36,8 @@ function LoginScreen() {
     <div>
       {loading && <Loader></Loader>}
 
-      <div className="row justify-content-center mt-5">
-        <div className="col-md-5 mt-5">
+      <div className="row justify-content-center mt-5" style={{marginRight:"0px"}}>
+        <div className="col-md-4 mt-5">
           {error.length > 0 && <Error msg={error}></Error>}
           <div className="bs">
             <h2>Login to your account</h2>
@@ -62,11 +62,14 @@ function LoginScreen() {
                 setPassword(e.target.value);
               }}
             />
+
+            <br></br>
+
             {loading ? (
               <div>Logging in...</div>
             ) : (
               <button className="button2 loginButton" onClick={Login}>
-                Login
+                LOGIN
               </button>
             )}
           </div>

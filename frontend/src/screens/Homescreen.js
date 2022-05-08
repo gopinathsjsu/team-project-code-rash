@@ -116,11 +116,11 @@ function Homescreen() {
       <div className="row mt-5 bs">
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div className="col-md-5">
+        <div className="col-md-3">
           <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
         </div>
 
-        {/* <div className="col-md-3">
+        <div className="col-md-3">
           <input
             type="text"
             className="form-control"
@@ -131,9 +131,9 @@ function Homescreen() {
             }}
             onKeyUp={filterBySearch}
           />
-        </div> */}
+        </div>
 
-        <div className="col-md-5">
+        <div className="col-md-3">
           <select
             className="form-control"
             value={type}

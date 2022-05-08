@@ -69,7 +69,7 @@ function MyBookingScreen() {
         <Error msg={error}></Error>
       ) : (
         <div className="row">
-          <div className="col-md-11  ml-5">
+          <div className="col-md-12  ml-7">
             {bookings &&
               bookings.map((booking) => {
                 return (
@@ -95,8 +95,20 @@ function MyBookingScreen() {
                         <Tag color="red">CANCELLED</Tag>
                       )}
                     </p>
+
                     {booking.status === "booked" && (
-                      <div className="text-right">
+                      <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
+                      <div className="text-right" style={{ marginRight:"5px", marginLeft:"5px"}}>
+                      <button
+                        className="button2 cancelButton"
+                        onClick={() => {
+                          cancelBooking(booking._id, booking.roomid);
+                        }}
+                      >
+                        Modify Booking
+                      </button>
+                    </div>
+                      <div className="text-right"  style={{ marginRight:"5px", marginLeft:"5px"}}>
                         <button
                           className="button2 cancelButton"
                           onClick={() => {
@@ -106,8 +118,15 @@ function MyBookingScreen() {
                           Cancel Booking
                         </button>
                       </div>
+                      </div>
                     )}
+
+                    {/* {booking.status === "booked" && (
+                      
+                    )} */}
+
                   </div>
+                  
                 );
               })}
           </div>

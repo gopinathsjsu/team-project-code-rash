@@ -149,14 +149,14 @@ p {
   background-color: black;
   color: white; 
   border: 1px solid black;
-  border-radius: 10%;
+  border-radius: 50px;
   display: flex;
 }
 
 .loginButton:hover {
-  background-color: #4CAF50; 
+  background-color: #E31C5F; 
   color: white;
-  border: 1px solid #4CAF50;
+  border: 1px solid #E31C5F;
 }
 
 .button3 {
@@ -179,11 +179,11 @@ p {
   background-color: black;
   color: white; 
   border: 1px solid black;
-  border-radius: 10%;
+  border-radius: 50px;
 }
 
 .cancelButton:hover {
-  background-color: red; 
+  background-color: #E31C5F; 
   color: white;
   border: 1px solid #4CAF50;
 }
