@@ -14,6 +14,7 @@ export default function App() {
   return (
     <div className="App">
      <Navbar />
+     
       <BrowserRouter>
         <Route path="/" exact component={LandingScreen} />
         <Route path="/home" exact component={Homescreen} />

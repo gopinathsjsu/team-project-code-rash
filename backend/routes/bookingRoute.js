@@ -2,7 +2,7 @@ const express = require("express");
 const moment = require("moment");
 const stripe = require("stripe")("YOUR PRIVATE STRIP API KEY"); //
 const { v4: uuidv4 } = require("uuid"); //https://www.npmjs.com/package/uuid
-
+const holidays = require("../dynamic_pricing_scripts/Holidays")
 const router = express.Router();
 
 const Booking = require("../models/booking");
@@ -106,6 +106,42 @@ router.post("/bookroom", async (req, res) => {
           return res.status(400).json({ message: error });
         }
       }
+    } catch (error) {
+      return res.status(400).json({ message: error });
+    }
+  } catch (error) {
+    return res.status(400).json({ message: error });
+  }
+});
+
+
+router.post("/getprices", async (req, res) => {
+  try {
+    const { room, userid, fromdate, todate, totalAmount, totaldays, token } =
+      req.body;
+
+    try {
+      //create customer
+      // const customer = await stripe.customers.create({
+      //   email: token.email,
+      //   source: token.id,
+      // });
+
+      //charge payment
+      // const payment = await stripe.charges.create(
+      //   {
+      //     amount: totalAmount * 100,
+      //     customer: customer.id,
+      //     currency: "USD",
+      //     receipt_email: token.email,
+      //   },
+      //   {
+      //     idempotencyKey: uuidv4(),
+      //   }
+      // );
+
+      //Payment Success
+      
     } catch (error) {
       return res.status(400).json({ message: error });
     }

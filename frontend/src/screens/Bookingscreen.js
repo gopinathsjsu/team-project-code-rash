@@ -6,20 +6,21 @@ import Swal from "sweetalert2";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import STRINGS from "../constant";
-
+import {useCart} from 'react-use-cart'
 function Bookingscreen({ match }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [room, setRoom] = useState({});
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalDays, setTotalDays] = useState(0);
-
+  const { isEmpty,totalUniqueItems,items, updateItemQuantity,removeItem} = useCart();
   const roomid = match.params.roomid;
   const fromdate = moment(match.params.fromdate, "DD-MM-YYYY");
   const todate = moment(match.params.todate, "DD-MM-YYYY");
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
+    console.log(items)
     if (!user) {
       window.location.href = "/login";
     }

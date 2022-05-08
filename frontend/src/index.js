@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.css';
-
+import {CartProvider} from 'react-use-cart'
 ReactDOM.render(
   <React.StrictMode>
+    <CartProvider >
     <App />
+    </CartProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
