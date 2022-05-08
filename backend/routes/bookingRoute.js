@@ -7,6 +7,7 @@ const router = express.Router();
 
 const Booking = require("../models/booking");
 const Room = require("../models/room");
+const User = require("../models/user");
 
 router.post("/getallbookings", async (req, res) => {
   try {
@@ -52,7 +53,7 @@ router.post("/getbookingbyuserid", async (req, res) => {
 
 router.post("/bookroom", async (req, res) => {
   try {
-    const { room, userid, fromdate, todate, totalAmount, totaldays, token } =
+    const { room, userid, fromdate, todate, totalAmount, totaldays, amenities, token } =
       req.body;
 
     try {
@@ -87,6 +88,7 @@ router.post("/bookroom", async (req, res) => {
             totalamount: totalAmount,
             totaldays,
             transactionid: uuidv4(),
+            amenities
           });
 
           const booking = await newBooking.save();
@@ -101,6 +103,10 @@ router.post("/bookroom", async (req, res) => {
           });
 
           await roomTmp.save();
+
+          await User.findByIdAndUpdate({ _id: userid }, { $inc: {'user.rewards': price/10 } });
+
+
           res.send("Payment Successful, Your Room is booked");
         } catch (error) {
           return res.status(400).json({ message: error });

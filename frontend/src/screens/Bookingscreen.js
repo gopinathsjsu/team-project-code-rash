@@ -6,13 +6,27 @@ import Swal from "sweetalert2";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import STRINGS from "../constant";
+import Test from "./test";
+import { Checkbox, Divider } from 'antd';
+import 'antd/dist/antd.css';
+
 
 function Bookingscreen({ match }) {
+
+  const CheckboxGroup = Checkbox.Group;
+  const plainOptions = ['Continental Breakfast', 'Fitness Room', 'Swimming Pool/Jacuzzi', 'Parking', 'meals  (Breakfast, Lunch, Dinner)'];
+  const defaultCheckedList = [];
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [room, setRoom] = useState({});
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalDays, setTotalDays] = useState(0);
+  const [checkedList, setCheckedList] = useState(defaultCheckedList);
+  const [indeterminate, setIndeterminate] = useState(true);
+  const [checkAll, setCheckAll] = useState(false);
+
+  
 
   const roomid = match.params.roomid;
   const fromdate = moment(match.params.fromdate, "DD-MM-YYYY");
@@ -59,7 +73,10 @@ function Bookingscreen({ match }) {
       todate,
       totalAmount,
       totaldays: totalDays,
+      amenities: checkedList
     };
+
+    console.log(bookingDetails);
 
     try {
       setLoading(true);
@@ -90,6 +107,23 @@ function Bookingscreen({ match }) {
     // });
   };
 
+  const onChange = (list) => {
+    setTotalAmount(totalAmount + (list.length - checkedList.length)*100);
+    setCheckedList(list);
+    setIndeterminate(!!list.length && list.length < plainOptions.length);
+    setCheckAll(list.length === plainOptions.length);
+  };
+
+  const onCheckAllChange = (e) => {
+    setCheckedList(e.target.checked ? plainOptions : []);
+    setIndeterminate(false);
+    setCheckAll(e.target.checked);
+    if(e.target.checked)
+      setTotalAmount(totalAmount + 500);
+    else 
+    setTotalAmount(totalAmount - 500);
+  };
+
   return (
     <div className="m-5">
       {loading ? (
@@ -113,9 +147,16 @@ function Bookingscreen({ match }) {
                 <p>From Date : {match.params.fromdate}</p>
                 <p>To Date : {match.params.todate}</p>
                 <p>Max Count : {room.maxcount}</p>
+                <p>Add Amenities</p>
               </b>
             </div>
-            <div style={{ textAlign: "right" }}>
+            <div>
+              <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
+                Check all
+              </Checkbox>
+              <CheckboxGroup style={{display: "flex", "flex-direction": "column"}} options={plainOptions} value={checkedList} onChange={onChange} />
+            </div>
+            <div style={{ textAlign: "right" }}><br/>
               <h1>Amount</h1>
               <hr />
               <b>
