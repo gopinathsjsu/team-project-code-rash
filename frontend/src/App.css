@@ -27,6 +27,13 @@
 .App-link {
   color: #61dafb;
 }
+.navbar{
+  background-color : #E31C5F !important;
+}
+
+.dropdown-toggle{
+  border-radius: 50px;
+}
 
 @keyframes App-logo-spin {
   from {

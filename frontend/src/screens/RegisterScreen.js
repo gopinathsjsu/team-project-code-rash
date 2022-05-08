@@ -42,7 +42,7 @@ function RegisterScreen() {
       }
       setLoading(false);
     } else {
-      alert("Password not matched");
+      alert("Password doesn't match!");
     }
   }
 
@@ -51,8 +51,8 @@ function RegisterScreen() {
       {loading && <Loader></Loader>}
       {error.length > 0 && <Error msg={error}></Error>}
 
-      <div className="row justify-content-center mt-5">
-        <div className="col-md-5 mt-5">
+      <div className="row justify-content-center mt-5" style={{marginRight:"0px"}}>
+        <div className="col-md-4 mt-4">
           {success.length > 0 && <Success msg={success}></Success>}
           <div className="bs">
             <h2>Register your account</h2>
@@ -95,11 +95,12 @@ function RegisterScreen() {
                 setCpassword(e.target.value);
               }}
             />
+                  <br></br>
             {loading ? (
               <div>Registering your account...</div>
             ) : (
               <button className="button2 loginButton" onClick={register}>
-                Register
+                REGSITER
               </button>
             )}
           </div>

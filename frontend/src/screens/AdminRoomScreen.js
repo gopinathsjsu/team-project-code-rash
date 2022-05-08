@@ -13,19 +13,19 @@ function AdminRoomScreen() {
 
   const columns = [
     {
-      title: "roomid",
+      title: "Room ID",
       dataIndex: "_id",
       key: "_id",
     },
     {
-      title: "name",
+      title: "Name",
       dataIndex: "name",
       key: "name",
     },
-    { title: "maxcount", dataIndex: "maxcount", key: "maxcount" },
-    { title: "phonenumber", dataIndex: "phonenumber", key: "phonenumber" },
-    { title: "rentperday", dataIndex: "rentperday", key: "rentperday" },
-    { title: "type", dataIndex: "type", key: "type" },
+    { title: "Max Count", dataIndex: "maxcount", key: "maxcount" },
+    { title: "Phone Number", dataIndex: "phonenumber", key: "phonenumber" },
+    { title: "Rent per day", dataIndex: "rentperday", key: "rentperday" },
+    { title: "Type", dataIndex: "type", key: "type" },
   ];
 
   async function fetchMyData() {
@@ -53,8 +53,9 @@ function AdminRoomScreen() {
         <Error msg={error}></Error>
       ) : (
         <>
-          <div className="col md-12">
+          <div className="col md-12 text-right">
             <button className="btn btn-success" onClick={fetchMyData}>
+            {/* <i class="fa-solid fa-arrows-rotate"></i> */}
               Refresh
             </button>
           </div>

@@ -9,6 +9,7 @@ const bookingSchema = mongoose.Schema(
     userid: { type: String, required: true },
     fromdate: { type: String, required: true },
     todate: { type: String, required: true },
+    amenities: [],
     totalamount: {
       type: Number,
       required: true,
