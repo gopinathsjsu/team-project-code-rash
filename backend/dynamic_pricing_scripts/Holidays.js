@@ -117,7 +117,7 @@ function generateHolidays(year=2022){
 }
 
 function checkDates(startDate, stopDate,holidays,baseprice){
-
+  console.log(startDate," , ",stopDate)
   let dateRange = ranger.getDates(startDate,stopDate)
   //console.log(holidays)
   let total=0
@@ -152,3 +152,4 @@ function checkDates(startDate, stopDate,holidays,baseprice){
 module.exports = checkDates
 module.exports = generateHolidays
 */
+module.exports ={generateHolidays,checkDates}

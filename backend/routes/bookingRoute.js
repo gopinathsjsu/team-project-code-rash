@@ -2,7 +2,7 @@ const express = require("express");
 const moment = require("moment");
 const stripe = require("stripe")("YOUR PRIVATE STRIP API KEY"); //
 const { v4: uuidv4 } = require("uuid"); //https://www.npmjs.com/package/uuid
-const holidays = require("../dynamic_pricing_scripts/Holidays")
+const HolidayController = require("../dynamic_pricing_scripts/Holidays")
 const router = express.Router();
 
 const Booking = require("../models/booking");
@@ -123,9 +123,10 @@ router.post("/bookroom", async (req, res) => {
 
 router.post("/getprices", async (req, res) => {
   try {
-    const { room, userid, fromdate, todate, totalAmount, totaldays, token } =
+    const { from, to } =
       req.body;
-
+    const basePrice =25
+    
     try {
       //create customer
       // const customer = await stripe.customers.create({
@@ -147,8 +148,17 @@ router.post("/getprices", async (req, res) => {
       // );
 
       //Payment Success
+      let holidaysList = HolidayController.generateHolidays()
+      
+      //console.log("holidayList",holidaysList)
+      console.log(from)
+      let total = HolidayController.checkDates(new Date(from),new Date(to),holidaysList,basePrice)
+      console.log("reached here",total)
+      return res.status(200).json({ totalPrice: total });
       
     } catch (error) {
+      console.log(error)
+    
       return res.status(400).json({ message: error });
     }
   } catch (error) {
