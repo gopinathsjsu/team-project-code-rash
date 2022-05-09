@@ -1,13 +1,12 @@
 # Hotel Booking Application
 
-### Team Name 
-Code Rash
+### Team Name - Code Rash
 
 ### Team Members
-- Rushabh Sheta
-- Aniket Thumar
-- Saurabh Sathe
-- Harsh Vaghasiya
+Rushabh Sheta
+Aniket Thumar
+Saurabh Sathe
+Harsh Vaghasiya
 
 ### Tech Stack
 MERN Stack
