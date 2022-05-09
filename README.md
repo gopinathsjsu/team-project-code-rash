@@ -4,9 +4,9 @@
 Code Rash
 
 ### Team Members
+- Rushabh Sheta
 - Aniket Thumar
 - Saurabh Sathe
-- Rushabh Sheta
 - Harsh Vaghasiya
 
 ### Tech Stack
@@ -26,6 +26,24 @@ Scrum meeting scheduled twice in a week on Tuesday and Friday
 3) The customer will have the option to choose the type of room for stays.
 4) The customer can also select amentities such as Continental Breakfast, Access to Swimming Pool / Jacuzzi, All meals included and many more during his/her stay.      After selecting the amenities, the final cost for the stay will be calculated.
 5) A global list will store the seasonal discounts for different festivals and special events.
+
+
+### GitHub Repo 
+https://github.com/gopinathsjsu/team-project-code-rash
+
+### Architecture Diagram
+
+
+### UI Wireframe
+
+
+### Google Sprint Task Sheet
+https://docs.google.com/spreadsheets/d/13gUidq-4Wmffb-xHHNgz9p9wrn0GRqPDQghvKsaRWRs/edit?usp=sharing
+
+### Project Board
+https://github.com/gopinathsjsu/team-project-code-rash/projects/1
+
+### Project Journal
 
 
 
