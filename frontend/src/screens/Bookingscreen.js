@@ -27,7 +27,7 @@ function Bookingscreen({ match }) {
   const [checkedList, setCheckedList] = useState(defaultCheckedList);
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
-
+  const [rentperday, setrentperday] = useState(0);
   
 
   const roomid = match.params.roomid;
@@ -59,6 +59,18 @@ function Bookingscreen({ match }) {
     }
 
     fetchMyAPI();
+    let totalprice
+      async function getPrices(){
+      let totalPrice =  await axios.post(STRINGS.url + "/api/bookings/getprices",{from:fromdate,to:todate},res=>{return res})
+      console.log("--------------->",totalPrice["data"]["totalPrice"])
+     // setTotalAmount(totalPrice["data"]["totalPrice"]*totalDays)
+     setrentperday(totalPrice["data"]["totalPrice"]) 
+     return totalPrice
+    }
+    //const price = await getPrices()
+    let prices = getPrices()
+
+    
   }, []);
 
   useEffect(() => {
@@ -147,7 +159,7 @@ function Bookingscreen({ match }) {
               {/* <hr /> */}
               
                 <p>
-                  Booking Name : {JSON.parse(localStorage.getItem("currentUser")).name}
+                  Branch Name : {JSON.parse(localStorage.getItem("currentUser")).name}
                 </p>
                 <p>Check In Date : {match.params.fromdate}</p>
                 <p>Check Out Date : {match.params.todate}</p>
@@ -165,8 +177,8 @@ function Bookingscreen({ match }) {
               <hr />
               <b>
                 <p>Total Days : {totalDays}</p>
-                <p>Rent per day : {room.rentperday}</p>
-                <p>Total Amount : {totalAmount}</p>
+                <p>Rent per day : {rentperday}</p>
+                <p>Total Amount : {rentperday*totalDays}</p>
               </b>
             </div>
 

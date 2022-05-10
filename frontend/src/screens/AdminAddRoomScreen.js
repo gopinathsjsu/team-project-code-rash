@@ -67,7 +67,7 @@ function AdminAddRoomScreen() {
           >
             <Form.Item
               name="name"
-              label="Name"
+              label="Branch Name"
               rules={[
                 {
                   required: true,
@@ -163,8 +163,9 @@ function AdminAddRoomScreen() {
               ]}
             >
               <Select placeholder="Select a room type" allowClear>
-                <Option value="delux">Delux</Option>
-                <Option value="non-delux">Non-Delux</Option>
+                <Option value="Single Room">Single Room</Option>
+                <Option value="Double Room">Double Room</Option>
+                <Option value="Suite">Suite</Option>
               </Select>
             </Form.Item>
             <Form.Item {...tailLayout}>

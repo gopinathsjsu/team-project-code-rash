@@ -2,7 +2,7 @@ const express = require("express");
 const moment = require("moment");
 const stripe = require("stripe")("YOUR PRIVATE STRIP API KEY"); //
 const { v4: uuidv4 } = require("uuid"); //https://www.npmjs.com/package/uuid
-const holidays = require("../dynamic_pricing_scripts/Holidays")
+const HolidayController = require("../dynamic_pricing_scripts/Holidays")
 const router = express.Router();
 
 const Booking = require("../models/booking");
@@ -12,6 +12,17 @@ const User = require("../models/user");
 router.post("/getallbookings", async (req, res) => {
   try {
     const bookings = await Booking.find();
+    // const data = await Booking.aggregate([{
+    //   $lookup:
+    //   {
+    //   from: 'room',
+    //   localField: 'roomid',
+    //   foreignField: '_id',
+    //   as: 'room'
+    //   }
+    //  }])
+    //  console.log(data);
+     
     res.send(bookings);
   } catch (error) {
     console.log(error);
@@ -57,26 +68,6 @@ router.post("/bookroom", async (req, res) => {
       req.body;
 
     try {
-      //create customer
-      // const customer = await stripe.customers.create({
-      //   email: token.email,
-      //   source: token.id,
-      // });
-
-      //charge payment
-      // const payment = await stripe.charges.create(
-      //   {
-      //     amount: totalAmount * 100,
-      //     customer: customer.id,
-      //     currency: "USD",
-      //     receipt_email: token.email,
-      //   },
-      //   {
-      //     idempotencyKey: uuidv4(),
-      //   }
-      // );
-
-      //Payment Success
       if (true) {
         try {
           const newBooking = new Booking({
@@ -104,7 +95,7 @@ router.post("/bookroom", async (req, res) => {
 
           await roomTmp.save();
 
-          await User.findByIdAndUpdate({ _id: userid }, { $inc: {'user.rewards': price/10 } });
+          // await User.findByIdAndUpdate({ _id: userid }, { $inc: {'user.rewards': price/10 } });
 
 
           res.send("Payment Successful, Your Room is booked");
@@ -123,32 +114,22 @@ router.post("/bookroom", async (req, res) => {
 
 router.post("/getprices", async (req, res) => {
   try {
-    const { room, userid, fromdate, todate, totalAmount, totaldays, token } =
+    const { from, to } =
       req.body;
-
+    const basePrice =25
+    
     try {
-      //create customer
-      // const customer = await stripe.customers.create({
-      //   email: token.email,
-      //   source: token.id,
-      // });
-
-      //charge payment
-      // const payment = await stripe.charges.create(
-      //   {
-      //     amount: totalAmount * 100,
-      //     customer: customer.id,
-      //     currency: "USD",
-      //     receipt_email: token.email,
-      //   },
-      //   {
-      //     idempotencyKey: uuidv4(),
-      //   }
-      // );
-
-      //Payment Success
+      let holidaysList = HolidayController.generateHolidays()
+      
+      //console.log("holidayList",holidaysList)
+      console.log(from)
+      let total = HolidayController.checkDates(new Date(from),new Date(to),holidaysList,basePrice)
+     // console.log("reached here",total)
+      return res.status(200).json({ totalPrice: total });
       
     } catch (error) {
+      console.log(error)
+    
       return res.status(400).json({ message: error });
     }
   } catch (error) {
