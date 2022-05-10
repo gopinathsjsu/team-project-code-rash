@@ -60,6 +60,7 @@ function Bookingscreen({ match }) {
 
     fetchMyAPI();
     let totalprice
+    console.log("**********************>",match.params)
       async function getPrices(){
       let totalPrice =  await axios.post(STRINGS.url + "/api/bookings/getprices",{from:fromdate,to:todate},res=>{return res})
       console.log("--------------->",totalPrice["data"]["totalPrice"])

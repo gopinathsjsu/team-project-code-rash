@@ -19,7 +19,7 @@ export default function App() {
         <Route path="/" exact component={LandingScreen} />
         <Route path="/home" exact component={Homescreen} />
         <Route
-          path="/book/:roomid/:fromdate/:todate"
+          path="/book/:type/:roomid/:fromdate/:todate"
           exact
           component={Bookingscreen}
         />

@@ -25,7 +25,7 @@ function Room({ room, fromDate, toDate }) {
 
         <div style={{ float: "left" }}>
           {fromDate && toDate && (
-            <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
+            <Link to={`/book/${room.type}/${room._id}/${fromDate}/${toDate}`}>
               <button className="button2 loginButton" >Book Now</button>
             </Link>
           )}
