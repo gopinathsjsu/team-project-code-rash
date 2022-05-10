@@ -65,12 +65,19 @@ function Bookingscreen({ match }) {
 
       async function getPrices(){
       let totalPrice =  await axios.post(STRINGS.url + "/api/bookings/getprices",{from:fromdate,to:todate,room_type:roomType},res=>{return res})
-      console.log("--------------->",totalPrice["data"]["totalPrice"])
+      console.log("Price--------------->",totalPrice["data"]["totalPrice"])
      // setTotalAmount(totalPrice["data"]["totalPrice"]*totalDays)
      //setrentperday(totalPrice["data"]["totalPrice"]) 
      setTotalAmount(totalPrice["data"]["totalPrice"])
+     let userId =  JSON.parse(localStorage.getItem("currentUser"))._id
+     let totalRewards = await axios.post(STRINGS.url + "/api/bookings/getRewards",{userid:userId},res=>{return res})
+     console.log("Rewards--------------->",totalRewards["data"]["totalRewards"])
+
      return totalPrice
     }
+
+
+
     //const price = await getPrices()
     let prices = getPrices()
 

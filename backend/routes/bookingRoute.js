@@ -61,7 +61,45 @@ router.post("/getbookingbyuserid", async (req, res) => {
     return res.status(400).json({ message: error });
   }
 });
+router.post("/getRewards",async(req,res)=>{
 
+  try {
+    const { userid } =
+      req.body;
+      
+    
+   
+    let rewards = await User.aggregate([{"$match":{_id:userid._id}},
+      { "$addFields": { 
+          "totalRewards": {
+              
+                      "$filter": {
+                          "input": "$this.rewards",
+                          "as": "el",
+                          "cond": {
+                              "$and": [,
+                                  { "$lte": ["$$el.todate", new Date("2022-05-15") ] },
+                              ]
+                          }
+                      }
+                  
+                 
+              
+          }
+      } },
+      { "$addFields": { 
+        "initialValue":0,
+        "totalRewards": { "$sum": "$totalRewards.points" }
+    } }
+  ]);
+  console.log(rewards)
+  return res.status(200).json({ totalRewards: rewards });
+
+} catch (error) {
+  console.log(error)
+  return res.status(400).json({ message: error });
+}
+})
 router.post("/bookroom", async (req, res) => {
   try {
     const { room, userid, fromdate, todate, totalAmount, totaldays, amenities, token } =
@@ -94,7 +132,16 @@ router.post("/bookroom", async (req, res) => {
           });
 
           await roomTmp.save();
-
+          await User.findOneAndUpdate({_id:userid},{$push : {
+            rewards :  {
+              bookingid:booking._id,
+              fromdate: moment(fromdate).format("DD-MM-YYYY"),
+              todate: moment(todate).format("DD-MM-YYYY"),
+              points: totalAmount*0.1,
+                   } //inserted data is the object to be inserted 
+          }})
+      //    let user =User.find({_id:userid})
+          console.log("updated the rewards")
           // await User.findByIdAndUpdate({ _id: userid }, { $inc: {'user.rewards': price/10 } });
 
 
