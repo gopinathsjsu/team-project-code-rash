@@ -24,7 +24,7 @@ function ProfileScreen() {
         <TabPane tab="PROFILE" key="1">
           <div className="row">
             <div className="col-xs-12 ml-5 mb-5">
-              <div className="bs">
+              <div className="bs2">
                 {/* <b>My Profile</b> */}
                 <b>Name : </b>{user.name}<br></br>
                 <b>Email : </b>{user.email}<br></br>
@@ -41,7 +41,9 @@ function ProfileScreen() {
           </div>
         </TabPane>
         <TabPane tab="BOOKING" key="2">
+        <div className="bs2">
           <MyBookingScreen></MyBookingScreen>
+        </div>
         </TabPane>
       </Tabs>
     </div>

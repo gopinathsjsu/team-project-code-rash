@@ -128,10 +128,10 @@ function Homescreen() {
     <div className="container">
 
     <br></br>
-      <div className="row mt-5 bs">
+      <div className="row mt-5 bs1">
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div className="col-md-3">
+        <div className="col-md-4">
           <RangePicker format="DD-MM-YYYY" onChange={filterByDate} disabledDate={current => {
           return current && (current.valueOf() < Date.now()) && ((current + 7) < Date.now());
         }} ranges={current=>{return (current.valueOf(),current.valueOf()+7)}} />
@@ -142,7 +142,7 @@ function Homescreen() {
           <input
             type="text"
             className="form-control"
-            placeholder="search rooms"
+            placeholder="Search location"
             value={searchKey}
             onChange={(e) => {
               setSearchKey(e.target.value);

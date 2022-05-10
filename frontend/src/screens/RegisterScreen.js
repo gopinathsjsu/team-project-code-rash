@@ -54,8 +54,8 @@ function RegisterScreen() {
       <div className="row justify-content-center mt-5" style={{marginRight:"0px"}}>
         <div className="col-md-4 mt-4">
           {success.length > 0 && <Success msg={success}></Success>}
-          <div className="bs">
-            <h2>Register your account</h2>
+          <div className="bs" style={{backgroundColor:"#232B2B", borderColor:"black", borderStyle:"groove", borderWidth:"0.01px"}}>
+            <h2 style={{color:"#ffffff"}}>Register your account</h2>
             <input
               type="text"
               className="form-control"
@@ -99,17 +99,21 @@ function RegisterScreen() {
             {loading ? (
               <div>Registering your account...</div>
             ) : (
-              <button className="button2 loginButton" onClick={register}>
+              <button className="button2 registerButton" onClick={register}>
                 REGSITER
               </button>
             )}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href='/login'  style={{color:"blue"}}>Are you already an existing member? Click here</a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href='/login'  style={{color:"#EC135F", textAlign:"center"}}>Already an existing member? Click here</a>
 
           </div>
         </div>
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
     </div>
+
   );
 }
 
