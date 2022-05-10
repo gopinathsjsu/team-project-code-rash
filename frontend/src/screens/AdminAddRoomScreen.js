@@ -41,7 +41,7 @@ function AdminAddRoomScreen() {
     } catch (error) {
       console.log(error);
       setError(error);
-      Swal.fire("Opps", "Error:" + error, "error");
+      Swal.fire("Oops", "" + error, "error");
     }
 
     setLoading(false);

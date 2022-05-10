@@ -103,6 +103,9 @@ function RegisterScreen() {
                 REGSITER
               </button>
             )}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href='/login'  style={{color:"blue"}}>Are you already an existing member? Click here</a>
+
           </div>
         </div>
       </div>

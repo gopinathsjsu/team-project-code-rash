@@ -56,7 +56,7 @@ function MyBookingScreen() {
     } catch (error) {
       console.log(error);
       //setError(error);
-      Swal.fire("Oops", "Error:" + error, "error");
+      Swal.fire("Oops", "" + error, "error");
     }
     setLoading(false);
   }

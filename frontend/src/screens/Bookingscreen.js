@@ -94,7 +94,7 @@ function Bookingscreen({ match }) {
       });
     } catch (error) {
       setError(error);
-      Swal.fire("Opps", "Error:" + error, "error");
+      Swal.fire("Oops", "" + error, "error");
     }
     setLoading(false);
     //TESTING CARD

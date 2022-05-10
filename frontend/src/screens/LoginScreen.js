@@ -28,7 +28,7 @@ function LoginScreen() {
       window.location.href = "/home";
     } catch (error) {
       console.log(error);
-      setError("Invalid Credentials");
+      setError("Invalid Credentials ! Please enter correct credentials");
     }
     setLoading(false);
   }
@@ -72,9 +72,18 @@ function LoginScreen() {
                 LOGIN
               </button>
             )}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <a href='/register' style={{color:"blue"}}>Are you a new member? Click here</a>
+
+            {/* <div>
+              <a href="/register" style={{color:"blue", display:"inline-block"}}>Are you a new member? Click here</a>
+            </div> */}
+
           </div>
         </div>
       </div>
+      
     </div>
   );
 }
