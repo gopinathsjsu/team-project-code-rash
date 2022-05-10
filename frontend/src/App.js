@@ -14,7 +14,7 @@ import Footer from './components/Footer';
 export default function App() {
   return (
     <div className="App">
-     <Navbar />
+     <Navbar/>
       <BrowserRouter>
         <Route path="/" exact component={LandingScreen} />
         <Route path="/home" exact component={Homescreen} />
