@@ -166,23 +166,23 @@ function Bookingscreen({ match }) {
                 <p>Max Count : {room.maxcount}</p>
                 <p>Add Amenities</p>
             </div>
-            <div>
+            <div style={{ textAlign: "left" }}>
               <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
                 Check all
               </Checkbox>
-              <CheckboxGroup style={{display: "flex", "flex-direction": "column"}} options={plainOptions} value={checkedList} onChange={onChange} />
+              <CheckboxGroup style={{display: "flex", "flex-direction": "column", textAlign: "right"}} options={plainOptions} value={checkedList} onChange={onChange} />
             </div>
             <div style={{ textAlign: "right" }}><br/>
-              <h1>Amount</h1>
-              <hr />
-              <b>
+              <h1><b>Amount</b></h1>
+              {/* <hr /> */}
+              
                 <p>Total Days : {totalDays}</p>
-                <p>Rent per day : {rentperday}</p>
-                <p>Total Amount : {rentperday*totalDays}</p>
-              </b>
+                <p>Rent per day : ${rentperday}</p>
+                <b><p>Total Amount : ${rentperday*totalDays}</p></b>
+              
             </div>
 
-            <div style={{ float: "left" }}>
+            <div style={{ float: "right" }}>
               {/* <StripeCheckout
                 amount={totalAmount * 100}
                 currency="USD"
