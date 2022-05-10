@@ -114,15 +114,25 @@ router.post("/bookroom", async (req, res) => {
 
 router.post("/getprices", async (req, res) => {
   try {
-    const { from, to } =
+    const { from, to ,room_type} =
       req.body;
-    const basePrice =25
+    
     
     try {
       let holidaysList = HolidayController.generateHolidays()
       
       //console.log("holidayList",holidaysList)
-      console.log(from)
+      console.log(room_type)
+      let basePrice=30
+      if (room_type=="Single Room"){
+        basePrice=30
+      }
+      else if(room_type=="Double Room"){
+        basePrice=50
+      }
+      else{
+        basePrice=70
+      }
       let total = HolidayController.checkDates(new Date(from),new Date(to),holidaysList,basePrice)
      // console.log("reached here",total)
       return res.status(200).json({ totalPrice: total });

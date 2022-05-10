@@ -60,11 +60,15 @@ function Bookingscreen({ match }) {
 
     fetchMyAPI();
     let totalprice
+    //console.log("**********************>",match.params)
+      let roomType = match.params.type
+
       async function getPrices(){
-      let totalPrice =  await axios.post(STRINGS.url + "/api/bookings/getprices",{from:fromdate,to:todate},res=>{return res})
+      let totalPrice =  await axios.post(STRINGS.url + "/api/bookings/getprices",{from:fromdate,to:todate,room_type:roomType},res=>{return res})
       console.log("--------------->",totalPrice["data"]["totalPrice"])
      // setTotalAmount(totalPrice["data"]["totalPrice"]*totalDays)
-     setrentperday(totalPrice["data"]["totalPrice"]) 
+     //setrentperday(totalPrice["data"]["totalPrice"]) 
+     setTotalAmount(totalPrice["data"]["totalPrice"])
      return totalPrice
     }
     //const price = await getPrices()
@@ -76,7 +80,7 @@ function Bookingscreen({ match }) {
   useEffect(() => {
     const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1;
     setTotalDays(totaldays);
-    setTotalAmount(totalDays * room.rentperday);
+    //setTotalAmount(totalDays * room.rentperday);
   }, [room]);
 
   const onToken = async (token) => {
@@ -123,7 +127,8 @@ function Bookingscreen({ match }) {
   };
 
   const onChange = (list) => {
-    setTotalAmount(totalAmount + (list.length - checkedList.length)*100);
+    console.log()
+    setTotalAmount(totalAmount + (list.length - checkedList.length)*totalDays*10);
     setCheckedList(list);
     setIndeterminate(!!list.length && list.length < plainOptions.length);
     setCheckAll(list.length === plainOptions.length);
@@ -134,9 +139,9 @@ function Bookingscreen({ match }) {
     setIndeterminate(false);
     setCheckAll(e.target.checked);
     if(e.target.checked)
-      setTotalAmount(totalAmount + 500);
+      setTotalAmount(totalAmount + 50*totalDays);
     else 
-    setTotalAmount(totalAmount - 500);
+    setTotalAmount(totalAmount - 50*totalDays);
   };
 
   return (
@@ -177,8 +182,7 @@ function Bookingscreen({ match }) {
               {/* <hr /> */}
               
                 <p>Total Days : {totalDays}</p>
-                <p>Rent per day : ${rentperday}</p>
-                <b><p>Total Amount : ${rentperday*totalDays}</p></b>
+                <b><p>Total Amount : ${totalAmount}</p></b>
               
             </div>
 
