@@ -57,26 +57,6 @@ router.post("/bookroom", async (req, res) => {
       req.body;
 
     try {
-      //create customer
-      // const customer = await stripe.customers.create({
-      //   email: token.email,
-      //   source: token.id,
-      // });
-
-      //charge payment
-      // const payment = await stripe.charges.create(
-      //   {
-      //     amount: totalAmount * 100,
-      //     customer: customer.id,
-      //     currency: "USD",
-      //     receipt_email: token.email,
-      //   },
-      //   {
-      //     idempotencyKey: uuidv4(),
-      //   }
-      // );
-
-      //Payment Success
       if (true) {
         try {
           const newBooking = new Booking({
@@ -128,32 +108,12 @@ router.post("/getprices", async (req, res) => {
     const basePrice =25
     
     try {
-      //create customer
-      // const customer = await stripe.customers.create({
-      //   email: token.email,
-      //   source: token.id,
-      // });
-
-      //charge payment
-      // const payment = await stripe.charges.create(
-      //   {
-      //     amount: totalAmount * 100,
-      //     customer: customer.id,
-      //     currency: "USD",
-      //     receipt_email: token.email,
-      //   },
-      //   {
-      //     idempotencyKey: uuidv4(),
-      //   }
-      // );
-
-      //Payment Success
       let holidaysList = HolidayController.generateHolidays()
       
       //console.log("holidayList",holidaysList)
       console.log(from)
       let total = HolidayController.checkDates(new Date(from),new Date(to),holidaysList,basePrice)
-      console.log("reached here",total)
+     // console.log("reached here",total)
       return res.status(200).json({ totalPrice: total });
       
     } catch (error) {
