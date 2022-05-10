@@ -18,7 +18,7 @@ function AdminRoomScreen() {
       key: "_id",
     },
     {
-      title: "Name",
+      title: "Branch Name",
       dataIndex: "name",
       key: "name",
     },

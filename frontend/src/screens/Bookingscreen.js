@@ -144,7 +144,7 @@ function Bookingscreen({ match }) {
               {/* <hr /> */}
               
                 <p>
-                  Booking Name : {JSON.parse(localStorage.getItem("currentUser")).name}
+                  Branch Name : {JSON.parse(localStorage.getItem("currentUser")).name}
                 </p>
                 <p>Check In Date : {match.params.fromdate}</p>
                 <p>Check Out Date : {match.params.todate}</p>

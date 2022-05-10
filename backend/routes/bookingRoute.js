@@ -12,6 +12,17 @@ const User = require("../models/user");
 router.post("/getallbookings", async (req, res) => {
   try {
     const bookings = await Booking.find();
+    // const data = await Booking.aggregate([{
+    //   $lookup:
+    //   {
+    //   from: 'room',
+    //   localField: 'roomid',
+    //   foreignField: '_id',
+    //   as: 'room'
+    //   }
+    //  }])
+    //  console.log(data);
+     
     res.send(bookings);
   } catch (error) {
     console.log(error);
@@ -104,7 +115,7 @@ router.post("/bookroom", async (req, res) => {
 
           await roomTmp.save();
 
-          await User.findByIdAndUpdate({ _id: userid }, { $inc: {'user.rewards': price/10 } });
+          // await User.findByIdAndUpdate({ _id: userid }, { $inc: {'user.rewards': price/10 } });
 
 
           res.send("Payment Successful, Your Room is booked");

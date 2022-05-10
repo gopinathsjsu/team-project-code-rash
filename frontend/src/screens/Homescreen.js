@@ -48,6 +48,21 @@ function Homescreen() {
     fetchMyAPI();
   }, []);
 
+  function disabledDate(current){
+    // or (if it's a class method)
+    //disabledDate = (current) => { 
+        let start = current.valueOf();
+        let end = current.valueOf()+7;
+        if (current < moment(start)){
+            return true;
+        }
+        else if (current > moment(end)){
+            return true;
+        }
+        else {
+            return false; 
+        }
+    }
   function filterByDate(dates) {
     // console.log(moment(dates[0]).format("DD-MM-YYYY"));
     // console.log(moment(dates[1]).format("DD-MM-YYYY"));
@@ -117,7 +132,10 @@ function Homescreen() {
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div className="col-md-3">
-          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} disabledDate={current => {
+          return current && (current.valueOf() < Date.now()) && ((current + 7) < Date.now());
+        }} ranges={current=>{return (current.valueOf(),current.valueOf()+7)}} />
+
         </div>
 
         <div className="col-md-3">
@@ -142,8 +160,9 @@ function Homescreen() {
             }}
           >
             <option value="all">All</option>
-            <option value="delux">Delux</option>
-            <option value="non-delux">Non-Delux</option>
+            <option value="Single Room">Single Room</option>
+            <option value="Double Room">Double Room</option>
+            <option value="Suite">Suite</option>
           </select>
         </div>
       </div>
