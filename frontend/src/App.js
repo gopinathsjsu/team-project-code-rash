@@ -8,12 +8,13 @@ import Homescreen from './screens/Homescreen';
 import Bookingscreen from './screens/Bookingscreen';
 import ProfileScreen from './screens/ProfileScreen';
 import AdminScreen from './screens/AdminScreen';
+import Footer from './components/Footer';
 
 //App Component
 export default function App() {
   return (
     <div className="App">
-     <Navbar style={{backgroundColor: "red"}}/>
+     <Navbar />
       <BrowserRouter>
         <Route path="/" exact component={LandingScreen} />
         <Route path="/home" exact component={Homescreen} />
@@ -28,6 +29,7 @@ export default function App() {
         <Route path="/bookings" exact component={ProfileScreen} />
         <Route path="/admin" exact component={AdminScreen} />
       </BrowserRouter>
+      <Footer/>
     </div>
   );
 }

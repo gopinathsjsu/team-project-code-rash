@@ -116,24 +116,31 @@ function generateHolidays(year=2022){
 
 }
 
-function checkDates(startDate, stopDate,holidays){
-
+function checkDates(startDate, stopDate,holidays,baseprice){
+  console.log(startDate," , ",stopDate)
   let dateRange = ranger.getDates(startDate,stopDate)
   //console.log(holidays)
+  let total=0
   for(let d of dateRange){
-      if (weekend.isWeekend(d)){
+    let percent=1  
+    if (weekend.isWeekend(d)){
         console.log("a weekend",d)
+        percent=0.10
       }
+
     //  console.log(d)
       if(holidays.has(d.toString())){
         console.log("national holiday",d)
+        percent=percent+0.05
       }
+      total=total+baseprice*(1+percent)
   }
   //console.log(dateRange)
-
+  console.log(total)
+  return total
 }
-let allholidayList = generateHolidays()
-checkDates(new Date("2022-12-27"),new Date("2023-01-02"),allholidayList)
+//let allholidayList = generateHolidays()
+//checkDates(new Date("2022-12-27"),new Date("2023-01-02"),allholidayList,25)
 
 //let date=new Date("2022-01-01")
 //console.log(date)
@@ -145,3 +152,4 @@ checkDates(new Date("2022-12-27"),new Date("2023-01-02"),allholidayList)
 module.exports = checkDates
 module.exports = generateHolidays
 */
+module.exports ={generateHolidays,checkDates}

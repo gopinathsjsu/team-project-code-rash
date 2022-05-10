@@ -1,0 +1,60 @@
+.banner {
+    background: url("https://redwoodsinyosemite.com/wp-content/uploads/2019/06/Wawona-Tunnel-Page-Banner-Image.jpeg") center center;
+    height: 50vh;
+    position: relative;
+  }
+  
+  .banner__info {
+      background-color: black;
+      color: white;
+      /* padding-top: 2vh; */
+      padding-left: 50px;
+      padding-right: 50px;
+      /* padding-bottom: 40px; */
+      width: 300px;
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  }
+  
+  .banner__search {
+      display: flex;
+      flex-direction: column;
+  }
+  
+  .banner__searchButton {
+    background-color: white !important;
+    font-weight: 900 !important;
+    text-transform: inherit !important;
+    color: #ff7779 !important;
+  }
+  
+  .banner__info > button {
+      background-color: white;
+      color: black;
+      text-transform: inherit;
+      margin-top: 20px;
+      font-weight: 600;
+      border: 2px solid black;
+      border-radius: 30px;
+  }
+  
+  .banner__info > button:hover {
+      background-color: #E31C5F;
+      color: white;
+    }
+  
+    .banner__info > h1 {
+        /* background-color: black; */
+            color: white;
+            font-size: xx-large;
+          /* margin-top: 10px; */
+      }
+
+  .banner__info > h5 {
+    /* background-color: black; */
+        color: white;
+        font-size: smaller;
+      margin-top: 10px;
+  }

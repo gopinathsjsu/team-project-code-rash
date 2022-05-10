@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import STRINGS from "../constant";
+import {useCart} from 'react-use-cart'
 import Test from "./test";
 import { Checkbox, Divider } from 'antd';
 import 'antd/dist/antd.css';
@@ -22,10 +23,11 @@ function Bookingscreen({ match }) {
   const [room, setRoom] = useState({});
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalDays, setTotalDays] = useState(0);
+  const { isEmpty,totalUniqueItems,items, updateItemQuantity,removeItem} = useCart();
   const [checkedList, setCheckedList] = useState(defaultCheckedList);
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
-
+  const [rentperday, setrentperday] = useState(0);
   
 
   const roomid = match.params.roomid;
@@ -34,6 +36,7 @@ function Bookingscreen({ match }) {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
+    console.log(items)
     if (!user) {
       window.location.href = "/login";
     }
@@ -56,6 +59,18 @@ function Bookingscreen({ match }) {
     }
 
     fetchMyAPI();
+    let totalprice
+      async function getPrices(){
+      let totalPrice =  await axios.post(STRINGS.url + "/api/bookings/getprices",{from:fromdate,to:todate},res=>{return res})
+      console.log("--------------->",totalPrice["data"]["totalPrice"])
+     // setTotalAmount(totalPrice["data"]["totalPrice"]*totalDays)
+     setrentperday(totalPrice["data"]["totalPrice"]) 
+     return totalPrice
+    }
+    //const price = await getPrices()
+    let prices = getPrices()
+
+    
   }, []);
 
   useEffect(() => {
@@ -162,8 +177,8 @@ function Bookingscreen({ match }) {
               <hr />
               <b>
                 <p>Total Days : {totalDays}</p>
-                <p>Rent per day : {room.rentperday}</p>
-                <p>Total Amount : {totalAmount}</p>
+                <p>Rent per day : {rentperday}</p>
+                <p>Total Amount : {rentperday*totalDays}</p>
               </b>
             </div>
 

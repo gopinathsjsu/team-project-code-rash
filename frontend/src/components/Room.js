@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Carousel } from "react-bootstrap";
 import { BrowserRouter, Route, Link } from "react-router-dom";
-
+import { CartProvider, useCart } from "react-use-cart";
 function Room({ room, fromDate, toDate }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const { addItem } = useCart();
 
+  
   return (
     <div className="row bs">
       <div className="col-md-4">
@@ -24,7 +26,7 @@ function Room({ room, fromDate, toDate }) {
         <div style={{ float: "left" }}>
           {fromDate && toDate && (
             <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
-              <button className="button2 loginButton">Book Now</button>
+              <button className="button2 loginButton" >Book Now</button>
             </Link>
           )}
         </div>
