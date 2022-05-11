@@ -68,8 +68,8 @@ router.post("/getRewards",async(req,res)=>{
       req.body;
       
     
-   
-    let rewards = await User.aggregate([{"$match":{_id:userid._id}},
+   /*
+    let rewards = await User.aggregate([{"$match":{_id:userid}},
       { "$addFields": { 
           "totalRewards": {
               
@@ -92,6 +92,23 @@ router.post("/getRewards",async(req,res)=>{
         "totalRewards": { "$sum": "$totalRewards.points" }
     } }
   ]);
+  */
+
+  let user = await User.find({_id:userid})
+  console.log(user)
+  console.log(user[0]["rewards"])
+  let rewards= 0
+  let current = new Date()
+  for(let obj of user[0]["rewards"]){
+    console.log(obj["todate"])
+    if (obj["todate"]!=undefined){
+    let date_comps=obj["todate"].split("-")
+    console.log(date_comps)
+    if(new Date(date_comps[2]+"-"+date_comps[1]+"-"+date_comps[0])>=current){
+    rewards=rewards+obj["points"]
+    }
+  }
+  }
   console.log(rewards)
   return res.status(200).json({ totalRewards: rewards });
 
