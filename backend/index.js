@@ -33,14 +33,14 @@ app.use(session({
 //   }));
 
 //Allow Access Control
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', host+':3000');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-    res.setHeader('Cache-Control', 'no-cache');
-    next();
-  });
+// app.use(function(req, res, next) {
+//     res.setHeader('Access-Control-Allow-Origin', host+':3000');
+//     res.setHeader('Access-Control-Allow-Credentials', 'true');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+//     res.setHeader('Cache-Control', 'no-cache');
+//     next();
+//   });
 
   var corsOptions = {
     origin: "team7-1-3-2103565225.us-west-1.elb.amazonaws.com",
