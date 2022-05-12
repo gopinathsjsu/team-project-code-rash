@@ -236,7 +236,7 @@ const {cartTotal,totalItems,emptyCart}  = useCart();
 
             <div style={{ float: "left" }}>
                 <h1><b>Amount</b></h1><br></br>
-                <b><p>Total Amount : ${cartTotal}</p></b><br></br>
+                <b><p>Total Amount : ${+(Math.round(totalAmount + "e+2")  + "e-2")}</p></b><br></br>
                 <b><p>Rewards Available : ${rewards}</p></b>
                   <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
                       <b>Use Rewards</b>
