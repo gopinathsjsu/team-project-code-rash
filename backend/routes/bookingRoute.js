@@ -196,7 +196,7 @@ router.post("/bookroom", async (req, res) => {
               bookingid:booking._id,
               fromdate: moment(fromdate).format("DD-MM-YYYY"),
               todate: moment(todate).format("DD-MM-YYYY"),
-              points: totalAmount*0.1*(1+(totalOrders/100)),
+              points: Math.round(totalAmount*0.1*(1+(totalOrders/100))),
               type:"credit"
                    } //inserted data is the object to be inserted 
           }})
@@ -269,10 +269,8 @@ router.post("/modifyRewards", async (req, res) => {
       'rewards.$.bookingid': neworder._id,
       'rewards.$.fromdate': neworder.fromdate,
       'rewards.$.todate': neworder.todate,
-      'rewards.$.points': neworder.total*0.1,
+      'rewards.$.points': Math.round(neworder.total*0.1),
     
-
-
   }})
 
   return res.status(200).json({ message: "order updated successfully" });

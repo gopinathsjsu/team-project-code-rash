@@ -234,27 +234,38 @@ const {cartTotal,totalItems,emptyCart}  = useCart();
 
             ))}
 
+            <div style={{ float: "left" }}>
+                <h1><b>Amount</b></h1><br></br>
+                <b><p>Total Amount : ${cartTotal}</p></b><br></br>
+                <b><p>Rewards Available : ${rewards}</p></b>
+                  <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
+                      <b>Use Rewards</b>
+                  </Checkbox>
+             </div> 
 
+             <div style={{ float: "right" }}>
+              <div style={{ float: "right" }}>
+                  <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
+                  <br></br>
+                  <button className="button2 loginButton" onClick={onToken}>Book More</button>
+              </div>
                
-                {/* <hr /> */}
-                <br />
+                {/* <br />
                 <b><p>Total Amount : ${totalAmount}</p></b>
                 <br />
                 <b><p>Rewards Available : ${rewards}</p></b>
             <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
                 Use Rewards
-            </Checkbox>
+            </Checkbox> */}
               
-            <div className="row">
-            <div style={{ float: "right" }}>
-              
+            {/* <div className="row"> */}
+            {/* <div style={{ float: "right" }}>
                 <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
-               
-                
-              {/* </StripeCheckout> */}
-            </div>
+            </div> */}
+          {/* </div> */}
+          
           </div>
-          </div>
+        </div>
       )}
     </div>
   );
