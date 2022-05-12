@@ -70,7 +70,6 @@ function LoginScreen() {
                 LOGIN
               </button>
             )}
-            {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
 
             <a href='/register' style={{color:"#EC135F"}}>Are you a new member? Click here</a>
 

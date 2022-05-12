@@ -21,7 +21,7 @@ function AdminUserScreen() {
     { title: "Email Address", dataIndex: "email", key: "email" },
 
     {
-      title: "isAdmin",
+      title: "Admin",
       dataIndex: "isAdmin",
       key: "isAdmin",
       render: (isAdmin) => (

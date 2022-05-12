@@ -1,5 +1,6 @@
 class StringConstants {
-    url = "http://localhost:5000";
+    url = "http://localhost:3001";
+    // url = "http://54.183.182.209:3001"
     
   }
   

@@ -28,7 +28,7 @@ function ProfileScreen() {
                 {/* <b>My Profile</b> */}
                 <b>Name : </b>{user.name}<br></br><br></br>
                 <b>Email : </b>{user.email}<br></br><br></br>
-                <b>Rewards available :</b> ${user.rewards}<br></br>
+                <b>Rewards Available : </b>${}<br></br>
                 {/* <p>
                   IsAdmin :{" "}
                   {user.isAdmin ? (
@@ -47,6 +47,28 @@ function ProfileScreen() {
         </div>
         </TabPane>
       </Tabs>
+      {/* <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br> */}
+
+      
     </div>
   );
 }

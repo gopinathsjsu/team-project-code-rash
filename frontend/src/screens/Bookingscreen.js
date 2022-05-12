@@ -10,13 +10,17 @@ import {useCart} from 'react-use-cart'
 import Test from "./test";
 import { Checkbox, Divider } from 'antd';
 import 'antd/dist/antd.css';
+import { useSelector, useDispatch } from "react-redux";
+import { modify } from "../actions";
 
 
 function Bookingscreen({ match }) {
 
   const CheckboxGroup = Checkbox.Group;
-  const plainOptions = ['Continental Breakfast', 'Fitness Room', 'Swimming Pool/Jacuzzi', 'Parking', 'meals  (Breakfast, Lunch, Dinner)'];
+  const plainOptions = ['Continental Breakfast', 'Fitness Room', 'Swimming Pool/Jacuzzi', 'Parking', 'Meals  (Breakfast, Lunch, Dinner)'];
   const defaultCheckedList = [];
+
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -29,6 +33,8 @@ function Bookingscreen({ match }) {
   const [checkAll, setCheckAll] = useState(false);
   const [rentperday, setrentperday] = useState(0);
   const [rewards,setrewards] = useState(0);
+
+  const modifyData = useSelector(state => state.modifyData);
 
   const roomid = match.params.roomid;
   const fromdate = moment(match.params.fromdate, "DD-MM-YYYY");
@@ -94,7 +100,7 @@ function Bookingscreen({ match }) {
   }, []);
 
   useEffect(() => {
-    const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1;
+    const totaldays = moment.duration(todate.diff(fromdate)).asDays();
     setTotalDays(totaldays);
     //setTotalAmount(totalDays * room.rentperday);
   }, [room]);
@@ -119,6 +125,7 @@ function Bookingscreen({ match }) {
     try {
       setLoading(true);
       const result = await axios.post(STRINGS.url + "/api/bookings/bookroom", bookingDetails);
+      dispatch(modify({}))
       setLoading(false);
       Swal.fire(
         "Congratulations",
@@ -250,23 +257,23 @@ function Bookingscreen({ match }) {
       ) : (
         <div className="row justify-content-center mt-5 bs">
 
-          <div className="col-md-4">
+          <div className="col-md-5">
             <h1><b>{room.name}</b></h1>
             <img src={room.imageurls[0]} alt="" className="bigimg" />
           </div>
           
-          <div className="col-md-6">
-            <div style={{ textAlign: "left" }}>
-              <h1><b>Booking Details</b></h1>
+          <div className="col-md-3">
+              <div style={{ textAlign: "left" }}>
+              <h1>{modifyData.totalamount ? <b>Modify Details</b> :<b>Booking Details</b>}</h1>
               {/* <hr /> */}
-              
+                <br></br>
                 <p>
-                  Branch Name : {JSON.parse(localStorage.getItem("currentUser")).name}
+                <b>Branch Name : </b>{JSON.parse(localStorage.getItem("currentUser")).name}
                 </p>
-                <p>Check In Date : {match.params.fromdate}</p>
-                <p>Check Out Date : {match.params.todate}</p>
-                <p>Maximum Guests : {room.maxcount}</p>
-                <p>Add Amenities</p>
+                <p><b>Check In Date : </b>{match.params.fromdate}</p>
+                <p><b>Check Out Date : </b>{match.params.todate}</p>
+                <p><b>Maximum Guests : </b>{room.maxcount}</p><br></br>
+                <p><b>Add Amenities</b></p>
             </div>
             <div style={{ textAlign: "left" }}>
               <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
@@ -274,13 +281,19 @@ function Bookingscreen({ match }) {
               </Checkbox>
               <CheckboxGroup style={{display: "flex", "flex-direction": "column", textAlign: "right"}} options={plainOptions} value={checkedList} onChange={onChange} />
             </div>
-            <div style={{ textAlign: "right" }}><br/>
-              <h1><b>Amount</b></h1>
+          </div>
+
+          {!modifyData.totalamount ?
+          <div className="col-md-4">
+            <div style={{ textAlign: "right" }}>
+              <h1><b>Charges</b></h1>
               {/* <hr /> */}
+              <br></br>
               
-                <p>Total Days : {totalDays}</p>
-                <b><p>Total Amount : ${totalAmount}</p></b>
-                <b><p>Rewards Available : ${rewards}</p></b>
+                <p><b>Total Days of Stay : </b>{totalDays}</p>
+                {/* <p><b>Rent per day : </b>{rentperday}</p> */}
+                <p><b>Total Amount : </b>${totalAmount}</p>
+                <p><b>Rewards Available : </b>${rewards}</p>
                 <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
                 Use Rewards
               </Checkbox>
@@ -294,11 +307,36 @@ function Bookingscreen({ match }) {
                 token={onToken}
                 stripeKey="YOUR PUBLIC STRIP API KEY"
               > */}
+
                 <button className="button2 loginButton" onClick={onToken2}>Pay Now</button>
                 <button className="button2 loginButton" onClick={bookMore}>Book More</button>
               {/* </StripeCheckout> */}
             </div>
+          </div> :
+          <div className="col-md-4">
+            <div style={{ textAlign: "right" }}>
+              <h1><b>Changed Charges</b></h1>
+              {/* <hr /> */}
+                
+                <p>Total Days of Stay : {totalDays}</p>
+                <b><p>Amount Already Paid : ${modifyData.totalamount}</p></b>
+                {/* <b><p>Additional Amount to be Paid: ${totalAmount - modifyData.totalamount}</p></b> */}
+                <b><p>Total Current Amount : ${totalAmount}</p></b>
+            </div>
+            {totalAmount > modifyData.totalamount ? 
+
+              <div style={{ float: "right" }}>
+                  <b><p>Additional Amount to be Paid: ${totalAmount - modifyData.totalamount}</p></b>
+                  <button className="button2 loginButton" onClick={onToken}>Pay And Modify</button>
+              </div> : 
+
+              <div style={{ float: "right" }}>
+                <b><p>(Refund of ${modifyData.totalamount - totalAmount} will be added to your account)</p></b>
+                <button className="button2 loginButton" onClick={onToken}>Modify Booking</button>
+              </div>
+            }
           </div>
+          }
         </div>
       )}
     </div>

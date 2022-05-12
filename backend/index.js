@@ -33,21 +33,33 @@ app.use(session({
 //   }));
 
 //Allow Access Control
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', host+':3000');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-    res.setHeader('Cache-Control', 'no-cache');
-    next();
-  });
+// app.use(function(req, res, next) {
+//     res.setHeader('Access-Control-Allow-Origin', host+':3000');
+//     res.setHeader('Access-Control-Allow-Credentials', 'true');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+//     res.setHeader('Cache-Control', 'no-cache');
+//     next();
+//   });
+
+  var corsOptions = {
+    // origin: "team7-1-3-2103565225.us-west-1.elb.amazonaws.com",
+    // origin: "http://54.183.182.209:3000",
+    origin: "http://localhost:3000",
+    "Access-Control-Allow-Origin": "*",
+    credentials: "true",
+  };
+  app.use(cors(corsOptions));
 
 
   app.use(express.json());
+  app.get("/checkHealth", (req, res) => {
+    res.status(200).send("Up and Running from CMPE202");
+  });
   app.use("/api/rooms", roomsRoute);
   app.use("/api/users", usersRoute);
   app.use("/api/bookings", bookingRoute);
   
-  const port = process.env.PORT || 5000;
-  app.get("/", (req, res) => res.send("Hello World!"));
+  const port = process.env.PORT || 3001;
+  app.get("/", (req, res) => res.send("Hello from Team Code Rash!"));
   app.listen(port, () => console.log(`Node app listening on ${port} port!`));

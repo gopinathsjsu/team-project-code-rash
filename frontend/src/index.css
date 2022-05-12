@@ -73,7 +73,7 @@ h1 {
 }
 
 .bigimg {
-  height: 200px;
+  height: 250px;
   border-radius: 5px !important;
   /* width: 100% !important;
   border-radius: 5px !important; */
@@ -167,6 +167,7 @@ p {
   border: 1px solid black;
   border-radius: 50px;
   display: flex;
+  margin-right: 0;
 }
 
 .loginButton:hover {

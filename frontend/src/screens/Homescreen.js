@@ -135,6 +135,7 @@ function Homescreen() {
           <RangePicker format="DD-MM-YYYY" onChange={filterByDate} disabledDate={current => {
           return current && (current.valueOf() < Date.now()) && ((current + 7) < Date.now());
         }} ranges={current=>{return (current.valueOf(),current.valueOf()+7)}} />
+        {/* <RangePicker format="DD-MM-YYYY" onChange={filterByDate} /> */}
 
         </div>
 
@@ -142,7 +143,7 @@ function Homescreen() {
           <input
             type="text"
             className="form-control"
-            placeholder="Search location"
+            placeholder="Search by location"
             value={searchKey}
             onChange={(e) => {
               setSearchKey(e.target.value);
