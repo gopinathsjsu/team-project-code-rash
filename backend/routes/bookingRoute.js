@@ -99,6 +99,7 @@ router.post("/getRewards",async(req,res)=>{
   let credit_orders=0
   //console.log(user[0]["rewards"])
   let pending_rewards=0
+  let rewards_used=0
   for(let obj of user[0]["rewards"]){
     
     if (obj["todate"]!=undefined){
@@ -111,10 +112,11 @@ router.post("/getRewards",async(req,res)=>{
     //console.log(to_date_mod,current)
     //console.log(my booking working)
     if(to_date_mod<=current){
-     console.log("to date mod",obj["type"],obj["points"])
+    // console.log("to date mod",obj["type"],obj["points"])
      
     if(obj["type"]!=undefined && obj["type"]=="debit"){
       rewards=rewards-obj["points"]
+      rewards_used+=obj["points"]
     }
     else{
       credit_orders+=1
@@ -125,14 +127,16 @@ router.post("/getRewards",async(req,res)=>{
     if(obj["type"]!=undefined && obj["type"]=="credit"){
       pending_rewards+=obj["points"]
     }
-    
+    else{
+      pending_rewards-=obj["points"]
+    }
   }
   }
   
   }
   
   console.log("here are the total rewards",rewards)
-  return res.status(200).json({ totalRewards: +(Math.round(rewards + "e+2")  + "e-2") ,totalOrders:credit_orders, pendingRewards:+(Math.round(pending_rewards + "e+2")  + "e-2")});
+  return res.status(200).json({ totalRewards: +(Math.round(rewards + "e+2")  + "e-2") ,totalOrders:credit_orders, pendingRewards:+(Math.round(pending_rewards + "e+2")  + "e-2"), rewardsUsed:+(Math.round(rewards_used + "e+2")  + "e-2")});
 } catch (error) {
   console.log(error)
   return res.status(400).json({ message: error });
