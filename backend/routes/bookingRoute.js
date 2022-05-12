@@ -111,7 +111,7 @@ router.post("/getRewards",async(req,res)=>{
     //console.log(to_date_mod,current)
     
     if(to_date_mod<=current){
-     // console.log(obj["type"],obj["points"])
+     console.log("to date mod",obj["type"],obj["points"])
      
     if(obj["type"]!=undefined && obj["type"]=="debit"){
       rewards=rewards-obj["points"]
@@ -181,8 +181,8 @@ router.post("/bookroom", async (req, res) => {
             await User.findOneAndUpdate({_id:userid},{$push : {
               rewards :  {
                 bookingid:booking._id,
-                fromdate: current.format("DD-MM-YYYY"),
-                todate: current.format("DD-MM-YYYY"),
+                fromdate: moment(current).format("DD-MM-YYYY"),
+                todate: moment(current).format("DD-MM-YYYY"),
                 points: rewards_used,
                 type:"debit"
                      } //inserted data is the object to be inserted 
