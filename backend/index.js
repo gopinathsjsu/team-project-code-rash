@@ -42,12 +42,22 @@ app.use(function(req, res, next) {
     next();
   });
 
+  var corsOptions = {
+    origin: "team7-1-3-2103565225.us-west-1.elb.amazonaws.com",
+    "Access-Control-Allow-Origin": "*",
+    credentials: "true",
+  };
+  app.use(cors(corsOptions));
+
 
   app.use(express.json());
+  app.get("/checkHealth", (req, res) => {
+    res.status(200).send("Up and Running from CMPE202");
+  });
   app.use("/api/rooms", roomsRoute);
   app.use("/api/users", usersRoute);
   app.use("/api/bookings", bookingRoute);
   
-  const port = process.env.PORT || 5000;
+  const port = process.env.PORT || 3001;
   app.get("/", (req, res) => res.send("Hello World!"));
   app.listen(port, () => console.log(`Node app listening on ${port} port!`));
