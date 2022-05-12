@@ -212,7 +212,7 @@ function Bookingscreen({ match }) {
                 </p>
                 <p>Check In Date : {match.params.fromdate}</p>
                 <p>Check Out Date : {match.params.todate}</p>
-                <p>Max Count : {room.maxcount}</p>
+                <p>Maximum Guests : {room.maxcount}</p>
                 <p>Add Amenities</p>
             </div>
             <div style={{ textAlign: "left" }}>

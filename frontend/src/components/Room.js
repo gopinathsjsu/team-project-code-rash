@@ -18,9 +18,9 @@ function Room({ room, fromDate, toDate }) {
       <div className="col-md-8">
         <h1>{room.name}</h1>
         <b>
-          <p>Max Count : {room.maxcount}</p>
-          <p>Contact Number : {room.phonenumber}</p>
           <p>Room Type : {room.type}</p>
+          <p>Maximum Guests : {room.maxcount}</p>
+          <p>Contact Number : {room.phonenumber}</p>
         </b>
 
         <div style={{ float: "left" }}>

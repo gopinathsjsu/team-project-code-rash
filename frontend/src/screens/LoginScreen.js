@@ -36,7 +36,7 @@ function LoginScreen() {
     <div>
       {loading && <Loader></Loader>}
 
-      <div className="row justify-content-center mt-5" style={{marginRight:"0px"}}>
+      <div className="row justify-content-center mt-5" style={{marginRight:"0px", textAlign:"center"}}>
         <div className="col-md-4 mt-5">
           {error.length > 0 && <Error msg={error}></Error>}
           <div className="bs" style={{backgroundColor:"#232B2B", borderColor:"black", borderStyle:"groove", borderWidth:"0.01px"}}>
@@ -70,7 +70,7 @@ function LoginScreen() {
                 LOGIN
               </button>
             )}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {/* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
 
             <a href='/register' style={{color:"#EC135F"}}>Are you a new member? Click here</a>
 
@@ -84,6 +84,18 @@ function LoginScreen() {
       <br></br>
       <br></br>
       <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      
     </div>
     
   );

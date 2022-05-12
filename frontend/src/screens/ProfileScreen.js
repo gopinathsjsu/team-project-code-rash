@@ -26,8 +26,9 @@ function ProfileScreen() {
             <div className="col-xs-12 ml-5 mb-5">
               <div className="bs2">
                 {/* <b>My Profile</b> */}
-                <b>Name : </b>{user.name}<br></br>
-                <b>Email : </b>{user.email}<br></br>
+                <b>Name : </b>{user.name}<br></br><br></br>
+                <b>Email : </b>{user.email}<br></br><br></br>
+                <b>Rewards available :</b> ${user.rewards}<br></br>
                 {/* <p>
                   IsAdmin :{" "}
                   {user.isAdmin ? (

@@ -51,7 +51,7 @@ function RegisterScreen() {
       {loading && <Loader></Loader>}
       {error.length > 0 && <Error msg={error}></Error>}
 
-      <div className="row justify-content-center mt-5" style={{marginRight:"0px"}}>
+      <div className="row justify-content-center mt-5" style={{marginRight:"0px", textAlign:"center"}}>
         <div className="col-md-4 mt-4">
           {success.length > 0 && <Success msg={success}></Success>}
           <div className="bs" style={{backgroundColor:"#232B2B", borderColor:"black", borderStyle:"groove", borderWidth:"0.01px"}}>
@@ -77,7 +77,7 @@ function RegisterScreen() {
             />
             <br></br>
             <input
-              type="text"
+              type="password"
               className="form-control"
               placeholder="Enter your password"
               value={password}
@@ -87,7 +87,7 @@ function RegisterScreen() {
             />
             <br></br>
             <input
-              type="text"
+              type="password"
               className="form-control"
               placeholder="Enter your password to confirm"
               value={cpassword}
@@ -103,8 +103,8 @@ function RegisterScreen() {
                 REGSITER
               </button>
             )}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href='/login'  style={{color:"#EC135F", textAlign:"center"}}>Already an existing member? Click here</a>
+         
+            <a href='/login'  style={{color:"#EC135F"}}>Already an existing member? Click here</a>
 
           </div>
         </div>
@@ -112,6 +112,15 @@ function RegisterScreen() {
       <br></br>
       <br></br>
       <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+
+
     </div>
 
   );
