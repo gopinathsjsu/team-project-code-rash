@@ -132,9 +132,10 @@ function Homescreen() {
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div className="col-md-4">
-          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} disabledDate={current => {
+          {/* <RangePicker format="DD-MM-YYYY" onChange={filterByDate} disabledDate={current => {
           return current && (current.valueOf() < Date.now()) && ((current + 7) < Date.now());
-        }} ranges={current=>{return (current.valueOf(),current.valueOf()+7)}} />
+        }} ranges={current=>{return (current.valueOf(),current.valueOf()+7)}} /> */}
+        <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
 
         </div>
 

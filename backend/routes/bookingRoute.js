@@ -30,6 +30,27 @@ router.post("/getallbookings", async (req, res) => {
   }
 });
 
+
+router.post("/modifybooking", async (req, res) => {
+  const { bookingid, roomid } = req.body;
+  try {
+    const booking = await Booking.findOneAndDelete({ _id: bookingid });
+
+    // booking.status = "cancelled";
+    // await booking.save();
+    const room = await Room.findOne({ _id: roomid });
+    const bookings = room.currentbookings;
+    const temp = bookings.filter((x) => x.bookingid.toString() !== bookingid);
+    room.currentbookings = temp;
+    await room.save();
+
+    res.status(200).send("Your booking modify successfully");
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ message: error });
+  }
+});
+
 router.post("/cancelbooking", async (req, res) => {
   const { bookingid, roomid } = req.body;
   try {

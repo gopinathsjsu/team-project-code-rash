@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Tag } from "antd";
@@ -6,8 +7,11 @@ import { Tag } from "antd";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import STRINGS from "../constant";
+import { modify } from "../actions";
 
 function MyBookingScreen() {
+  const dispatch = useDispatch();
+
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -61,6 +65,27 @@ function MyBookingScreen() {
     setLoading(false);
   }
 
+
+  async function modifyBooking(bookingid, roomid, booking) {
+    setError("");
+    dispatch(modify(booking));
+    window.location.href = "/home";
+    try {
+      const data = (
+        await axios.post(STRINGS.url + "/api/bookings/modifybooking", {
+          bookingid,
+          roomid,
+        })
+      ).data;
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      //setError(error);
+      Swal.fire("Oops", "" + error, "error");
+    }
+    setLoading(false);
+  }
+
   return (
     <div>
       {loading ? (
@@ -105,7 +130,7 @@ function MyBookingScreen() {
                       <button
                         className="button2 cancelButton"
                         onClick={() => {
-                          cancelBooking(booking._id, booking.roomid);
+                          modifyBooking(booking._id, booking.roomid, booking);
                         }}
                       >
                         Modify Booking

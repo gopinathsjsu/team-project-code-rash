@@ -10,6 +10,8 @@ import {useCart} from 'react-use-cart'
 import Test from "./test";
 import { Checkbox, Divider } from 'antd';
 import 'antd/dist/antd.css';
+import { useSelector, useDispatch } from "react-redux";
+import { modify } from "../actions";
 
 
 function Bookingscreen({ match }) {
@@ -17,6 +19,8 @@ function Bookingscreen({ match }) {
   const CheckboxGroup = Checkbox.Group;
   const plainOptions = ['Continental Breakfast', 'Fitness Room', 'Swimming Pool/Jacuzzi', 'Parking', 'meals  (Breakfast, Lunch, Dinner)'];
   const defaultCheckedList = [];
+
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -29,6 +33,8 @@ function Bookingscreen({ match }) {
   const [checkAll, setCheckAll] = useState(false);
   const [rentperday, setrentperday] = useState(0);
   const [rewards,setrewards] = useState(0);
+
+  const modifyData = useSelector(state => state.modifyData);
 
   const roomid = match.params.roomid;
   const fromdate = moment(match.params.fromdate, "DD-MM-YYYY");
@@ -117,6 +123,7 @@ function Bookingscreen({ match }) {
     try {
       setLoading(true);
       const result = await axios.post(STRINGS.url + "/api/bookings/bookroom", bookingDetails);
+      dispatch(modify({}))
       setLoading(false);
       Swal.fire(
         "Congratulations",
@@ -204,7 +211,7 @@ function Bookingscreen({ match }) {
           
           <div className="col-md-3">
               <div style={{ textAlign: "left" }}>
-              <h1><b>Booking Details</b></h1>
+              <h1>{modifyData.totalamount ? <b>Modify Details</b> :<b>Booking Details</b>}</h1>
               {/* <hr /> */}
                 <p>
                   Branch Name : {JSON.parse(localStorage.getItem("currentUser")).name}
@@ -220,9 +227,10 @@ function Bookingscreen({ match }) {
               </Checkbox>
               <CheckboxGroup style={{display: "flex", "flex-direction": "column", textAlign: "right"}} options={plainOptions} value={checkedList} onChange={onChange} />
             </div>
-        </div>
+          </div>
 
-        <div className="col-md-3">
+          {!modifyData.totalamount ?
+          <div className="col-md-3">
             <div style={{ textAlign: "right" }}>
               <h1><b>Amount</b></h1>
               {/* <hr /> */}
@@ -246,7 +254,29 @@ function Bookingscreen({ match }) {
                 <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
               {/* </StripeCheckout> */}
             </div>
+          </div> :
+          <div className="col-md-3">
+            <div style={{ textAlign: "right" }}>
+              <h1><b>Changed Amount</b></h1>
+              {/* <hr /> */}
+                
+                <p>Total Days : {totalDays}</p>
+                <b><p>Amount Paid : ${modifyData.totalamount}</p></b>
+                <b><p>Total Current Amount : ${totalAmount}</p></b>
+            </div>
+            {totalAmount > modifyData.totalamount ? 
+
+              <div style={{ float: "right" }}>
+                  <button className="button2 loginButton" onClick={onToken}>Pay And Modify</button>
+              </div> : 
+
+              <div style={{ float: "right" }}>
+                <p>addition amount will be added to your accout</p>
+                <button className="button2 loginButton" onClick={onToken}>Modify Booking</button>
+              </div>
+            }
           </div>
+          }
         </div>
       )}
     </div>
