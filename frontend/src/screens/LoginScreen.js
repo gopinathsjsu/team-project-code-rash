@@ -50,7 +50,6 @@ function LoginScreen() {
                 setEmail(e.target.value);
               }}
             />
-
             <br></br>
 
             <input
@@ -64,7 +63,6 @@ function LoginScreen() {
             />
 
             <br></br>
-
             {loading ? (
               <div>Logging in...</div>
             ) : (

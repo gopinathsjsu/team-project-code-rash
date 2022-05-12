@@ -40,7 +40,7 @@ function ProfileScreen() {
             </div>
           </div>
         </TabPane>
-        <TabPane tab="BOOKING" key="2">
+        <TabPane tab="MY BOOKINGS" key="2">
         <div className="bs2">
           <MyBookingScreen></MyBookingScreen>
         </div>

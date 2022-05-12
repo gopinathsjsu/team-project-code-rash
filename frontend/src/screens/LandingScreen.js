@@ -44,7 +44,7 @@ function LandingScreen() {
             />
             <Card
                 src="https://media.nomadicmatt.com/2018/apartment.jpg"
-                title="Duplex Bedrooms"
+                title="Suite"
                 description="Luxurious Rooms with vast spaces just for your long weekends"
                 price=" Starting from $70/night"
             />
