@@ -197,7 +197,7 @@ function Bookingscreen({ match }) {
       ) : (
         <div className="row justify-content-center mt-5 bs">
 
-          <div className="col-md-5">
+          <div className="col-md-6">
             <h1><b>{room.name}</b></h1>
             <img src={room.imageurls[0]} alt="" className="bigimg" />
           </div>
@@ -206,13 +206,14 @@ function Bookingscreen({ match }) {
               <div style={{ textAlign: "left" }}>
               <h1><b>Booking Details</b></h1>
               {/* <hr /> */}
+                <br></br>
                 <p>
-                  Branch Name : {JSON.parse(localStorage.getItem("currentUser")).name}
+                <b>Branch Name : </b>{JSON.parse(localStorage.getItem("currentUser")).name}
                 </p>
-                <p>Check In Date : {match.params.fromdate}</p>
-                <p>Check Out Date : {match.params.todate}</p>
-                <p>Maximum Guests : {room.maxcount}</p>
-                <p>Add Amenities</p>
+                <p><b>Check In Date : </b>{match.params.fromdate}</p>
+                <p><b>Check Out Date : </b>{match.params.todate}</p>
+                <p><b>Maximum Guests : </b>{room.maxcount}</p><br></br>
+                <p><b>Add Amenities</b></p>
             </div>
             <div style={{ textAlign: "left" }}>
               <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
@@ -224,12 +225,13 @@ function Bookingscreen({ match }) {
 
         <div className="col-md-3">
             <div style={{ textAlign: "right" }}>
-              <h1><b>Amount</b></h1>
+              <h1><b>Charges</b></h1>
               {/* <hr /> */}
+              <br></br>
               
-                <p>Total Days : {totalDays}</p>
-                <b><p>Total Amount : ${totalAmount}</p></b>
-                <b><p>Rewards Available : ${rewards}</p></b>
+                <p><b>Total Days of Stay : </b>{totalDays}</p>
+                <p><b>Total Amount : </b>${totalAmount}</p>
+                <p><b>Rewards Available : </b>${rewards}</p>
                 <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
                 Use Rewards
               </Checkbox>
@@ -243,6 +245,7 @@ function Bookingscreen({ match }) {
                 token={onToken}
                 stripeKey="YOUR PUBLIC STRIP API KEY"
               > */}
+              <br></br>
                 <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
               {/* </StripeCheckout> */}
             </div>

@@ -84,7 +84,7 @@ function MyBookingScreen() {
                     <p>
                       <b>Check Out Date : </b> {booking.todate}
                     </p>
-                    {booking.amenities.length && <p>
+                    {booking.amenities.length > 0 && <p>
                     <b>Amenities : </b> {JSON.stringify(booking.amenities)}
                     </p>}
                     <p>
