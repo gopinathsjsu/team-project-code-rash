@@ -40,10 +40,10 @@
   
 
 ### Architecture Diagram
-
+![](https://github.com/gopinathsjsu/team-project-code-rash/blob/main/Documentation/Diagrams/Architecture%20Diagram.jpeg)
 
 ### Class Diagram
-
+![](https://github.com/gopinathsjsu/team-project-code-rash/blob/main/Documentation/Diagrams/Class%20Diagram.png)
 
 ### Link to team's GitHub Repo 
 https://github.com/gopinathsjsu/team-project-code-rash
