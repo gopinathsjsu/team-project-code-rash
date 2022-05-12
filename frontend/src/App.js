@@ -9,7 +9,7 @@ import Bookingscreen from './screens/Bookingscreen';
 import ProfileScreen from './screens/ProfileScreen';
 import AdminScreen from './screens/AdminScreen';
 import Footer from './components/Footer';
-
+import CartScreen from './screens/CartScreen'
 //App Component
 export default function App() {
   return (
@@ -28,6 +28,8 @@ export default function App() {
         <Route path="/profile" exact component={ProfileScreen} />
         <Route path="/bookings" exact component={ProfileScreen} />
         <Route path="/admin" exact component={AdminScreen} />
+        <Route path="/cart" exact component={CartScreen} />
+
       </BrowserRouter>
       <Footer/>
     </div>

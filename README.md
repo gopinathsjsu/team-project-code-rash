@@ -41,28 +41,41 @@
 
 ### Architecture Diagram
 
-### GitHub Repo 
+
+### Class Diagram
+
+
+### Link to team's GitHub Repo 
 https://github.com/gopinathsjsu/team-project-code-rash
 
-### Project Board
+### Link to team's Project Board
 https://github.com/gopinathsjsu/team-project-code-rash/projects/1
 
-### Google Sprint Task Sheet
+### Link to team's Google Sprint Task Sheet
 https://docs.google.com/spreadsheets/d/13gUidq-4Wmffb-xHHNgz9p9wrn0GRqPDQghvKsaRWRs/edit?usp=sharing
 
-### Project Journal
+### Link to team's Project Journal
 https://github.com/gopinathsjsu/team-project-code-rash/tree/main/Documentation/Journals
 
-### Tech Stack
-MERN Stack
+### Tools and Languages Used
+Frontend : React JS
+Backend : Node JS, Express JS
+Database : MongoDB
+Cloud : AWS EC2
 
 ### XP Values followed
-1. Simplicity
-  - We tried to keep the things simple and built the application according to the requirements stated.
+1. Communication
+  - WhatsApp was used a primary source of our communication.
+  - Everyone on our team worked jointly at every stage of the project to keep a track of our progress.
+  - We conducted a weekly sprint once a week on Thursday to keep a track of the progress made until then.
+  - During weekly sprints, we tried to identify our blockers and tried to remove them in the next sprint.
+  - Our team followed a hybrid communication approach in conducting meetings such as in-person meetings and online meetings through Zoom.   
 
-2. Communication
-  - Organized weekly standups twice a week to keep a track of the progress made until then.  
-
-3. Feedback
-  - Identified areas for improvement through constant feedback and revise the practices. 
-
+2. Feedback
+  - Couple of minutes were reserved for feedback at the end of each sprint to discuss if any improvement was needed by a team member. 
+  - We identified areas for improvement through constant feedback and revised the practices previously followed. 
+   
+3. Simplicity
+  - We tried to keep the things simple and follow "to do only what is needed".
+  - We also tried to minimize the wastage of time by doing only the absolute requirements stated in the problem statement.
+  

@@ -61,5 +61,5 @@ app.use(session({
   app.use("/api/bookings", bookingRoute);
   
   const port = process.env.PORT || 3001;
-  app.get("/", (req, res) => res.send("Hello World!"));
+  app.get("/", (req, res) => res.send("Hello from Team Code Rash!"));
   app.listen(port, () => console.log(`Node app listening on ${port} port!`));

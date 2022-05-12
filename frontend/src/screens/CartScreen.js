@@ -10,11 +10,11 @@ import {useCart} from 'react-use-cart'
 import Test from "./test";
 import { Checkbox, Divider } from 'antd';
 import 'antd/dist/antd.css';
+import CartCard from "./CartCard";
 
+function CartScreen({ match }) {
 
-function Bookingscreen({ match }) {
-
-  const CheckboxGroup = Checkbox.Group;
+  //const CheckboxGroup = Checkbox.Group;
   const plainOptions = ['Continental Breakfast', 'Fitness Room', 'Swimming Pool/Jacuzzi', 'Parking', 'meals  (Breakfast, Lunch, Dinner)'];
   const defaultCheckedList = [];
 
@@ -36,8 +36,14 @@ function Bookingscreen({ match }) {
   const [rewardsChecked,setrewardsChecked] = useState(false)
   const [rewardsused,setRewardsUsed]=useState(0)
   const [orders,setorders]=useState(0)
+
+const {cartTotal,totalItems,emptyCart}  = useCart();
   useEffect(() => {
+    let totalPrice=cartTotal
+    console.log("here is the total cart value",totalPrice)
+    setTotalAmount(totalPrice)
     const user = JSON.parse(localStorage.getItem("currentUser"));
+  
     console.log(items)
     if (!user) {
       window.location.href = "/login";
@@ -70,7 +76,7 @@ function Bookingscreen({ match }) {
       console.log("Price--------------->",totalPrice["data"]["totalPrice"])
      // setTotalAmount(totalPrice["data"]["totalPrice"]*totalDays)
      //setrentperday(totalPrice["data"]["totalPrice"]) 
-     setTotalAmount(totalPrice["data"]["totalPrice"])
+    
      let userId =  JSON.parse(localStorage.getItem("currentUser"))._id
      let totalRewards = await axios.post(STRINGS.url + "/api/bookings/getRewards",{userid:userId},res=>{return res})
      //let neworder = await axios.post(STRINGS.url + "/api/bookings/modifyRewards",{userid:userId},res=>{return res})
@@ -80,6 +86,8 @@ function Bookingscreen({ match }) {
 
      setrewards(totalRewards["data"]["totalRewards"])
      setorders(totalRewards["data"]["totalOrders"])
+
+     console.log("total amount---------->",totalAmount)
      return totalPrice
     }
 
@@ -92,13 +100,16 @@ function Bookingscreen({ match }) {
   }, []);
 
   useEffect(() => {
+    
     const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1;
     setTotalDays(totaldays);
     //setTotalAmount(totalDays * room.rentperday);
   }, [room]);
 
   const onToken = async (token) => {
+    
     console.log(token);
+    /*
     const bookingDetails = {
       room,
       userid: JSON.parse(localStorage.getItem("currentUser"))._id,
@@ -113,11 +124,29 @@ function Bookingscreen({ match }) {
     };
 
     console.log(bookingDetails);
-
+    */
+   let rewardsOnEachOrder = 0
+    if(rewardsused>0){
+      rewardsOnEachOrder = rewardsused/totalItems
+    }
     try {
       setLoading(true);
+      for (let bookingDetails of items){
+        bookingDetails["totalOrders"]=orders+1
+        bookingDetails["rewards_used"] = rewardsOnEachOrder
+        bookingDetails["room"]=bookingDetails["room_details"]
+        bookingDetails["totalAmount"]=bookingDetails["itemTotal"]
+        setorders(orders+1)
+        
       const result = await axios.post(STRINGS.url + "/api/bookings/bookroom", bookingDetails);
+      //console.log("here are the booking details---->",bookingDetails)
+      
+      console.log("booking successful")
       setLoading(false);
+    }
+      
+    emptyCart()
+    
       Swal.fire(
         "Congratulations",
         "Your booking has been done successfully!!",
@@ -129,7 +158,6 @@ function Bookingscreen({ match }) {
       setError(error);
       Swal.fire("Oops", "" + error, "error");
     }
-    setLoading(false);
     //TESTING CARD
     //https://stripe.com/docs/testing
     //https://www.npmjs.com/package/react-stripe-checkout
@@ -151,6 +179,7 @@ function Bookingscreen({ match }) {
     setCheckAll(list.length === plainOptions.length);
   };
   const onrewardChanged =(e)=>{
+    console.log("what i got--------->",totalAmount)
     setrewardsChecked(!rewardsChecked)
     if (rewardsChecked){
         setrewards(rewards+rewardsused)
@@ -196,55 +225,45 @@ function Bookingscreen({ match }) {
         <Error msg={error}></Error>
       ) : (
         <div className="row justify-content-center mt-5 bs">
+            
 
-          <div className="col-md-4">
-            <h1><b>{room.name}</b></h1>
-            <img src={room.imageurls[0]} alt="" className="bigimg" />
-          </div>
-          
-          <div className="col-md-6">
-            <div style={{ textAlign: "left" }}>
-              <h1><b>Booking Details</b></h1>
-              {/* <hr /> */}
-              
-                <p>
-                  Branch Name : {JSON.parse(localStorage.getItem("currentUser")).name}
-                </p>
-                <p>Check In Date : {match.params.fromdate}</p>
-                <p>Check Out Date : {match.params.todate}</p>
-                <p>Max Count : {room.maxcount}</p>
-                <p>Add Amenities</p>
-            </div>
-            <div style={{ textAlign: "left" }}>
-              <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
-                Check all
-              </Checkbox>
-              <CheckboxGroup style={{display: "flex", "flex-direction": "column", textAlign: "right"}} options={plainOptions} value={checkedList} onChange={onChange} />
-            </div>
-            <div style={{ textAlign: "right" }}><br/>
-              <h1><b>Amount</b></h1>
-              {/* <hr /> */}
-              
-                <p>Total Days : {totalDays}</p>
-                <b><p>Total Amount : ${totalAmount}</p></b>
+            {items.map((item) => (
+
+                <CartCard bookingDetails = {item} />
+
+
+            ))}
+
+            <div style={{ float: "left" }}>
+                <h1><b>Amount</b></h1><br></br>
+                <b><p>Total Amount : ${+(Math.round(totalAmount + "e+2")  + "e-2")}</p></b><br></br>
                 <b><p>Rewards Available : ${rewards}</p></b>
-                <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
-                Use Rewards
-              </Checkbox>
-              
-            </div>
+                  <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
+                      <b>Use Rewards</b>
+                  </Checkbox>
+             </div> 
 
-            <div style={{ float: "right" }}>
-              {/* <StripeCheckout
-                amount={totalAmount * 100}
-                currency="USD"
-                token={onToken}
-                stripeKey="YOUR PUBLIC STRIP API KEY"
-              > */}
+             <div style={{ float: "right" }}>
+              <div style={{ float: "right" }}>
+                  <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
+                  <br></br>
+                  <button className="button2 loginButton" onClick={onToken}>Book More</button>
+              </div>
+               
+                {/* <br />
+                <b><p>Total Amount : ${totalAmount}</p></b>
+                <br />
+                <b><p>Rewards Available : ${rewards}</p></b>
+            <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
+                Use Rewards
+            </Checkbox> */}
+              
+            {/* <div className="row"> */}
+            {/* <div style={{ float: "right" }}>
                 <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
-                
-              {/* </StripeCheckout> */}
-            </div>
+            </div> */}
+          {/* </div> */}
+          
           </div>
         </div>
       )}
@@ -252,4 +271,4 @@ function Bookingscreen({ match }) {
   );
 }
 
-export default Bookingscreen;
+export default CartScreen;

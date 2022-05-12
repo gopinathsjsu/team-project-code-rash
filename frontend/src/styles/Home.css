@@ -1,4 +1,13 @@
+.home {
+  min-height: 100%;
+  margin: 0 auto -50px;
+}
 .home__section {
     display: flex;
     padding: 30px;
+
   }
+
+.push{
+  height: 100px;
+}

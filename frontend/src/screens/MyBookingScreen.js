@@ -110,10 +110,12 @@ function MyBookingScreen() {
                       <b>Check Out Date : </b> {booking.todate}
                     </p>
                     {booking.amenities.length > 0 && <p>
-                    <b>Amenities : </b> {JSON.stringify(booking.amenities)}
+                    <b>Amenities : </b> 
+                    {/* {JSON.stringify(booking.amenities)} */}
+                    {booking.amenities.toString()}
                     </p>}
                     <p>
-                      <b>Amount : </b> ${booking.totalamount}
+                      <b>Amount Paid: </b> ${booking.totalamount}
                     </p>
                     <p>
                       <b>Status : </b>{" "}
@@ -160,6 +162,13 @@ function MyBookingScreen() {
           </div>
         </div>
       )}
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+
+
     </div>
   );
 }

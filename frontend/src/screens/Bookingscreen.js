@@ -17,7 +17,7 @@ import { modify } from "../actions";
 function Bookingscreen({ match }) {
 
   const CheckboxGroup = Checkbox.Group;
-  const plainOptions = ['Continental Breakfast', 'Fitness Room', 'Swimming Pool/Jacuzzi', 'Parking', 'meals  (Breakfast, Lunch, Dinner)'];
+  const plainOptions = ['Continental Breakfast', 'Fitness Room', 'Swimming Pool/Jacuzzi', 'Parking', 'Meals  (Breakfast, Lunch, Dinner)'];
   const defaultCheckedList = [];
 
   const dispatch = useDispatch();
@@ -42,6 +42,8 @@ function Bookingscreen({ match }) {
   const [rewardsChecked,setrewardsChecked] = useState(false)
   const [rewardsused,setRewardsUsed]=useState(0)
   const [orders,setorders]=useState(0)
+  const { addItem } = useCart();
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     console.log(items)
@@ -98,7 +100,7 @@ function Bookingscreen({ match }) {
   }, []);
 
   useEffect(() => {
-    const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1;
+    const totaldays = moment.duration(todate.diff(fromdate)).asDays();
     setTotalDays(totaldays);
     //setTotalAmount(totalDays * room.rentperday);
   }, [room]);
@@ -149,7 +151,85 @@ function Bookingscreen({ match }) {
     //   });
     // });
   };
+  ///////////////////////////////////////
 
+  const onToken2 = async () => {
+
+    let orderid=localStorage.getItem("order_id")
+
+    if(orderid==undefined){
+      orderid=0
+    }
+    orderid+=1
+    localStorage.setItem("order_id",orderid)
+    const bookingDetails = {
+      id:orderid,
+      room_details:room,
+      userid: JSON.parse(localStorage.getItem("currentUser"))._id,
+      from:fromdate,
+      to:todate,
+      price: totalAmount,
+      totaldays: totalDays,
+      amenities: checkedList,
+      rewards_used:rewardsused,
+      
+
+    };
+    
+    addItem(bookingDetails)
+    
+
+    
+        window.location.href = "/cart";
+      };
+  
+
+
+
+  ///////////////////////////////
+
+
+  const bookMore = async () => {
+    let orderid=localStorage.getItem("order_id")
+
+    if(orderid==undefined){
+      orderid=0
+    }
+    orderid+=1
+    localStorage.setItem("order_id",orderid)
+    const bookingDetails = {
+      id:orderid,
+      room_details:room,
+      userid: JSON.parse(localStorage.getItem("currentUser"))._id,
+      from:fromdate,
+      to:todate,
+      price: totalAmount,
+      totaldays: totalDays,
+      amenities: checkedList,
+      rewards_used:rewardsused,
+      
+
+    };
+    
+    addItem(bookingDetails)
+    console.log(bookingDetails);
+    window.location.href = "/home";
+    try {
+     
+      }
+     catch (error) {
+      setError(error);
+      Swal.fire("Oops", "" + error, "error");
+    }
+    setLoading(false);
+    
+  };
+
+
+
+
+
+  ////////////////////////////////////
   const onChange = (list) => {
     console.log()
     setTotalAmount(totalAmount + (list.length - checkedList.length)*totalDays*10);
@@ -204,7 +284,7 @@ function Bookingscreen({ match }) {
       ) : (
         <div className="row justify-content-center mt-5 bs">
 
-          <div className="col-md-6">
+          <div className="col-md-5">
             <h1><b>{room.name}</b></h1>
             <img src={room.imageurls[0]} alt="" className="bigimg" />
           </div>
@@ -231,18 +311,16 @@ function Bookingscreen({ match }) {
           </div>
 
           {!modifyData.totalamount ?
-          <div className="col-md-3">
+          <div className="col-md-4">
             <div style={{ textAlign: "right" }}>
               <h1><b>Charges</b></h1>
               {/* <hr /> */}
               <br></br>
               
                 <p><b>Total Days of Stay : </b>{totalDays}</p>
+                {/* <p><b>Rent per day : </b>{rentperday}</p> */}
                 <p><b>Total Amount : </b>${totalAmount}</p>
-                <p><b>Rewards Available : </b>${rewards}</p>
-                <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
-                Use Rewards
-              </Checkbox>
+                
               
             </div>
 
@@ -253,28 +331,31 @@ function Bookingscreen({ match }) {
                 token={onToken}
                 stripeKey="YOUR PUBLIC STRIP API KEY"
               > */}
-              <br></br>
-                <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
+
+                <button className="button2 loginButton" onClick={onToken2}>Pay Now</button>
+                <button className="button2 loginButton" onClick={bookMore}>Book More</button>
               {/* </StripeCheckout> */}
             </div>
           </div> :
-          <div className="col-md-3">
+          <div className="col-md-4">
             <div style={{ textAlign: "right" }}>
-              <h1><b>Changed Amount</b></h1>
+              <h1><b>Changed Charges</b></h1>
               {/* <hr /> */}
                 
-                <p>Total Days : {totalDays}</p>
-                <b><p>Amount Paid : ${modifyData.totalamount}</p></b>
+                <p>Total Days of Stay : {totalDays}</p>
+                <b><p>Amount Already Paid : ${modifyData.totalamount}</p></b>
+                {/* <b><p>Additional Amount to be Paid: ${totalAmount - modifyData.totalamount}</p></b> */}
                 <b><p>Total Current Amount : ${totalAmount}</p></b>
             </div>
             {totalAmount > modifyData.totalamount ? 
 
               <div style={{ float: "right" }}>
+                  <b><p>Additional Amount to be Paid: ${totalAmount - modifyData.totalamount}</p></b>
                   <button className="button2 loginButton" onClick={onToken}>Pay And Modify</button>
               </div> : 
 
               <div style={{ float: "right" }}>
-                <p>addition amount will be added to your accout</p>
+                <b><p>(Refund of ${modifyData.totalamount - totalAmount} will be added to your account)</p></b>
                 <button className="button2 loginButton" onClick={onToken}>Modify Booking</button>
               </div>
             }

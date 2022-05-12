@@ -3,12 +3,26 @@ import { Tabs } from "antd";
 import { Tag } from "antd";
 
 import MyBookingScreen from "./MyBookingScreen";
-const { TabPane } = Tabs;
+import axios from "axios";
+import STRINGS from "../constant";
 
 function ProfileScreen() {
+  const { TabPane } = Tabs;
+const [pending_rewards,setpending_rewards]=useState(0)
+const [claimed_rewards,setclaimed_rewards]=useState(0)
+const [used_rewards,setused_rewards]=useState(0)
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
   useEffect(() => {
+    async function fetchapi(){
+    let totalRewards = await axios.post(STRINGS.url + "/api/bookings/getRewards",{userid:user._id},res=>{return res})
+    console.log(totalRewards)
+    setpending_rewards(totalRewards["data"]["pendingRewards"])
+    setclaimed_rewards(totalRewards["data"]["totalRewards"])
+    setused_rewards(totalRewards["data"]["rewardsUsed"])
+    
+    }
+    fetchapi()
     if (!user) {
       window.location.href = "/login";
     }
@@ -28,7 +42,14 @@ function ProfileScreen() {
                 {/* <b>My Profile</b> */}
                 <b>Name : </b>{user.name}<br></br><br></br>
                 <b>Email : </b>{user.email}<br></br><br></br>
-                <b>Rewards Available : </b>${}<br></br>
+                
+                {/* {{pending_rewards} && {pending_rewards}} */}
+
+                <b>Rewards Pending : </b>${pending_rewards}<br></br><br></br>
+                <b>Rewards Available : </b>${claimed_rewards}<br></br><br></br>
+                <b>Rewards Used : </b>${used_rewards}<br></br><br></br>
+                
+
                 {/* <p>
                   IsAdmin :{" "}
                   {user.isAdmin ? (
