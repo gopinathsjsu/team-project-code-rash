@@ -1,4 +1,6 @@
+const e = require("express");
 const express = require("express");
+
 const moment = require("moment");
 const stripe = require("stripe")("YOUR PRIVATE STRIP API KEY"); //
 const { v4: uuidv4 } = require("uuid"); //https://www.npmjs.com/package/uuid
@@ -96,6 +98,7 @@ router.post("/getRewards",async(req,res)=>{
   let current = new Date()
   let credit_orders=0
   //console.log(user[0]["rewards"])
+  let pending_rewards=0
   for(let obj of user[0]["rewards"]){
     
     if (obj["todate"]!=undefined){
@@ -106,7 +109,8 @@ router.post("/getRewards",async(req,res)=>{
     current.setHours(0,0,0,0)
     to_date_mod.setHours(0,0,0,0)
     //console.log(to_date_mod,current)
-    if(to_date_mod>=current){
+    
+    if(to_date_mod<=current){
      // console.log(obj["type"],obj["points"])
      
     if(obj["type"]!=undefined && obj["type"]=="debit"){
@@ -117,12 +121,18 @@ router.post("/getRewards",async(req,res)=>{
       rewards=rewards+obj["points"]
     }
   }
+  else{
+    if(obj["type"]!=undefined && obj["type"]=="credit"){
+      pending_rewards+=obj["points"]
+    }
+    
+  }
   }
   
   }
   
   console.log("here are the total rewards",rewards)
-  return res.status(200).json({ totalRewards: +(Math.round(rewards + "e+2")  + "e-2") ,totalOrders:credit_orders});
+  return res.status(200).json({ totalRewards: +(Math.round(rewards + "e+2")  + "e-2") ,totalOrders:credit_orders, pendingRewards:+(Math.round(pending_rewards + "e+2")  + "e-2")});
 } catch (error) {
   console.log(error)
   return res.status(400).json({ message: error });
@@ -166,12 +176,13 @@ router.post("/bookroom", async (req, res) => {
 
           await roomTmp.save();
           console.log
+          let current = new Date()
           if(rewards_used>0){
             await User.findOneAndUpdate({_id:userid},{$push : {
               rewards :  {
                 bookingid:booking._id,
-                fromdate: moment(fromdate).format("DD-MM-YYYY"),
-                todate: moment(todate).format("DD-MM-YYYY"),
+                fromdate: current.format("DD-MM-YYYY"),
+                todate: current.format("DD-MM-YYYY"),
                 points: rewards_used,
                 type:"debit"
                      } //inserted data is the object to be inserted 
