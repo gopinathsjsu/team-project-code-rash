@@ -19,8 +19,8 @@ function AdminBookingScreen() {
     },
     { title: "Room ID", dataIndex: "roomid", key: "roomid" },
     { title: "Branch Name", dataIndex: "room", key: "room" },
-    { title: "From Date", dataIndex: "fromdate", key: "fromdate" },
-    { title: "To Date", dataIndex: "todate", key: "todate" },
+    { title: "Check In Date", dataIndex: "fromdate", key: "fromdate" },
+    { title: "Check Out Date", dataIndex: "todate", key: "todate" },
     {
       title: "Status",
       dataIndex: "status",

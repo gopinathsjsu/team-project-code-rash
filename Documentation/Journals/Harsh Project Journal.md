@@ -1,11 +1,11 @@
 Sprint 1: 03/07/2022 - 03/13/2022
 - Weekly Scrum Report
 	- What tasks did I work on / complete?
-		1. Requirement Analyis.
-		2. Pros and cons of multiple tech stack.
-		3. Helped in creating Architecture diagram.
+		1. Requirement Analyis
+		2. Pros and cons of multiple tech stack
+		3. Helped in creating Class diagram 
 	- What am I planning to work on next?
-		1. Learning React JS.
+		1. Learning React JS
 	- What tasks are blocked waiting on another team member?
 		1. None
  - Select one of the XP Core Values and keep a journal of how the team kept these values throughout the project.
@@ -45,8 +45,8 @@ Sprint 4: 03/28/2022 - 04/03/2022
 		1. Designed hotel list page.
         2. Modified Registration and Login page.
 	- What am I planning to work on next?
-        1. Research on how to implement dynamic pricing as per holidays, weekend and different festivals
-        2. Check how to use Ant Design components	. 
+        1. Research on how to implement dynamic pricing as per holidays, weekend and different festivals.
+        2. Check how to use Ant Design components.	 
 	- What tasks are blocked waiting on another team member?
 		1. None
 - Select one of the XP Core Values and keep a journal of how the team kept these values throughout the project.
