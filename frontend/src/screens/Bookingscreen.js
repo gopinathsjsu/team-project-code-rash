@@ -98,7 +98,7 @@ function Bookingscreen({ match }) {
   }, []);
 
   useEffect(() => {
-    const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1;
+    const totaldays = moment.duration(todate.diff(fromdate)).asDays();
     setTotalDays(totaldays);
     //setTotalAmount(totalDays * room.rentperday);
   }, [room]);
@@ -238,6 +238,7 @@ function Bookingscreen({ match }) {
               <br></br>
               
                 <p><b>Total Days of Stay : </b>{totalDays}</p>
+                {/* <p><b>Rent per day : </b>{rentperday}</p> */}
                 <p><b>Total Amount : </b>${totalAmount}</p>
                 <p><b>Rewards Available : </b>${rewards}</p>
                 <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
@@ -260,11 +261,12 @@ function Bookingscreen({ match }) {
           </div> :
           <div className="col-md-3">
             <div style={{ textAlign: "right" }}>
-              <h1><b>Changed Amount</b></h1>
+              <h1><b>Changed Charges</b></h1>
               {/* <hr /> */}
                 
-                <p>Total Days : {totalDays}</p>
-                <b><p>Amount Paid : ${modifyData.totalamount}</p></b>
+                <p>Total Days of Stay : {totalDays}</p>
+                <b><p>Amount Already Paid : ${modifyData.totalamount}</p></b>
+                {/* <b><p>Additional Amount to be Paid: ${totalAmount - modifyData.totalamount}</p></b> */}
                 <b><p>Total Current Amount : ${totalAmount}</p></b>
             </div>
             {totalAmount > modifyData.totalamount ? 
@@ -274,7 +276,7 @@ function Bookingscreen({ match }) {
               </div> : 
 
               <div style={{ float: "right" }}>
-                <p>addition amount will be added to your accout</p>
+                <p>Additional amount will be added to your accout</p>
                 <button className="button2 loginButton" onClick={onToken}>Modify Booking</button>
               </div>
             }

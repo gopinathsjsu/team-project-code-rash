@@ -113,7 +113,7 @@ function MyBookingScreen() {
                     <b>Amenities : </b> {JSON.stringify(booking.amenities)}
                     </p>}
                     <p>
-                      <b>Amount : </b> ${booking.totalamount}
+                      <b>Amount Paid: </b> ${booking.totalamount}
                     </p>
                     <p>
                       <b>Status : </b>{" "}
