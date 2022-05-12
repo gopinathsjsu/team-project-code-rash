@@ -28,12 +28,14 @@ function Bookingscreen({ match }) {
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
   const [rentperday, setrentperday] = useState(0);
-  
+  const [rewards,setrewards] = useState(0);
 
   const roomid = match.params.roomid;
   const fromdate = moment(match.params.fromdate, "DD-MM-YYYY");
   const todate = moment(match.params.todate, "DD-MM-YYYY");
-
+  const [rewardsChecked,setrewardsChecked] = useState(false)
+  const [rewardsused,setRewardsUsed]=useState(0)
+  
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     console.log(items)
@@ -71,8 +73,10 @@ function Bookingscreen({ match }) {
      setTotalAmount(totalPrice["data"]["totalPrice"])
      let userId =  JSON.parse(localStorage.getItem("currentUser"))._id
      let totalRewards = await axios.post(STRINGS.url + "/api/bookings/getRewards",{userid:userId},res=>{return res})
-     console.log("Rewards--------------->",totalRewards["data"]["totalRewards"])
+     //let neworder = await axios.post(STRINGS.url + "/api/bookings/modifyRewards",{userid:userId},res=>{return res})
 
+     console.log("Rewards--------------->",totalRewards["data"]["totalRewards"])
+     setrewards(totalRewards["data"]["totalRewards"])
      return totalPrice
     }
 
@@ -99,7 +103,8 @@ function Bookingscreen({ match }) {
       todate,
       totalAmount,
       totaldays: totalDays,
-      amenities: checkedList
+      amenities: checkedList,
+      rewards_used:rewardsused
     };
 
     console.log(bookingDetails);
@@ -140,6 +145,33 @@ function Bookingscreen({ match }) {
     setIndeterminate(!!list.length && list.length < plainOptions.length);
     setCheckAll(list.length === plainOptions.length);
   };
+  const onrewardChanged =(e)=>{
+    setrewardsChecked(!rewardsChecked)
+    if (rewardsChecked){
+        setrewards(rewards+rewardsused)
+        setRewardsUsed(0)
+        setTotalAmount(rewardsused+totalAmount)
+      console.log("checked")
+
+    }
+    else{
+
+      if (totalAmount<rewards){
+        let diff =rewards-totalAmount
+        setrewards(diff)
+        setRewardsUsed(totalAmount)
+        setTotalAmount(0)
+      }
+      else{
+        let diff =totalAmount-rewards
+        setrewards(0)
+        setRewardsUsed(rewards)
+        setTotalAmount(diff)
+      }
+      console.log("not checked")
+      
+    }
+  }
 
   const onCheckAllChange = (e) => {
     setCheckedList(e.target.checked ? plainOptions : []);
@@ -190,6 +222,10 @@ function Bookingscreen({ match }) {
               
                 <p>Total Days : {totalDays}</p>
                 <b><p>Total Amount : ${totalAmount}</p></b>
+                <b><p>Rewards Available : ${rewards}</p></b>
+                <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
+                Use Rewards
+              </Checkbox>
               
             </div>
 

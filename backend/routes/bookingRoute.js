@@ -66,52 +66,35 @@ router.post("/getRewards",async(req,res)=>{
   try {
     const { userid } =
       req.body;
-      
-    
-   /*
-    let rewards = await User.aggregate([{"$match":{_id:userid}},
-      { "$addFields": { 
-          "totalRewards": {
-              
-                      "$filter": {
-                          "input": "$this.rewards",
-                          "as": "el",
-                          "cond": {
-                              "$and": [,
-                                  { "$lte": ["$$el.todate", new Date("2022-05-15") ] },
-                              ]
-                          }
-                      }
-                  
-                 
-              
-          }
-      } },
-      { "$addFields": { 
-        "initialValue":0,
-        "totalRewards": { "$sum": "$totalRewards.points" }
-    } }
-  ]);
-  */
+   
 
   let user = await User.find({_id:userid})
-  console.log(user)
-  console.log(user[0]["rewards"])
+  //console.log(user)
+  //console.log(user[0]["rewards"])
   let rewards= 0
   let current = new Date()
+  //console.log(typeof (user[0]["rewards"]))
   for(let obj of user[0]["rewards"]){
-    console.log(obj["todate"])
+    
     if (obj["todate"]!=undefined){
+      //console.log("her is the date",obj["todate"])
     let date_comps=obj["todate"].split("-")
-    console.log(date_comps)
+    //console.log(date_comps)
     if(new Date(date_comps[2]+"-"+date_comps[1]+"-"+date_comps[0])>=current){
-    rewards=rewards+obj["points"]
+      //console.log(obj)
+    if(obj["type"]!=undefined && obj["type"]=="debit"){
+      rewards=rewards-obj["points"]
+    }
+    else{
+      rewards=rewards+obj["points"]
     }
   }
   }
-  console.log(rewards)
-  return res.status(200).json({ totalRewards: rewards });
-
+  
+  }
+  
+  console.log()
+  return res.status(200).json({ totalRewards: +(Math.round(rewards + "e+2")  + "e-2") });
 } catch (error) {
   console.log(error)
   return res.status(400).json({ message: error });
@@ -119,9 +102,9 @@ router.post("/getRewards",async(req,res)=>{
 })
 router.post("/bookroom", async (req, res) => {
   try {
-    const { room, userid, fromdate, todate, totalAmount, totaldays, amenities, token } =
+    const { room, userid, fromdate, todate, totalAmount, totaldays, amenities, rewards_used } =
       req.body;
-
+    console.log("rewards used",rewards_used)
     try {
       if (true) {
         try {
@@ -149,12 +132,26 @@ router.post("/bookroom", async (req, res) => {
           });
 
           await roomTmp.save();
+          if(rewards_used!=0){
+            await User.findOneAndUpdate({_id:userid},{$push : {
+              rewards :  {
+                bookingid:booking._id,
+                fromdate: moment(fromdate).format("DD-MM-YYYY"),
+                todate: moment(todate).format("DD-MM-YYYY"),
+                points: rewards_used,
+                type:"debit"
+                     } //inserted data is the object to be inserted 
+            }}) 
+  
+          }
+          
           await User.findOneAndUpdate({_id:userid},{$push : {
             rewards :  {
               bookingid:booking._id,
               fromdate: moment(fromdate).format("DD-MM-YYYY"),
               todate: moment(todate).format("DD-MM-YYYY"),
               points: totalAmount*0.1,
+              type:"credit"
                    } //inserted data is the object to be inserted 
           }})
       //    let user =User.find({_id:userid})
@@ -210,5 +207,30 @@ router.post("/getprices", async (req, res) => {
     return res.status(400).json({ message: error });
   }
 });
+
+router.post("/modifyRewards", async (req, res) => {
+  try {
+    const { user, order ,neworder} =
+      req.body;
+    let newtotal=0
+     
+    User.updateOne({'_id':user._id,"rewards.bookingid": order._id}, {'$set': {
+      'rewards.$.bookingid': neworder._id,
+      'rewards.$.fromdate': neworder.fromdate,
+      'rewards.$.todate': neworder.todate,
+      'rewards.$.points': neworder.total*0.1,
+    
+
+
+  }})
+
+  return res.status(200).json({ message: "order updated successfully" });
+  } catch (error) {
+    console.log(error)
+    return res.status(400).json({ message: error });
+  }
+});
+
+
 
 module.exports = router;
