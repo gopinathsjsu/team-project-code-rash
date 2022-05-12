@@ -53,4 +53,12 @@ https://docs.google.com/spreadsheets/d/13gUidq-4Wmffb-xHHNgz9p9wrn0GRqPDQghvKsaR
 ### Project Journal
 https://github.com/gopinathsjsu/team-project-code-rash/tree/main/Documentation/Journal
 
+### Tech Stack
+MERN Stack
+
+### XP Values followed
+1. Simplicity
+2. Communication
+3. Feedback
+
 
