@@ -19,21 +19,18 @@ function CartCard({ bookingDetails }) {
     <div className="m-5">
       <div className="row justify-content-center mt-5 bs">
 
-          <div className="col-md-6">
+          <div className="col-md-12">
             <div style={{ textAlign: "left" }}>
-              <h1><b>Booking Details</b></h1>
-              {/* <hr /> */}
+              <h1 style={{textAlign:"center"}}><b>Booking Details</b></h1>
+              <hr />
               
                 <p>
-                  Branch Name : {bookingDetails.name}
+                  <b>Branch Name : </b>{bookingDetails.room_details.name}
                 </p>
-                <p>Check In Date : {bookingDetails.from}</p>
-                <p>Check Out Date : {bookingDetails.to}</p>
-               
-             
-                <p>Total Days : {bookingDetails.totaldays}</p>
-                <b><p>Total Amount : ${bookingDetails.price}</p></b>
-              
+                <p><b>Check In Date : </b>{bookingDetails.from}</p>
+                <p><b>Check Out Date : </b>{bookingDetails.to}</p>
+                <p><b>Total Days : </b>{bookingDetails.totaldays}</p>
+                <p><b>Total Amount : </b>${bookingDetails.price}</p>
               
             </div>
 
