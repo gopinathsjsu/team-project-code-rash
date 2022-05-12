@@ -65,11 +65,11 @@ Cloud : AWS EC2
 
 ### XP Values followed
 1. Communication
+  - WhatsApp was used a primary source of our communication.
   - Everyone on our team worked jointly at every stage of the project to keep a track of our progress.
   - We conducted a weekly sprint once a week on Thursday to keep a track of the progress made until then.
   - During weekly sprints, we tried to identify our blockers and tried to remove them in the next sprint.
-  - Our team followed a hybrid communication approach in conducting meetings such as in-person meetings and online meetings through Zoom.
-  - WhatsApp was used a primary source of our communication.   
+  - Our team followed a hybrid communication approach in conducting meetings such as in-person meetings and online meetings through Zoom.   
 
 2. Feedback
   - Couple of minutes were reserved for feedback at the end of each sprint to discuss if any improvement was needed by a team member. 
