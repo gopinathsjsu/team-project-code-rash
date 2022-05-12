@@ -41,6 +41,7 @@ router.post("/modifybooking", async (req, res) => {
     // booking.status = "cancelled";
     // await booking.save();
     const room = await Room.findOne({ _id: roomid });
+    const user = await User.findOne({_id:userid})
     const bookings = room.currentbookings;
     const temp = bookings.filter((x) => x.bookingid.toString() !== bookingid);
     room.currentbookings = temp;
@@ -54,18 +55,41 @@ router.post("/modifybooking", async (req, res) => {
 });
 
 router.post("/cancelbooking", async (req, res) => {
-  const { bookingid, roomid } = req.body;
+  const { bookingid, roomid,userid } = req.body;
   try {
     const booking = await Booking.findOne({ _id: bookingid });
 
     booking.status = "cancelled";
     await booking.save();
     const room = await Room.findOne({ _id: roomid });
+    const user = await User.findOne({_id:userid})
+   
+    let modify_reward
+    for(let reward of user["rewards"]){
+        if(reward["bookingid"]==bookingid){
+          modify_reward=reward
+          break
+        }
+    }
+    await User.findOneAndUpdate({_id:userid},{$push : {
+      rewards :  {
+        bookingid:booking._id,
+        fromdate: modify_reward["fromdate"],
+        todate: modify_reward["todate"],
+        points: modify_reward["points"],
+        type:"debit"
+             } //inserted data is the object to be inserted 
+    }}) 
     const bookings = room.currentbookings;
     const temp = bookings.filter((x) => x.bookingid.toString() !== bookingid);
     room.currentbookings = temp;
     await room.save();
+    
 
+
+
+
+    
     res.send("Your booking cancelled successfully");
   } catch (error) {
     console.log(error);

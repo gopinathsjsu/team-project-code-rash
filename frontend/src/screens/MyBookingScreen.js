@@ -47,6 +47,7 @@ function MyBookingScreen() {
         await axios.post(STRINGS.url + "/api/bookings/cancelbooking", {
           bookingid,
           roomid,
+          userid: user._id,
         })
       ).data;
       setLoading(false);
@@ -75,6 +76,7 @@ function MyBookingScreen() {
         await axios.post(STRINGS.url + "/api/bookings/modifybooking", {
           bookingid,
           roomid,
+          userid: user._id,
         })
       ).data;
       setLoading(false);

@@ -242,12 +242,13 @@ const {cartTotal,totalItems,emptyCart}  = useCart();
                       <b>Use Rewards</b>
                   </Checkbox>
              </div> 
-
+              <br />
+              <br />
              <div style={{ float: "right" }}>
               <div style={{ float: "right" }}>
                   <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
                   <br></br>
-                  <button className="button2 loginButton" onClick={onToken}>Book More</button>
+                  
               </div>
                
                 {/* <br />

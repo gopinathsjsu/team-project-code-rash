@@ -107,7 +107,7 @@ Sprint 8: 04/25/2022 - 04/01/2022
 	- What tasks did I work on / complete?
 		1. Completed end to end testing of application.
 		2. Deployed application on AWS.
-        3. Perform stress tests and unit testing
+        3. Performed stress tests and unit testing
 	- What am I planning to work on next?
 		1. None
 	- What tasks are blocked waiting on another team member?
