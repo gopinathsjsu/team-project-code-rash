@@ -42,9 +42,6 @@ const [used_rewards,setused_rewards]=useState(0)
                 {/* <b>My Profile</b> */}
                 <b>Name : </b>{user.name}<br></br><br></br>
                 <b>Email : </b>{user.email}<br></br><br></br>
-                
-                {/* {{pending_rewards} && {pending_rewards}} */}
-
                 <b>Rewards Pending : </b>${pending_rewards}<br></br><br></br>
                 <b>Rewards Available : </b>${claimed_rewards}<br></br><br></br>
                 <b>Rewards Used : </b>${used_rewards}<br></br><br></br>

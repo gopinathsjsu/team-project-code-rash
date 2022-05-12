@@ -43,9 +43,9 @@ app.use(session({
 //   });
 
   var corsOptions = {
-    // origin: "team7-1-3-2103565225.us-west-1.elb.amazonaws.com",
+    origin: "http://team7-1-3-2103565225.us-west-1.elb.amazonaws.com",
     // origin: "http://54.183.182.209:3000",
-    origin: "http://localhost:3000",
+    // origin: "http://localhost:3000",
     "Access-Control-Allow-Origin": "*",
     credentials: "true",
   };
