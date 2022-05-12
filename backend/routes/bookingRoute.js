@@ -73,6 +73,7 @@ router.post("/getRewards",async(req,res)=>{
   //console.log(user[0]["rewards"])
   let rewards= 0
   let current = new Date()
+  let credit_orders=0
   //console.log(typeof (user[0]["rewards"]))
   for(let obj of user[0]["rewards"]){
     
@@ -86,6 +87,7 @@ router.post("/getRewards",async(req,res)=>{
       rewards=rewards-obj["points"]
     }
     else{
+      credit_orders+=1
       rewards=rewards+obj["points"]
     }
   }
@@ -94,7 +96,7 @@ router.post("/getRewards",async(req,res)=>{
   }
   
   console.log()
-  return res.status(200).json({ totalRewards: +(Math.round(rewards + "e+2")  + "e-2") });
+  return res.status(200).json({ totalRewards: +(Math.round(rewards + "e+2")  + "e-2") ,totalOrders:credit_orders});
 } catch (error) {
   console.log(error)
   return res.status(400).json({ message: error });
@@ -102,7 +104,7 @@ router.post("/getRewards",async(req,res)=>{
 })
 router.post("/bookroom", async (req, res) => {
   try {
-    const { room, userid, fromdate, todate, totalAmount, totaldays, amenities, rewards_used } =
+    const { room, userid, fromdate, todate, totalAmount, totaldays, amenities, rewards_used,totalOrders } =
       req.body;
     console.log("rewards used",rewards_used)
     try {
@@ -145,12 +147,13 @@ router.post("/bookroom", async (req, res) => {
   
           }
           
+          
           await User.findOneAndUpdate({_id:userid},{$push : {
             rewards :  {
               bookingid:booking._id,
               fromdate: moment(fromdate).format("DD-MM-YYYY"),
               todate: moment(todate).format("DD-MM-YYYY"),
-              points: totalAmount*0.1,
+              points: totalAmount*0.1*(1+(totalOrders/100)),
               type:"credit"
                    } //inserted data is the object to be inserted 
           }})

@@ -35,7 +35,7 @@ function Bookingscreen({ match }) {
   const todate = moment(match.params.todate, "DD-MM-YYYY");
   const [rewardsChecked,setrewardsChecked] = useState(false)
   const [rewardsused,setRewardsUsed]=useState(0)
-  
+  const [orders,setorders]=useState(0)
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     console.log(items)
@@ -76,7 +76,10 @@ function Bookingscreen({ match }) {
      //let neworder = await axios.post(STRINGS.url + "/api/bookings/modifyRewards",{userid:userId},res=>{return res})
 
      console.log("Rewards--------------->",totalRewards["data"]["totalRewards"])
+     console.log("Orders--------------->",totalRewards["data"]["totalOrders"])
+
      setrewards(totalRewards["data"]["totalRewards"])
+     setorders(totalRewards["data"]["totalOrders"])
      return totalPrice
     }
 
@@ -104,7 +107,9 @@ function Bookingscreen({ match }) {
       totalAmount,
       totaldays: totalDays,
       amenities: checkedList,
-      rewards_used:rewardsused
+      rewards_used:rewardsused,
+      totalOrders:orders+1
+
     };
 
     console.log(bookingDetails);
