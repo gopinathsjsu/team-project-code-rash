@@ -61,12 +61,12 @@ https://github.com/gopinathsjsu/team-project-code-rash/tree/main/Documentation/J
 MERN Stack
 
 ### XP Values followed
-1. Simplicity
-  - We tried to keep the things simple and built the application according to the requirements stated.
-
-2. Communication
+1. Communication
   - Organized weekly standups twice a week to keep a track of the progress made until then.  
 
-3. Feedback
+2. Feedback
   - Identified areas for improvement through constant feedback and revise the practices. 
+   
+3. Simplicity
+  - We tried to keep the things simple and built the application according to the requirements stated.
 
