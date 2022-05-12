@@ -51,11 +51,11 @@ function RegisterScreen() {
       {loading && <Loader></Loader>}
       {error.length > 0 && <Error msg={error}></Error>}
 
-      <div className="row justify-content-center mt-5" style={{marginRight:"0px"}}>
+      <div className="row justify-content-center mt-5" style={{marginRight:"0px", textAlign:"center"}}>
         <div className="col-md-4 mt-4">
           {success.length > 0 && <Success msg={success}></Success>}
-          <div className="bs">
-            <h2>Register your account</h2>
+          <div className="bs" style={{backgroundColor:"#232B2B", borderColor:"black", borderStyle:"groove", borderWidth:"0.01px"}}>
+            <h2 style={{color:"#ffffff"}}>Register your account</h2>
             <input
               type="text"
               className="form-control"
@@ -77,7 +77,7 @@ function RegisterScreen() {
             />
             <br></br>
             <input
-              type="text"
+              type="password"
               className="form-control"
               placeholder="Enter your password"
               value={password}
@@ -87,7 +87,7 @@ function RegisterScreen() {
             />
             <br></br>
             <input
-              type="text"
+              type="password"
               className="form-control"
               placeholder="Enter your password to confirm"
               value={cpassword}
@@ -99,14 +99,30 @@ function RegisterScreen() {
             {loading ? (
               <div>Registering your account...</div>
             ) : (
-              <button className="button2 loginButton" onClick={register}>
+              <button className="button2 registerButton" onClick={register}>
                 REGSITER
               </button>
             )}
+         
+            <a href='/login'  style={{color:"#EC135F"}}>Already an existing member? Click here</a>
+
           </div>
         </div>
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+
+
     </div>
+
   );
 }
 

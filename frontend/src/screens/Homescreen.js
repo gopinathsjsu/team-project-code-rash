@@ -35,7 +35,7 @@ function Homescreen() {
         setError("");
         setLoading(true);
         const data = (await axios.get(STRINGS.url + "/api/rooms/getallrooms")).data;
-        //console.log(data);
+        console.log("here is the data you requested",data);
         setRooms(data);
         setDuplicateRooms(data);
       } catch (error) {
@@ -48,6 +48,21 @@ function Homescreen() {
     fetchMyAPI();
   }, []);
 
+  function disabledDate(current){
+    // or (if it's a class method)
+    //disabledDate = (current) => { 
+        let start = current.valueOf();
+        let end = current.valueOf()+7;
+        if (current < moment(start)){
+            return true;
+        }
+        else if (current > moment(end)){
+            return true;
+        }
+        else {
+            return false; 
+        }
+    }
   function filterByDate(dates) {
     // console.log(moment(dates[0]).format("DD-MM-YYYY"));
     // console.log(moment(dates[1]).format("DD-MM-YYYY"));
@@ -113,18 +128,22 @@ function Homescreen() {
     <div className="container">
 
     <br></br>
-      <div className="row mt-5 bs">
+      <div className="row mt-5 bs1">
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div className="col-md-3">
-          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+        <div className="col-md-4">
+          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} disabledDate={current => {
+          return current && (current.valueOf() < Date.now()) && ((current + 7) < Date.now());
+        }} ranges={current=>{return (current.valueOf(),current.valueOf()+7)}} />
+        {/* <RangePicker format="DD-MM-YYYY" onChange={filterByDate} /> */}
+
         </div>
 
         <div className="col-md-3">
           <input
             type="text"
             className="form-control"
-            placeholder="search rooms"
+            placeholder="Search by location"
             value={searchKey}
             onChange={(e) => {
               setSearchKey(e.target.value);
@@ -142,8 +161,9 @@ function Homescreen() {
             }}
           >
             <option value="all">All</option>
-            <option value="delux">Delux</option>
-            <option value="non-delux">Non-Delux</option>
+            <option value="Single Room">Single Room</option>
+            <option value="Double Room">Double Room</option>
+            <option value="Suite">Suite</option>
           </select>
         </div>
       </div>
@@ -163,6 +183,9 @@ function Homescreen() {
           })
         )}
       </div>
+    <br></br>
+    <br></br>
+
     </div>
   );
 }

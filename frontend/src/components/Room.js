@@ -17,15 +17,13 @@ function Room({ room, fromDate, toDate }) {
       </div>
       <div className="col-md-8">
         <h1>{room.name}</h1>
-        <b>
-          <p>Max Count : {room.maxcount}</p>
-          <p>Contact Number : {room.phonenumber}</p>
-          <p>Room Type : {room.type}</p>
-        </b>
+          <p><b>Room Type : </b> {room.type}</p>
+          <p><b>Maximum Guests : </b> {room.maxcount}</p>
+          <p><b>Contact Number : </b> {room.phonenumber}</p>
 
         <div style={{ float: "left" }}>
           {fromDate && toDate && (
-            <Link to={`/book/${room._id}/${fromDate}/${toDate}`}>
+            <Link to={`/book/${room.type}/${room._id}/${fromDate}/${toDate}`}>
               <button className="button2 loginButton" >Book Now</button>
             </Link>
           )}
@@ -47,6 +45,7 @@ function Room({ room, fromDate, toDate }) {
           </Button>
         </Modal.Header>
         <Modal.Body>
+        <p>{room.description}</p>
           <Carousel prevLabel="" nextLabel="">
             {room.imageurls.map((url) => {
               return (
@@ -60,7 +59,7 @@ function Room({ room, fromDate, toDate }) {
               );
             })}
           </Carousel>
-          <p>{room.description}</p>
+          {/* <p>{room.description}</p> */}
         </Modal.Body>
         
         {/* <Modal.Footer>

@@ -10,17 +10,13 @@ import {useCart} from 'react-use-cart'
 import Test from "./test";
 import { Checkbox, Divider } from 'antd';
 import 'antd/dist/antd.css';
-import { useSelector, useDispatch } from "react-redux";
-import { modify } from "../actions";
+import CartCard from "./CartCard";
 
+function CartScreen({ match }) {
 
-function Bookingscreen({ match }) {
-
-  const CheckboxGroup = Checkbox.Group;
-  const plainOptions = ['Continental Breakfast', 'Fitness Room', 'Swimming Pool/Jacuzzi', 'Parking', 'Meals  (Breakfast, Lunch, Dinner)'];
+  //const CheckboxGroup = Checkbox.Group;
+  const plainOptions = ['Continental Breakfast', 'Fitness Room', 'Swimming Pool/Jacuzzi', 'Parking', 'meals  (Breakfast, Lunch, Dinner)'];
   const defaultCheckedList = [];
-
-  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -34,16 +30,14 @@ function Bookingscreen({ match }) {
   const [rentperday, setrentperday] = useState(0);
   const [rewards,setrewards] = useState(0);
 
-  const modifyData = useSelector(state => state.modifyData);
-
   const roomid = match.params.roomid;
   const fromdate = moment(match.params.fromdate, "DD-MM-YYYY");
   const todate = moment(match.params.todate, "DD-MM-YYYY");
   const [rewardsChecked,setrewardsChecked] = useState(false)
   const [rewardsused,setRewardsUsed]=useState(0)
   const [orders,setorders]=useState(0)
-  const { addItem } = useCart();
 
+const {cartTotal}  = useCart();
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     console.log(items)
@@ -100,7 +94,7 @@ function Bookingscreen({ match }) {
   }, []);
 
   useEffect(() => {
-    const totaldays = moment.duration(todate.diff(fromdate)).asDays();
+    const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1;
     setTotalDays(totaldays);
     //setTotalAmount(totalDays * room.rentperday);
   }, [room]);
@@ -125,7 +119,6 @@ function Bookingscreen({ match }) {
     try {
       setLoading(true);
       const result = await axios.post(STRINGS.url + "/api/bookings/bookroom", bookingDetails);
-      dispatch(modify({}))
       setLoading(false);
       Swal.fire(
         "Congratulations",
@@ -151,58 +144,7 @@ function Bookingscreen({ match }) {
     //   });
     // });
   };
-  ///////////////////////////////////////
 
-  const onToken2 = async () => {
-    
-        window.location.href = "/cart";
-      };
-  
-
-
-
-  ///////////////////////////////
-  const bookMore = async () => {
-    let orderid=localStorage.getItem("order_id")
-
-    if(orderid==undefined){
-      orderid=0
-    }
-    orderid+=1
-    localStorage.setItem("order_id",orderid)
-    const bookingDetails = {
-      id:orderid,
-      room_details:room,
-      userid: JSON.parse(localStorage.getItem("currentUser"))._id,
-      from:fromdate,
-      to:todate,
-      price: totalAmount,
-      totaldays: totalDays,
-      amenities: checkedList,
-      rewards_used:rewardsused,
-      
-
-    };
-    
-    addItem(bookingDetails)
-    console.log(bookingDetails);
-    window.location.href = "/home";
-    try {
-     
-      }
-     catch (error) {
-      setError(error);
-      Swal.fire("Oops", "" + error, "error");
-    }
-    setLoading(false);
-    
-  };
-
-
-
-
-
-  ////////////////////////////////////
   const onChange = (list) => {
     console.log()
     setTotalAmount(totalAmount + (list.length - checkedList.length)*totalDays*10);
@@ -256,91 +198,37 @@ function Bookingscreen({ match }) {
         <Error msg={error}></Error>
       ) : (
         <div className="row justify-content-center mt-5 bs">
+            
 
-          <div className="col-md-5">
-            <h1><b>{room.name}</b></h1>
-            <img src={room.imageurls[0]} alt="" className="bigimg" />
-          </div>
-          
-          <div className="col-md-3">
-              <div style={{ textAlign: "left" }}>
-              <h1>{modifyData.totalamount ? <b>Modify Details</b> :<b>Booking Details</b>}</h1>
-              {/* <hr /> */}
-                <br></br>
-                <p>
-                <b>Branch Name : </b>{JSON.parse(localStorage.getItem("currentUser")).name}
-                </p>
-                <p><b>Check In Date : </b>{match.params.fromdate}</p>
-                <p><b>Check Out Date : </b>{match.params.todate}</p>
-                <p><b>Maximum Guests : </b>{room.maxcount}</p><br></br>
-                <p><b>Add Amenities</b></p>
-            </div>
-            <div style={{ textAlign: "left" }}>
-              <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
-                Check all
-              </Checkbox>
-              <CheckboxGroup style={{display: "flex", "flex-direction": "column", textAlign: "right"}} options={plainOptions} value={checkedList} onChange={onChange} />
-            </div>
-          </div>
+            {items.map((item) => (
 
-          {!modifyData.totalamount ?
-          <div className="col-md-4">
-            <div style={{ textAlign: "right" }}>
-              <h1><b>Charges</b></h1>
-              {/* <hr /> */}
-              <br></br>
+                <CartCard bookingDetails = {item} />
+
+
+            ))}
+
+
+                <h1><b>Amount</b></h1>
+                {/* <hr /> */}
+                <b><p>Total Amount : ${cartTotal}</p></b>
               
-                <p><b>Total Days of Stay : </b>{totalDays}</p>
-                {/* <p><b>Rent per day : </b>{rentperday}</p> */}
-                <p><b>Total Amount : </b>${totalAmount}</p>
-                <p><b>Rewards Available : </b>${rewards}</p>
-                <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
+            <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
                 Use Rewards
-              </Checkbox>
+            </Checkbox>
               
-            </div>
-
+            
             <div style={{ float: "right" }}>
-              {/* <StripeCheckout
-                amount={totalAmount * 100}
-                currency="USD"
-                token={onToken}
-                stripeKey="YOUR PUBLIC STRIP API KEY"
-              > */}
-
-                <button className="button2 loginButton" onClick={onToken2}>Pay Now</button>
-                <button className="button2 loginButton" onClick={bookMore}>Book More</button>
+              
+                <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
+                <button className="button2 loginButton" onClick={onToken}>Book More</button>
+                
               {/* </StripeCheckout> */}
             </div>
-          </div> :
-          <div className="col-md-4">
-            <div style={{ textAlign: "right" }}>
-              <h1><b>Changed Charges</b></h1>
-              {/* <hr /> */}
-                
-                <p>Total Days of Stay : {totalDays}</p>
-                <b><p>Amount Already Paid : ${modifyData.totalamount}</p></b>
-                {/* <b><p>Additional Amount to be Paid: ${totalAmount - modifyData.totalamount}</p></b> */}
-                <b><p>Total Current Amount : ${totalAmount}</p></b>
-            </div>
-            {totalAmount > modifyData.totalamount ? 
-
-              <div style={{ float: "right" }}>
-                  <b><p>Additional Amount to be Paid: ${totalAmount - modifyData.totalamount}</p></b>
-                  <button className="button2 loginButton" onClick={onToken}>Pay And Modify</button>
-              </div> : 
-
-              <div style={{ float: "right" }}>
-                <b><p>(Refund of ${modifyData.totalamount - totalAmount} will be added to your account)</p></b>
-                <button className="button2 loginButton" onClick={onToken}>Modify Booking</button>
-              </div>
-            }
           </div>
-          }
-        </div>
+        
       )}
     </div>
   );
 }
 
-export default Bookingscreen;
+export default CartScreen;

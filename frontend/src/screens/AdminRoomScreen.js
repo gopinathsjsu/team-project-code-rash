@@ -18,14 +18,14 @@ function AdminRoomScreen() {
       key: "_id",
     },
     {
-      title: "Name",
+      title: "Branch Name",
       dataIndex: "name",
       key: "name",
     },
-    { title: "Max Count", dataIndex: "maxcount", key: "maxcount" },
-    { title: "Phone Number", dataIndex: "phonenumber", key: "phonenumber" },
-    { title: "Rent per day", dataIndex: "rentperday", key: "rentperday" },
     { title: "Type", dataIndex: "type", key: "type" },
+    { title: "Rent per day", dataIndex: "rentperday", key: "rentperday" },
+    { title: "Maximum Guests", dataIndex: "maxcount", key: "maxcount" },
+    { title: "Phone Number", dataIndex: "phonenumber", key: "phonenumber" },    
   ];
 
   async function fetchMyData() {

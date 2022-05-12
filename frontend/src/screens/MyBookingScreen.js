@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Tag } from "antd";
@@ -6,8 +7,11 @@ import { Tag } from "antd";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import STRINGS from "../constant";
+import { modify } from "../actions";
 
 function MyBookingScreen() {
+  const dispatch = useDispatch();
+
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -56,7 +60,28 @@ function MyBookingScreen() {
     } catch (error) {
       console.log(error);
       //setError(error);
-      Swal.fire("Oops", "Error:" + error, "error");
+      Swal.fire("Oops", "" + error, "error");
+    }
+    setLoading(false);
+  }
+
+
+  async function modifyBooking(bookingid, roomid, booking) {
+    setError("");
+    dispatch(modify(booking));
+    window.location.href = "/home";
+    try {
+      const data = (
+        await axios.post(STRINGS.url + "/api/bookings/modifybooking", {
+          bookingid,
+          roomid,
+        })
+      ).data;
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      //setError(error);
+      Swal.fire("Oops", "" + error, "error");
     }
     setLoading(false);
   }
@@ -76,22 +101,24 @@ function MyBookingScreen() {
                   <div className="bs">
                     <h1>{booking.room}</h1>
                     <p>
-                      <b>Booking ID:</b> {booking._id}
+                      <b>Booking ID : </b> {booking._id}
                     </p>
                     <p>
-                      <b>Check In Date:</b> {booking.fromdate}
+                      <b>Check In Date : </b> {booking.fromdate}
                     </p>
                     <p>
-                      <b>Check Out Date:</b> {booking.todate}
+                      <b>Check Out Date : </b> {booking.todate}
                     </p>
-                    {booking.amenities.length && <p>
-                    <b>Amenities:</b> {JSON.stringify(booking.amenities)}
+                    {booking.amenities.length > 0 && <p>
+                    <b>Amenities : </b> 
+                    {/* {JSON.stringify(booking.amenities)} */}
+                    {booking.amenities.toString()}
                     </p>}
                     <p>
-                      <b>Amount:</b> ${booking.totalamount}
+                      <b>Amount Paid: </b> ${booking.totalamount}
                     </p>
                     <p>
-                      <b>Status:</b>{" "}
+                      <b>Status : </b>{" "}
                       {booking.status === "booked" ? (
                         <Tag color="green">CONFIRMED</Tag>
                       ) : (
@@ -105,7 +132,7 @@ function MyBookingScreen() {
                       <button
                         className="button2 cancelButton"
                         onClick={() => {
-                          cancelBooking(booking._id, booking.roomid);
+                          modifyBooking(booking._id, booking.roomid, booking);
                         }}
                       >
                         Modify Booking

@@ -41,7 +41,7 @@ function AdminAddRoomScreen() {
     } catch (error) {
       console.log(error);
       setError(error);
-      Swal.fire("Opps", "Error:" + error, "error");
+      Swal.fire("Oops", "" + error, "error");
     }
 
     setLoading(false);
@@ -67,78 +67,78 @@ function AdminAddRoomScreen() {
           >
             <Form.Item
               name="name"
-              label="Name"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              label="Branch Name"
+              // rules={[
+              //   {
+              //     required: true,
+              //   },
+              // ]}
             >
               <Input />
             </Form.Item>
             <Form.Item
               name="description"
               label="Description"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              // rules={[
+              //   {
+              //     required: true,
+              //   },
+              // ]}
             >
               <Input />
             </Form.Item>
             <Form.Item
               name="maxcount"
-              label="Max Count"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              label="Maximum Guests"
+              // rules={[
+              //   {
+              //     required: true,
+              //   },
+              // ]}
             >
               <InputNumber min={1} defaultChecked={1} />
             </Form.Item>
             <Form.Item
               name="phonenumber"
               label="Phone Number"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              // rules={[
+              //   {
+              //     required: true,
+              //   },
+              // ]}
             >
               <Input />
             </Form.Item>
             <Form.Item
               name="rentperday"
               label="Rent per day"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              // rules={[
+              //   {
+              //     required: true,
+              //   },
+              // ]}
             >
               <InputNumber min={1} defaultChecked={1} />
             </Form.Item>
             <Form.Item
               name="imageurl1"
               label="Image URL-1"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              // rules={[
+              //   {
+              //     required: true,
+              //   },
+              // ]}
             >
               <Input />
             </Form.Item>
             <Form.Item
               name="imageurl2"
               label="Image URL-2"
-              rules={[
-                {
-                  //required: true,
-                },
-              ]}
+              // rules={[
+              //   {
+              //     //required: true,
+              //   },
+              // ]}
             >
               <Input />
             </Form.Item>
@@ -156,15 +156,16 @@ function AdminAddRoomScreen() {
             <Form.Item
               name="type"
               label="Room Type"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              // rules={[
+              //   {
+              //     required: true,
+              //   },
+              // ]}
             >
               <Select placeholder="Select a room type" allowClear>
-                <Option value="delux">Delux</Option>
-                <Option value="non-delux">Non-Delux</Option>
+                <Option value="Single Room">Single Room</Option>
+                <Option value="Double Room">Double Room</Option>
+                <Option value="Suite">Suite</Option>
               </Select>
             </Form.Item>
             <Form.Item {...tailLayout}>
