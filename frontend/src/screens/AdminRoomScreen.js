@@ -22,7 +22,7 @@ function AdminRoomScreen() {
       dataIndex: "name",
       key: "name",
     },
-    { title: "Max Count", dataIndex: "maxcount", key: "maxcount" },
+    { title: "Maximum Guests", dataIndex: "maxcount", key: "maxcount" },
     { title: "Phone Number", dataIndex: "phonenumber", key: "phonenumber" },
     { title: "Rent per day", dataIndex: "rentperday", key: "rentperday" },
     { title: "Type", dataIndex: "type", key: "type" },

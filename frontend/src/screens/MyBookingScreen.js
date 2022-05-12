@@ -76,22 +76,22 @@ function MyBookingScreen() {
                   <div className="bs">
                     <h1>{booking.room}</h1>
                     <p>
-                      <b>Booking ID:</b> {booking._id}
+                      <b>Booking ID : </b> {booking._id}
                     </p>
                     <p>
-                      <b>Check In Date:</b> {booking.fromdate}
+                      <b>Check In Date : </b> {booking.fromdate}
                     </p>
                     <p>
-                      <b>Check Out Date:</b> {booking.todate}
+                      <b>Check Out Date : </b> {booking.todate}
                     </p>
                     {booking.amenities.length && <p>
-                    <b>Amenities:</b> {JSON.stringify(booking.amenities)}
+                    <b>Amenities : </b> {JSON.stringify(booking.amenities)}
                     </p>}
                     <p>
-                      <b>Amount:</b> ${booking.totalamount}
+                      <b>Amount : </b> ${booking.totalamount}
                     </p>
                     <p>
-                      <b>Status:</b>{" "}
+                      <b>Status : </b>{" "}
                       {booking.status === "booked" ? (
                         <Tag color="green">CONFIRMED</Tag>
                       ) : (

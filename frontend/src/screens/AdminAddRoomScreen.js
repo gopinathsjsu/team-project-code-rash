@@ -89,7 +89,7 @@ function AdminAddRoomScreen() {
             </Form.Item>
             <Form.Item
               name="maxcount"
-              label="Max Count"
+              label="Maximum Guests"
               // rules={[
               //   {
               //     required: true,

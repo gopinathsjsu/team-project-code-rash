@@ -197,16 +197,15 @@ function Bookingscreen({ match }) {
       ) : (
         <div className="row justify-content-center mt-5 bs">
 
-          <div className="col-md-4">
+          <div className="col-md-5">
             <h1><b>{room.name}</b></h1>
             <img src={room.imageurls[0]} alt="" className="bigimg" />
           </div>
           
-          <div className="col-md-6">
-            <div style={{ textAlign: "left" }}>
+          <div className="col-md-3">
+              <div style={{ textAlign: "left" }}>
               <h1><b>Booking Details</b></h1>
               {/* <hr /> */}
-              
                 <p>
                   Branch Name : {JSON.parse(localStorage.getItem("currentUser")).name}
                 </p>
@@ -221,7 +220,10 @@ function Bookingscreen({ match }) {
               </Checkbox>
               <CheckboxGroup style={{display: "flex", "flex-direction": "column", textAlign: "right"}} options={plainOptions} value={checkedList} onChange={onChange} />
             </div>
-            <div style={{ textAlign: "right" }}><br/>
+        </div>
+
+        <div className="col-md-3">
+            <div style={{ textAlign: "right" }}>
               <h1><b>Amount</b></h1>
               {/* <hr /> */}
               
