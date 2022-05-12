@@ -109,7 +109,7 @@ router.post("/getRewards",async(req,res)=>{
     current.setHours(0,0,0,0)
     to_date_mod.setHours(0,0,0,0)
     //console.log(to_date_mod,current)
-    
+    //console.log(my booking working)
     if(to_date_mod<=current){
      console.log("to date mod",obj["type"],obj["points"])
      
