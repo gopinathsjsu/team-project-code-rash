@@ -49,6 +49,7 @@ function LandingScreen() {
                 price=" Starting from $70/night"
             />
             </div>
+            <div className="push"></div>
     </div>
   );
 }
