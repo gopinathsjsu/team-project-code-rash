@@ -58,7 +58,7 @@ MERN Stack
 
 ### XP Values followed
 1. Simplicity
-  - We tried to keep things simple and built according to the requirements asked.
+  - We tried to keep the things simple and built the application according to the requirements stated.
 
 2. Communication
   - Organized weekly standups twice a week to keep a track of the progress made until then.  
