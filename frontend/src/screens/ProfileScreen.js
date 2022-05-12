@@ -10,6 +10,7 @@ function ProfileScreen() {
   const { TabPane } = Tabs;
 const [pending_rewards,setpending_rewards]=useState(0)
 const [claimed_rewards,setclaimed_rewards]=useState(0)
+const [used_rewards,setused_rewards]=useState(0)
   const user = JSON.parse(localStorage.getItem("currentUser"));
 
   useEffect(() => {
@@ -18,6 +19,7 @@ const [claimed_rewards,setclaimed_rewards]=useState(0)
     console.log(totalRewards)
     setpending_rewards(totalRewards["data"]["pendingRewards"])
     setclaimed_rewards(totalRewards["data"]["totalRewards"])
+    setused_rewards(totalRewards["data"]["rewardsUsed"])
     
     }
     fetchapi()
@@ -40,8 +42,10 @@ const [claimed_rewards,setclaimed_rewards]=useState(0)
                 {/* <b>My Profile</b> */}
                 <b>Name : </b>{user.name}<br></br><br></br>
                 <b>Email : </b>{user.email}<br></br><br></br>
-                <b>Rewards Pending : </b>${pending_rewards}<br></br>
-                <b>Rewards Available : </b>${claimed_rewards}<br></br>
+                <b>Rewards Pending : </b>${pending_rewards}<br></br><br></br>
+                <b>Rewards Available : </b>${claimed_rewards}<br></br><br></br>
+                <b>Rewards Used : </b>${used_rewards}<br></br><br></br>
+                
 
                 {/* <p>
                   IsAdmin :{" "}
