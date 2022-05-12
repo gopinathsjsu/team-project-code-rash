@@ -17,7 +17,7 @@ import { modify } from "../actions";
 function Bookingscreen({ match }) {
 
   const CheckboxGroup = Checkbox.Group;
-  const plainOptions = ['Continental Breakfast', 'Fitness Room', 'Swimming Pool/Jacuzzi', 'Parking', 'meals  (Breakfast, Lunch, Dinner)'];
+  const plainOptions = ['Continental Breakfast', 'Fitness Room', 'Swimming Pool/Jacuzzi', 'Parking', 'Meals  (Breakfast, Lunch, Dinner)'];
   const defaultCheckedList = [];
 
   const dispatch = useDispatch();
@@ -204,7 +204,7 @@ function Bookingscreen({ match }) {
       ) : (
         <div className="row justify-content-center mt-5 bs">
 
-          <div className="col-md-6">
+          <div className="col-md-5">
             <h1><b>{room.name}</b></h1>
             <img src={room.imageurls[0]} alt="" className="bigimg" />
           </div>
@@ -231,7 +231,7 @@ function Bookingscreen({ match }) {
           </div>
 
           {!modifyData.totalamount ?
-          <div className="col-md-3">
+          <div className="col-md-4">
             <div style={{ textAlign: "right" }}>
               <h1><b>Charges</b></h1>
               {/* <hr /> */}
@@ -259,7 +259,7 @@ function Bookingscreen({ match }) {
               {/* </StripeCheckout> */}
             </div>
           </div> :
-          <div className="col-md-3">
+          <div className="col-md-4">
             <div style={{ textAlign: "right" }}>
               <h1><b>Changed Charges</b></h1>
               {/* <hr /> */}
@@ -272,11 +272,12 @@ function Bookingscreen({ match }) {
             {totalAmount > modifyData.totalamount ? 
 
               <div style={{ float: "right" }}>
+                  <b><p>Additional Amount to be Paid: ${totalAmount - modifyData.totalamount}</p></b>
                   <button className="button2 loginButton" onClick={onToken}>Pay And Modify</button>
               </div> : 
 
               <div style={{ float: "right" }}>
-                <p>Additional amount will be added to your accout</p>
+                <b><p>(Refund of ${modifyData.totalamount - totalAmount} will be added to your account)</p></b>
                 <button className="button2 loginButton" onClick={onToken}>Modify Booking</button>
               </div>
             }
