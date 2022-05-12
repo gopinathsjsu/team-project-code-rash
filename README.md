@@ -58,7 +58,11 @@ MERN Stack
 
 ### XP Values followed
 1. Simplicity
-2. Communication
-3. Feedback
+  - We tried to keep things simple and built according to the requirements asked.
 
+2. Communication
+  - Organized weekly standups twice a week to keep a track of the progress made until then.  
+
+3. Feedback
+  - Identified areas for improvement through constant feedback and revise the practices. 
 
