@@ -36,6 +36,8 @@ function Bookingscreen({ match }) {
   const [rewardsChecked,setrewardsChecked] = useState(false)
   const [rewardsused,setRewardsUsed]=useState(0)
   const [orders,setorders]=useState(0)
+  const { addItem } = useCart();
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     console.log(items)
@@ -142,7 +144,58 @@ function Bookingscreen({ match }) {
     //   });
     // });
   };
+  ///////////////////////////////////////
 
+  const onToken2 = async () => {
+    
+        window.location.href = "/cart";
+      };
+  
+
+
+
+  ///////////////////////////////
+  const bookMore = async () => {
+    let orderid=localStorage.getItem("order_id")
+
+    if(orderid==undefined){
+      orderid=0
+    }
+    orderid+=1
+    localStorage.setItem("order_id",orderid)
+    const bookingDetails = {
+      id:orderid,
+      room_details:room,
+      userid: JSON.parse(localStorage.getItem("currentUser"))._id,
+      from:fromdate,
+      to:todate,
+      price: totalAmount,
+      totaldays: totalDays,
+      amenities: checkedList,
+      rewards_used:rewardsused,
+      
+
+    };
+    
+    addItem(bookingDetails)
+    console.log(bookingDetails);
+    window.location.href = "/home";
+    try {
+     
+      }
+     catch (error) {
+      setError(error);
+      Swal.fire("Oops", "" + error, "error");
+    }
+    setLoading(false);
+    
+  };
+
+
+
+
+
+  ////////////////////////////////////
   const onChange = (list) => {
     console.log()
     setTotalAmount(totalAmount + (list.length - checkedList.length)*totalDays*10);
@@ -241,7 +294,8 @@ function Bookingscreen({ match }) {
                 token={onToken}
                 stripeKey="YOUR PUBLIC STRIP API KEY"
               > */}
-                <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
+                <button className="button2 loginButton" onClick={onToken2}>Pay Now</button>
+                <button className="button2 loginButton" onClick={bookMore}>Book More</button>
               {/* </StripeCheckout> */}
             </div>
           </div>
