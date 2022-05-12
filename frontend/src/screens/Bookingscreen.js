@@ -154,6 +154,31 @@ function Bookingscreen({ match }) {
   ///////////////////////////////////////
 
   const onToken2 = async () => {
+
+    let orderid=localStorage.getItem("order_id")
+
+    if(orderid==undefined){
+      orderid=0
+    }
+    orderid+=1
+    localStorage.setItem("order_id",orderid)
+    const bookingDetails = {
+      id:orderid,
+      room_details:room,
+      userid: JSON.parse(localStorage.getItem("currentUser"))._id,
+      from:fromdate,
+      to:todate,
+      price: totalAmount,
+      totaldays: totalDays,
+      amenities: checkedList,
+      rewards_used:rewardsused,
+      
+
+    };
+    
+    addItem(bookingDetails)
+    
+
     
         window.location.href = "/cart";
       };
@@ -162,6 +187,8 @@ function Bookingscreen({ match }) {
 
 
   ///////////////////////////////
+
+
   const bookMore = async () => {
     let orderid=localStorage.getItem("order_id")
 
@@ -293,10 +320,7 @@ function Bookingscreen({ match }) {
                 <p><b>Total Days of Stay : </b>{totalDays}</p>
                 {/* <p><b>Rent per day : </b>{rentperday}</p> */}
                 <p><b>Total Amount : </b>${totalAmount}</p>
-                <p><b>Rewards Available : </b>${rewards}</p>
-                <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
-                Use Rewards
-              </Checkbox>
+                
               
             </div>
 

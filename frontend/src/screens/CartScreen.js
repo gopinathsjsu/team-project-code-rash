@@ -37,9 +37,13 @@ function CartScreen({ match }) {
   const [rewardsused,setRewardsUsed]=useState(0)
   const [orders,setorders]=useState(0)
 
-const {cartTotal}  = useCart();
+const {cartTotal,totalItems,emptyCart}  = useCart();
   useEffect(() => {
+    let totalPrice=cartTotal
+    console.log("here is the total cart value",totalPrice)
+    setTotalAmount(totalPrice)
     const user = JSON.parse(localStorage.getItem("currentUser"));
+  
     console.log(items)
     if (!user) {
       window.location.href = "/login";
@@ -72,7 +76,7 @@ const {cartTotal}  = useCart();
       console.log("Price--------------->",totalPrice["data"]["totalPrice"])
      // setTotalAmount(totalPrice["data"]["totalPrice"]*totalDays)
      //setrentperday(totalPrice["data"]["totalPrice"]) 
-     setTotalAmount(totalPrice["data"]["totalPrice"])
+    
      let userId =  JSON.parse(localStorage.getItem("currentUser"))._id
      let totalRewards = await axios.post(STRINGS.url + "/api/bookings/getRewards",{userid:userId},res=>{return res})
      //let neworder = await axios.post(STRINGS.url + "/api/bookings/modifyRewards",{userid:userId},res=>{return res})
@@ -82,6 +86,8 @@ const {cartTotal}  = useCart();
 
      setrewards(totalRewards["data"]["totalRewards"])
      setorders(totalRewards["data"]["totalOrders"])
+
+     console.log("total amount---------->",totalAmount)
      return totalPrice
     }
 
@@ -94,13 +100,16 @@ const {cartTotal}  = useCart();
   }, []);
 
   useEffect(() => {
+    
     const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1;
     setTotalDays(totaldays);
     //setTotalAmount(totalDays * room.rentperday);
   }, [room]);
 
   const onToken = async (token) => {
+    
     console.log(token);
+    /*
     const bookingDetails = {
       room,
       userid: JSON.parse(localStorage.getItem("currentUser"))._id,
@@ -115,11 +124,29 @@ const {cartTotal}  = useCart();
     };
 
     console.log(bookingDetails);
-
+    */
+   let rewardsOnEachOrder = 0
+    if(rewardsused>0){
+      rewardsOnEachOrder = rewardsused/totalItems
+    }
     try {
       setLoading(true);
+      for (let bookingDetails of items){
+        bookingDetails["totalOrders"]=orders+1
+        bookingDetails["rewards_used"] = rewardsOnEachOrder
+        bookingDetails["room"]=bookingDetails["room_details"]
+        bookingDetails["totalAmount"]=bookingDetails["itemTotal"]
+        setorders(orders+1)
+        
       const result = await axios.post(STRINGS.url + "/api/bookings/bookroom", bookingDetails);
+      //console.log("here are the booking details---->",bookingDetails)
+      
+      console.log("booking successful")
       setLoading(false);
+    }
+      
+    emptyCart()
+    
       Swal.fire(
         "Congratulations",
         "Your booking has been done successfully!!",
@@ -131,7 +158,6 @@ const {cartTotal}  = useCart();
       setError(error);
       Swal.fire("Oops", "" + error, "error");
     }
-    setLoading(false);
     //TESTING CARD
     //https://stripe.com/docs/testing
     //https://www.npmjs.com/package/react-stripe-checkout
@@ -153,6 +179,7 @@ const {cartTotal}  = useCart();
     setCheckAll(list.length === plainOptions.length);
   };
   const onrewardChanged =(e)=>{
+    console.log("what i got--------->",totalAmount)
     setrewardsChecked(!rewardsChecked)
     if (rewardsChecked){
         setrewards(rewards+rewardsused)
@@ -207,25 +234,38 @@ const {cartTotal}  = useCart();
 
             ))}
 
+            <div style={{ float: "left" }}>
+                <h1><b>Amount</b></h1><br></br>
+                <b><p>Total Amount : ${+(Math.round(totalAmount + "e+2")  + "e-2")}</p></b><br></br>
+                <b><p>Rewards Available : ${rewards}</p></b>
+                  <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
+                      <b>Use Rewards</b>
+                  </Checkbox>
+             </div> 
 
-                <h1><b>Amount</b></h1>
-                {/* <hr /> */}
-                <b><p>Total Amount : ${cartTotal}</p></b>
-              
+             <div style={{ float: "right" }}>
+              <div style={{ float: "right" }}>
+                  <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
+                  <br></br>
+                  <button className="button2 loginButton" onClick={onToken}>Book More</button>
+              </div>
+               
+                {/* <br />
+                <b><p>Total Amount : ${totalAmount}</p></b>
+                <br />
+                <b><p>Rewards Available : ${rewards}</p></b>
             <Checkbox  onChange={onrewardChanged} checked={rewardsChecked}>
                 Use Rewards
-            </Checkbox>
+            </Checkbox> */}
               
-            
-            <div style={{ float: "right" }}>
-              
+            {/* <div className="row"> */}
+            {/* <div style={{ float: "right" }}>
                 <button className="button2 loginButton" onClick={onToken}>Pay Now</button>
-                <button className="button2 loginButton" onClick={onToken}>Book More</button>
-                
-              {/* </StripeCheckout> */}
-            </div>
+            </div> */}
+          {/* </div> */}
+          
           </div>
-        
+        </div>
       )}
     </div>
   );

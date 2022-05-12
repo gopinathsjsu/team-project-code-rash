@@ -1,4 +1,6 @@
+const e = require("express");
 const express = require("express");
+
 const moment = require("moment");
 const stripe = require("stripe")("YOUR PRIVATE STRIP API KEY"); //
 const { v4: uuidv4 } = require("uuid"); //https://www.npmjs.com/package/uuid
@@ -95,39 +97,60 @@ router.post("/getRewards",async(req,res)=>{
   let rewards= 0
   let current = new Date()
   let credit_orders=0
-  //console.log(typeof (user[0]["rewards"]))
+  //console.log(user[0]["rewards"])
+  let pending_rewards=0
+  let rewards_used=0
   for(let obj of user[0]["rewards"]){
     
     if (obj["todate"]!=undefined){
       //console.log("her is the date",obj["todate"])
     let date_comps=obj["todate"].split("-")
     //console.log(date_comps)
-    if(new Date(date_comps[2]+"-"+date_comps[1]+"-"+date_comps[0])>=current){
-      //console.log(obj)
+    to_date_mod=new Date(date_comps[2]+"-"+date_comps[1]+"-"+date_comps[0])
+    current.setHours(0,0,0,0)
+    to_date_mod.setHours(0,0,0,0)
+    //console.log(to_date_mod,current)
+    //console.log(my booking working)
+    if(to_date_mod<=current){
+    // console.log("to date mod",obj["type"],obj["points"])
+     
     if(obj["type"]!=undefined && obj["type"]=="debit"){
       rewards=rewards-obj["points"]
+      rewards_used+=obj["points"]
     }
     else{
       credit_orders+=1
       rewards=rewards+obj["points"]
     }
   }
+  else{
+    if(obj["type"]!=undefined && obj["type"]=="credit"){
+      pending_rewards+=obj["points"]
+    }
+    else{
+      pending_rewards-=obj["points"]
+    }
+  }
   }
   
   }
   
-  console.log()
-  return res.status(200).json({ totalRewards: +(Math.round(rewards + "e+2")  + "e-2") ,totalOrders:credit_orders});
+  console.log("here are the total rewards",rewards)
+  return res.status(200).json({ totalRewards: +(Math.round(rewards + "e+2")  + "e-2") ,totalOrders:credit_orders, pendingRewards:+(Math.round(pending_rewards + "e+2")  + "e-2"), rewardsUsed:+(Math.round(rewards_used + "e+2")  + "e-2")});
 } catch (error) {
   console.log(error)
   return res.status(400).json({ message: error });
 }
 })
 router.post("/bookroom", async (req, res) => {
+
+  console.log("booking request received")
   try {
-    const { room, userid, fromdate, todate, totalAmount, totaldays, amenities, rewards_used,totalOrders } =
+    const { room, userid, from, to, totalAmount, totaldays, amenities, rewards_used,totalOrders } =
       req.body;
-    console.log("rewards used",rewards_used)
+    //console.log("booking details are as follows",req.body)
+    let fromdate=from
+    let todate=to
     try {
       if (true) {
         try {
@@ -144,8 +167,9 @@ router.post("/bookroom", async (req, res) => {
           });
 
           const booking = await newBooking.save();
-
+          console.log(userid)
           const roomTmp = await Room.findOne({ _id: room._id });
+          //console.log(roomTmp)
           roomTmp.currentbookings.push({
             bookingid: booking._id,
             fromdate: moment(fromdate).format("DD-MM-YYYY"),
@@ -155,26 +179,28 @@ router.post("/bookroom", async (req, res) => {
           });
 
           await roomTmp.save();
-          if(rewards_used!=0){
+          console.log
+          let current = new Date()
+          if(rewards_used>0){
             await User.findOneAndUpdate({_id:userid},{$push : {
               rewards :  {
                 bookingid:booking._id,
-                fromdate: moment(fromdate).format("DD-MM-YYYY"),
-                todate: moment(todate).format("DD-MM-YYYY"),
+                fromdate: moment(current).format("DD-MM-YYYY"),
+                todate: moment(current).format("DD-MM-YYYY"),
                 points: rewards_used,
                 type:"debit"
                      } //inserted data is the object to be inserted 
             }}) 
   
           }
-          
+          console.log("reached here 1")
           
           await User.findOneAndUpdate({_id:userid},{$push : {
             rewards :  {
               bookingid:booking._id,
               fromdate: moment(fromdate).format("DD-MM-YYYY"),
               todate: moment(todate).format("DD-MM-YYYY"),
-              points: totalAmount*0.1*(1+(totalOrders/100)),
+              points: Math.round(totalAmount*0.1*(1+(totalOrders/100))),
               type:"credit"
                    } //inserted data is the object to be inserted 
           }})
@@ -185,13 +211,18 @@ router.post("/bookroom", async (req, res) => {
 
           res.send("Payment Successful, Your Room is booked");
         } catch (error) {
+          console.log(error)
           return res.status(400).json({ message: error });
         }
       }
     } catch (error) {
+      console.log(error)
+          
       return res.status(400).json({ message: error });
     }
   } catch (error) {
+    console.log(error)
+          
     return res.status(400).json({ message: error });
   }
 });
@@ -242,10 +273,8 @@ router.post("/modifyRewards", async (req, res) => {
       'rewards.$.bookingid': neworder._id,
       'rewards.$.fromdate': neworder.fromdate,
       'rewards.$.todate': neworder.todate,
-      'rewards.$.points': neworder.total*0.1,
+      'rewards.$.points': Math.round(neworder.total*0.1),
     
-
-
   }})
 
   return res.status(200).json({ message: "order updated successfully" });
