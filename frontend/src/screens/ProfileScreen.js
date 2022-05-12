@@ -40,7 +40,10 @@ const [claimed_rewards,setclaimed_rewards]=useState(0)
                 {/* <b>My Profile</b> */}
                 <b>Name : </b>{user.name}<br></br><br></br>
                 <b>Email : </b>{user.email}<br></br><br></br>
-                <b>Rewards Pending : </b>${pending_rewards}<br></br>
+                
+                {/* {{pending_rewards} && {pending_rewards}} */}
+
+                <b>Rewards Pending : </b>${pending_rewards}<br></br><br></br>
                 <b>Rewards Available : </b>${claimed_rewards}<br></br>
 
                 {/* <p>
