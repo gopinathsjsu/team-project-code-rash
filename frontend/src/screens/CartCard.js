@@ -25,7 +25,7 @@ function CartCard({ bookingDetails }) {
               {/* <hr /> */}
               
                 <p>
-                  Branch Name : {bookingDetails.name}
+                  Branch Name : {bookingDetails.room_details.name}
                 </p>
                 <p>Check In Date : {bookingDetails.from}</p>
                 <p>Check Out Date : {bookingDetails.to}</p>
