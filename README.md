@@ -65,7 +65,7 @@ MERN Stack
   - Organized weekly standups twice a week to keep a track of the progress made until then.  
 
 2. Feedback
-  - Identified areas for improvement through constant feedback and revise the practices. 
+  - Identified areas for improvement through constant feedback and revised the practices previously followed. 
    
 3. Simplicity
   - We tried to keep the things simple and built the application according to the requirements stated.
