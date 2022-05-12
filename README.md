@@ -51,7 +51,7 @@ https://github.com/gopinathsjsu/team-project-code-rash/projects/1
 https://docs.google.com/spreadsheets/d/13gUidq-4Wmffb-xHHNgz9p9wrn0GRqPDQghvKsaRWRs/edit?usp=sharing
 
 ### Project Journal
-https://github.com/gopinathsjsu/team-project-code-rash/tree/main/Documentation/Journal
+https://github.com/gopinathsjsu/team-project-code-rash/tree/main/Documentation/Journals
 
 ### Tech Stack
 MERN Stack
