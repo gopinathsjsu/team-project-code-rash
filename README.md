@@ -111,12 +111,12 @@ https://docs.google.com/spreadsheets/d/13gUidq-4Wmffb-xHHNgz9p9wrn0GRqPDQghvKsaR
 
 ### Feature Set
 1. User can login and register.
-2. User can browse through various rooms available and filter using filters provided like room type and location.
-3. User can book room, modify reservation and cancel reservation.
+2. User can browse through various rooms available and filter using different filters provided like room type and location.
+3. User can book a room, modify reservation and cancel reservation.
 4. User can choose to use the available rewards while doing payment and can create multiple bookings using cart functionality.
 5. User can see his past bookings and available rewards by using his/her profile section.
 6. Admin can add a room.
-7. Admin can see the existing booking and rooms of different hotels.
+7. Admin can see the existing users, booking and rooms of different hotels.
 8. Dynamic pricing will be assigned for the rooms based on various factors like peak season, holiday season and weekends.
 9. Rewards would be generated for the user using his history of successful orders and the current booking amount.
 10. User can also view the details of the room.
