@@ -58,10 +58,10 @@ https://docs.google.com/spreadsheets/d/13gUidq-4Wmffb-xHHNgz9p9wrn0GRqPDQghvKsaR
 https://github.com/gopinathsjsu/team-project-code-rash/tree/main/Documentation/Journals
 
 ### Tools and Languages Used
-Frontend : React JS
-Backend : Node JS, Express JS
-Database : MongoDB
-Cloud : AWS EC2
+- Frontend : React JS
+- Backend : Node JS, Express JS
+- Database : MongoDB
+- Cloud : AWS EC2
 
 ### XP Values followed
 1. Communication
