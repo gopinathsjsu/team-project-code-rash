@@ -2,11 +2,11 @@
 
 ### Team Name - Code Rash
 
-### Team Members
-1. Rushabh Sheta
-2. Aniket Thumar
-3. Saurabh Sathe
-4. Harsh Vaghasiya
+### Team Members 
+1. Rushabh Sheta (SJSU ID - 016038646)
+2. Aniket Thumar (SJSU ID - 015228993) 
+3. Saurabh Sathe (SJSU ID - 015272023)
+4. Harsh Vaghasiya (SJSU ID - 016053102) 
 
 ### Summary of Contributions
 - Rushabh Sheta
