@@ -124,27 +124,6 @@ function Homescreen() {
     }
   }
 
-  const [dates, setDates] = useState([moment(),moment().add(7)]);
-  const [hackValue, setHackValue] = useState();
-  const [value, setValue] = useState([moment(),moment(moment.now()).add(7, "d")]);
-  const disabledDates = current => {
-    if (!dates || dates.length === 0) {
-      return false;
-    }
-    const tooLate = dates[0] && current.diff(dates[0], 'days') > 7;
-    const tooEarly = dates[1] && dates[1].diff(current, 'days') > 7;
-    return tooEarly || tooLate || moment().diff(current) > 0
-  };
-
-  const onOpenChange = open => {
-    if (open) {
-      setHackValue([]);
-      setDates([]);
-    } else {
-      setHackValue(undefined);
-    }
-  };
-
   return (
     <div className="container">
 
@@ -153,18 +132,10 @@ function Homescreen() {
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div className="col-md-4">
-          {/* <RangePicker format="DD-MM-YYYY" onChange={filterByDate} disabledDate={current => {
-          return current && (current.valueOf() < Date.now()) && ((current + 7) < Date.now()) ;
-        }} ranges={current=>{return (current.valueOf(),current.valueOf()+7)}} /> */}
+          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} disabledDate={current => {
+          return current && (current.valueOf() < Date.now()) && ((current + 7) < Date.now());
+        }} ranges={current=>{return (current.valueOf(),current.valueOf()+7)}} />
         {/* <RangePicker format="DD-MM-YYYY" onChange={filterByDate} /> */}
-
-    <RangePicker
-      value={hackValue || value}
-      disabledDate={disabledDates}
-      onCalendarChange={val => setDates(val)}
-      onChange={val => setValue(val)}
-      onOpenChange={onOpenChange}
-    />
 
         </div>
 
