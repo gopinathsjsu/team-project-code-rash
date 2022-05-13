@@ -45,6 +45,9 @@
 ### Class Diagram
 ![](https://github.com/gopinathsjsu/team-project-code-rash/blob/main/Documentation/Diagrams/Class%20Diagram.png)
 
+### UI Wireframe
+![](https://github.com/gopinathsjsu/team-project-code-rash/blob/main/Documentation/UI%20Wireframe/UI%20Wireframe.png)
+
 ### Link to team's GitHub Repo 
 https://github.com/gopinathsjsu/team-project-code-rash
 
