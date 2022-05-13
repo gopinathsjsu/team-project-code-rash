@@ -64,7 +64,7 @@ https://github.com/gopinathsjsu/team-project-code-rash/tree/main/Documentation/J
 - Frontend : React JS
 - Backend : Node JS, Express JS
 - Database : MongoDB
-- Cloud : AWS EC2
+- Cloud : AWS EC2 Autoscaling with Load Balancer
 
 ### XP Values followed
 1. Communication
@@ -82,3 +82,20 @@ https://github.com/gopinathsjsu/team-project-code-rash/tree/main/Documentation/J
   - We tried to keep the things simple and follow "to do only what is needed".
   - We also tried to minimize the wastage of time by doing only the absolute requirements stated in the problem statement.
   
+### Implementation of Dynamic Pricing Algorithm 
+  - We implemented the dynamic pricing by taking into account the weekends, national holidays and different festive seasons.
+  - If the booking dates fell into the weekend category, then the bookingprice was hiked by 40% to the base proce.
+  - If the booking dates fell into the national holidays category, then the booking price was hiked by 15% to the base price.
+  - If the booking dated fell into the festive category, then the booking prices of 3 days prior to the festival and 3 days after the festival were hiked.
+
+### Assignment of Customer Loyalty (Rewards)
+  - The rewards are assigned to the customer based on the suuccesful completion of his/her stay at the hotel.
+  - If the customer is yet to complete his/her stay, then that rewards will be shown as pending rewards.
+  - Customer has an option to use the rewards available while booking for his/her stay.
+  - Once the customer uses his/her available rewards, then the rewards available will be decucted by that amount and simulataneosuly rewards used will be incremented by the same.
+
+### Multiple Booking System (Cart System)
+  - The cart system was implemented so that a customer can book multiple rooms at the same time.
+  - The available rewards can also be used in this cart system.
+  - Customer can also modify and cancel bookings once he/she books it.
+ 
