@@ -125,13 +125,13 @@ function checkDates(startDate, stopDate,holidays,baseprice){
     let percent=1  
     if (weekend.isWeekend(d)){
         console.log("a weekend",d)
-        percent=percent+0.10
+        percent=percent+0.40
       }
 
     //  console.log(d)
       if(holidays.has(d.toString())){
         console.log("national holiday",d)
-        percent=percent+0.05
+        percent=percent+0.15
       }
       total=total+baseprice*percent
   }
