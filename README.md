@@ -99,3 +99,24 @@ https://docs.google.com/spreadsheets/d/13gUidq-4Wmffb-xHHNgz9p9wrn0GRqPDQghvKsaR
   - The available rewards can also be used in this cart system.
   - Customer can also modify and cancel bookings once he/she books it.
  
+### Week Wise Design Decisions
+1. - Technologies to be used for frontend - Vannilla HTML CSS BS/ React JS/ ANT or Material UI?
+2. - Technologies to use for the backend -Python Flask/Java Spring Boot/ Javascript Node JS?
+3. - Database to be used -MySQL/MongoDB
+4. - Design patterns to use - Decided to use Chain of Responsibility and Strategy Patterns
+5. - Rewards generation strategies- factors affecting rewards, when they change, events triggering them and more
+6. - Dynamic Pricing Strategies - What factors will contribute to a price of day
+7. - Testing Strategies - tools to be used, which apis to test
+8. - Cloud Services strategies- AWS or Heroku, ECR or EC2 deployment and cloud related decisions 
+
+### Feature Set
+1. - User can login/Signup
+2. - User can browse through various rooms available and filter using filters provided like room type and area
+3. - User can book room, modify reservation and cancel reservation
+4. - User can choose to use the available rewards while payment and can create multiple bookings using cart functionality
+5. - User can see his past bookings and available rewards using the myprofile section
+6. - Admin can add a room
+7. - Admin can see the existing booking
+8. - Dynamic pricing will charge for the rooms based on various factors like peak season, holiday season and weekends
+9. - Rewards would be generated for the user using his history of successful orders and the current booking amount
+10. - User can also view the details of the room
