@@ -54,11 +54,11 @@ https://github.com/gopinathsjsu/team-project-code-rash
 ### Link to team's Project Board
 https://github.com/gopinathsjsu/team-project-code-rash/projects/1
 
-### Link to team's Google Sprint Task Sheet
-https://docs.google.com/spreadsheets/d/13gUidq-4Wmffb-xHHNgz9p9wrn0GRqPDQghvKsaRWRs/edit?usp=sharing
-
 ### Link to team's Project Journal
 https://github.com/gopinathsjsu/team-project-code-rash/tree/main/Documentation/Journals
+
+### Link to team's Google Sprint Task Sheet
+https://docs.google.com/spreadsheets/d/13gUidq-4Wmffb-xHHNgz9p9wrn0GRqPDQghvKsaRWRs/edit?usp=sharing
 
 ### Tools and Languages Used
 - Frontend : React JS
